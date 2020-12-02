@@ -22,24 +22,24 @@ enum VarLongError: Error {
 extension Int32 {
     init(buffer byteBuffer: inout ByteBuffer) throws {
         self.init()
-        var result: Self = 0
+        var result: UInt32 = 0
         var shift = 0
         var input: Byte
         repeat {
             input = Byte(byteBuffer.readBytes(length: 1)![0])
-            result |= Self(input & Byte(0x7F)) << Self(shift * 7)
+            result |= UInt32(input & Byte(0x7F)) << UInt32(shift * 7)
             shift += 1
             if (shift > 5) {
                 throw VarIntError.varIntIsTooBig
             }
         } while ((input & 0x80) != 0)
-        self = result
+        self = Self(bitPattern: result)
     }
-    
+
     var varInt: ByteArray {
         var out: ByteArray = []
         var part: Byte
-        var value = self
+        var value: UInt32 = UInt32(bitPattern: self)
         repeat {
             part = Byte(value & 0x7F)
             value >>= 7
@@ -55,24 +55,24 @@ extension Int32 {
 extension Int64 {
     init(buffer byteBuffer: inout ByteBuffer) throws {
         self.init()
-        var result: Self = 0
+        var result: UInt64 = 0
         var shift = 0
         var input: Byte
         repeat {
             input = Byte(byteBuffer.readBytes(length: 1)![0])
-            result |= Self(input & Byte(0x7F)) << Self(shift * 7)
+            result |= UInt64(input & Byte(0x7F)) << UInt64(shift * 7)
             shift += 1
             if (shift > 10) {
                 throw VarLongError.varLongIsTooBig
             }
         } while ((input & 0x80) != 0)
-        self = result
+        self = Self(bitPattern: result)
     }
-    
+
     var varLong: ByteArray {
         var out: ByteArray = []
         var part: Byte
-        var value = self
+        var value: UInt64 = UInt64(bitPattern: self)
         repeat {
             part = Byte(value & 0x7F)
             value >>= 7
@@ -89,6 +89,7 @@ extension String {
     init(buffer: inout ByteBuffer) throws {
         self.init()
         let length = Int(try! Int32(buffer: &buffer))
+        debug(length)
         self = buffer.readString(length: length)!
     }
 }

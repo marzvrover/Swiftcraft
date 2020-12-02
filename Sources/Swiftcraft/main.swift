@@ -9,6 +9,7 @@ srand(UInt(time(nil)))
 #endif
 
 signal(SIGINT) {_ in
+    print()
     if (server.isRunning == true) {
         server.shutdown()
     }
@@ -18,7 +19,7 @@ signal(SIGINT) {_ in
 print("Welcome to Swiftcraft!".green)
 
 let host = "127.0.0.1"
-let port = 25564
+let port = 25565
 
 var server = Server(host: host, port: port)
 
@@ -29,9 +30,7 @@ defer {
 do {
     try server.run()
 } catch let error {
+    print("Shutting down server due to fatal error".red)
     print(error)
-    print("Shutting down server due to fatal error")
     server.shutdown()
 }
-
-print("Server closed")

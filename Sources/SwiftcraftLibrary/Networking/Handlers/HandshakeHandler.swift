@@ -1,4 +1,5 @@
 import NIO
+import Rainbow
 
 public final class HandshakeHandler: ChannelInboundHandler {
     public typealias InboundIn = ByteBuffer
@@ -28,8 +29,20 @@ public final class HandshakeHandler: ChannelInboundHandler {
         /// Up to 1023 bytes before the last three are used for String (255) preceded with a VarInt of how many bytes
         /// The first set of bytes is a VarInt
         var byteBuffer = self.unwrapInboundIn(data)
-        try! print(Int32(buffer: &byteBuffer))
-        try! print(String(buffer: &byteBuffer))
+        print("Length".red)
+        debug(byteBuffer.readInteger(as: Int32.self) as Any)
+        print("Request ID".red)
+        debug(byteBuffer.readInteger(as: Int32.self) as Any)
+        print("Type".red)
+        debug(byteBuffer.readInteger(as: Int32.self) as Any)
+
+        
+        print("Protocol Version".red)
+        try! debug(Int32(buffer: &byteBuffer))
+        
+        print("Host".red)
+        debug(byteBuffer.readString(length: 255) as Any)
+        //try! debug(String(buffer: &byteBuffer))
 
     }
 
