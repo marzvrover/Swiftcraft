@@ -4,8 +4,7 @@ import Rainbow
 public final class HandshakeHandler: ChannelInboundHandler {
     public typealias InboundIn = ByteBuffer
     public typealias OutboundOut = ByteBuffer
-    public var allocator = ByteBufferAllocator()
-    
+
     public func channelActive(context: ChannelHandlerContext) {
         debug("Active connection at \(context.remoteAddress!)")
     }
@@ -22,37 +21,28 @@ public final class HandshakeHandler: ChannelInboundHandler {
         debug("Unregistered connection at \(context.remoteAddress!)")
     }
 
-    public func channelRead(context: ChannelHandlerContext, data rawData: NIOAny) {
-        // As we are not really interested getting notified on success or failure we just pass nil as promise to
-        // reduce allocations.
-        // context.write(data, promise: nil)
-        /// The last three bytes of the handshake buffer are used for an Unsigned Short and a VarInt [source](https://wiki.vg/Protocol#Handshake)
-        /// Up to 1023 bytes before the last three are used for String (255) preceded with a VarInt of how many bytes
-        /// The first set of bytes is a VarInt
-        var inBuffer = self.unwrapInboundIn(rawData)
-        let length: Int32 = try! Int32(buffer: &inBuffer)
-        print("Length: \(length)".red)
+    public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
+        var buffer = self.unwrapInboundIn(data)
+        let length: Int32 = try! Int32(buffer: &buffer)
+        print("Length: \(length)".blue)
         if (length < 1) {
-            debug("packet too small".red)
+            debug("packet too small".blue)
         }
         
-        let data: [Byte] = inBuffer.readBytes(length: Int(length))!
-        var buffer: ByteBuffer = allocator.buffer(bytes: data)
-        
         let packetID = try! Int32(buffer: &buffer)
-        print("Packet ID: \(packetID)".red)
+        print("Packet ID: \(packetID)".blue)
 
         let protocolVersion = try! Int32(buffer: &buffer)
-        print("Protocol Version: \(protocolVersion)".red)
+        print("Protocol Version: \(protocolVersion)".blue)
         
         let serverAddress = try! String(buffer: &buffer)
-        print("Server Address: \(serverAddress)".red)
+        print("Server Address: \(serverAddress)".blue)
 
         let serverPort = UInt16(buffer: &buffer)
-        print("Server Port: \(serverPort)".red)
+        print("Server Port: \(serverPort)".blue)
 
         let intention = try! Int32(buffer: &buffer)
-        print("Intention: \(intention)".red)
+        print("Intention: \(intention)".blue)
     }
 
     // Flush it out. This can make use of gathering writes if multiple buffers are pending

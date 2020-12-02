@@ -7,6 +7,7 @@
 
 import Foundation
 import NIO
+import Rainbow
 
 open class Server {
     public var isRunning: Bool
@@ -58,9 +59,9 @@ open class Server {
             try self.group.syncShutdownGracefully()
         } catch let error {
             print(error)
-            print("Forcing exit")
+            print("Forcing exit".red)
             exit(1)
         }
-        print("Server Shutdown")
+        print("Server Shutdown".green)
     }
 }
