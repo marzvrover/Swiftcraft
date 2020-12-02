@@ -27,12 +27,12 @@ extension Int32 {
         var input: Byte
         repeat {
             input = Byte(byteBuffer.readBytes(length: 1)![0])
-            result |= Self((input & Byte(0x7F)) << (shift * 7))
+            result |= Self(input & Byte(0x7F)) << Self(shift * 7)
             shift += 1
             if (shift > 5) {
                 throw VarIntError.varIntIsTooBig
             }
-        } while ((input & 0x80) != 0x80)
+        } while ((input & 0x80) != 0)
         self = result
     }
     
@@ -47,7 +47,7 @@ extension Int32 {
                 part |= 0x80
             }
             out.append(part)
-        } while (value == 0)
+        } while (value != 0)
         return out
     }
 }
@@ -60,12 +60,12 @@ extension Int64 {
         var input: Byte
         repeat {
             input = Byte(byteBuffer.readBytes(length: 1)![0])
-            result |= Self((input & Byte(0x7F)) << (shift * 7))
+            result |= Self(input & Byte(0x7F)) << Self(shift * 7)
             shift += 1
             if (shift > 10) {
                 throw VarLongError.varLongIsTooBig
             }
-        } while ((input & 0x80) != 0x80)
+        } while ((input & 0x80) != 0)
         self = result
     }
     
@@ -80,7 +80,7 @@ extension Int64 {
                 part |= 0x80
             }
             out.append(part)
-        } while (value == 0)
+        } while (value != 0)
         return out
     }
 }
