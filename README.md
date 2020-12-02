@@ -1,3 +1,5 @@
+![build](https://github.com/marzvrover/Swiftcraft/workflows/Swift/badge.svg)
+
 # Swiftcraft
 
 Swiftcraft is a swift implementation of the Minecraft Server. The goal of this project is to provide a fast resource efficient Minecraft server.
