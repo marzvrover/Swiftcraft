@@ -1,4 +1,4 @@
-![build](https://github.com/marzvrover/Swiftcraft/workflows/Swift/badge.svg)
+![build](https://github.com/marzvrover/Swiftcraft/workflows/build/badge.svg)
 
 # Swiftcraft
 
