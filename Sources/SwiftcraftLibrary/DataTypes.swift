@@ -9,7 +9,6 @@ import Foundation
 import NIO
 
 typealias Byte = UInt8
-typealias ByteArray = [Byte]
 
 enum VarIntError: Error {
     case varIntIsTooBig
@@ -17,6 +16,20 @@ enum VarIntError: Error {
 
 enum VarLongError: Error {
     case varLongIsTooBig
+}
+
+extension UInt8 {
+    init(buffer byteBuffer: inout ByteBuffer) {
+        self.init()
+        self = Self(byteBuffer.readBytes(length: 1)![0])
+    }
+}
+
+extension UInt16 {
+    init(buffer byteBuffer: inout ByteBuffer) {
+        self.init()
+        self = byteBuffer.readInteger(as: Self.self)!
+    }
 }
 
 extension Int32 {
@@ -36,8 +49,8 @@ extension Int32 {
         self = Self(bitPattern: result)
     }
 
-    var varInt: ByteArray {
-        var out: ByteArray = []
+    var varInt: [Byte] {
+        var out: [Byte] = []
         var part: Byte
         var value: UInt32 = UInt32(bitPattern: self)
         repeat {
@@ -69,8 +82,8 @@ extension Int64 {
         self = Self(bitPattern: result)
     }
 
-    var varLong: ByteArray {
-        var out: ByteArray = []
+    var varLong: [Byte] {
+        var out: [Byte] = []
         var part: Byte
         var value: UInt64 = UInt64(bitPattern: self)
         repeat {
@@ -89,7 +102,6 @@ extension String {
     init(buffer: inout ByteBuffer) throws {
         self.init()
         let length = Int(try! Int32(buffer: &buffer))
-        debug(length)
         self = buffer.readString(length: length)!
     }
 }
