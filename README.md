@@ -12,5 +12,5 @@ This server is built from the ground up implementing [Minecraft's Protocol.](htt
 
 ## Credits
 
-I would like to give a huge shoutout to #mcdevs for their working in maintaining [Wiki.vg](wiki.vg).
+I would like to give a huge shoutout to #mcdevs for their working in maintaining [Wiki.vg](https://wiki.vg).
 Another shoutout goes to [Tnze](https://github.com/Tnze) for their work on [Tnze/go-mc](https://github.com/Tnze/go-mc) which helped me get low level things like VarInt and VarLong figured out.
