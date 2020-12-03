@@ -23,25 +23,25 @@ public final class HandshakeHandler: ChannelInboundHandler {
 
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
         var buffer = self.unwrapInboundIn(data)
-        let length: Int32 = try! Int32(buffer: &buffer)
+        let length: Int32 = try! buffer.readVarInt()
         print("Length: \(length)".blue)
         if (length < 1) {
             debug("packet too small".blue)
         }
         
-        let packetID = try! Int32(buffer: &buffer)
+        let packetID = try! buffer.readVarInt()
         print("Packet ID: \(packetID)".blue)
 
-        let protocolVersion = try! Int32(buffer: &buffer)
+        let protocolVersion = try! buffer.readVarInt()
         print("Protocol Version: \(protocolVersion)".blue)
         
-        let serverAddress = try! String(buffer: &buffer)
+        let serverAddress = try! buffer.readVarString()!
         print("Server Address: \(serverAddress)".blue)
 
-        let serverPort = UInt16(buffer: &buffer)
+        let serverPort = buffer.readUInt16()!
         print("Server Port: \(serverPort)".blue)
 
-        let intention = try! Int32(buffer: &buffer)
+        let intention = try! buffer.readVarInt()
         print("Intention: \(intention)".blue)
     }
 

@@ -4,6 +4,8 @@ import NIO
 @testable import SwiftcraftLibrary
 
 final class SwiftcraftLibraryTests: XCTestCase {
+    let allocator = ByteBufferAllocator()
+
     let varIntData: [(bytes: [Byte], value: Int32)] = [
         (bytes: [0x00], value: 0),
         (bytes: [0x01], value: 1),
@@ -36,30 +38,28 @@ final class SwiftcraftLibraryTests: XCTestCase {
     ]
     
     func testVarInt() throws {
-        let allocator = ByteBufferAllocator()
-        
         for varInt in varIntData {
             var buffer = allocator.buffer(capacity: varInt.bytes.count)
             buffer.writeBytes(varInt.bytes)
 
-            let output = try! Int32(buffer: &buffer)
-
+            let output = try! buffer.readVarInt()
             XCTAssertEqual(output, Int32(varInt.value))
-            XCTAssertEqual(output.varInt, varInt.bytes)
+
+            buffer.writeVarInt(output)
+            XCTAssertEqual(buffer.readBytes(length: varInt.bytes.count), varInt.bytes)
         }
     }
     
     func testVarLong() throws {
-        let allocator = ByteBufferAllocator()
-
         for varLong in varLongData {
             var buffer = allocator.buffer(capacity: varLong.bytes.count)
             buffer.writeBytes(varLong.bytes)
-            
-            let output = try! Int64(buffer: &buffer)
-            
+
+            let output = try! buffer.readVarLong()
             XCTAssertEqual(output, Int64(varLong.value))
-            XCTAssertEqual(output.varLong, varLong.bytes)
+
+            buffer.writeVarLong(output)
+            XCTAssertEqual(buffer.readBytes(length: varLong.bytes.count), varLong.bytes)
         }
     }
 
