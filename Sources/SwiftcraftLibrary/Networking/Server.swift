@@ -47,7 +47,7 @@ open class Server {
         self.channel = try { () -> Channel in
             return try self.bootstrap.bind(host: self.host, port: self.port).wait()
         }()
-        
+
         print("Server started and listening on \(channel!.localAddress!)")
 
         // This will never unblock as we don't close the ServerChannel

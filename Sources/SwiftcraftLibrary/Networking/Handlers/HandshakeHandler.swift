@@ -32,17 +32,21 @@ public final class HandshakeHandler: ChannelInboundHandler {
         let packetID = try! buffer.readVarInt()
         print("Packet ID: \(packetID)".blue)
 
-        let protocolVersion = try! buffer.readVarInt()
-        print("Protocol Version: \(protocolVersion)".blue)
-        
-        let serverAddress = try! buffer.readVarString()!
-        print("Server Address: \(serverAddress)".blue)
+        var handshake = Handshake(length: length, id: packetID, buffer: context.channel.allocator.buffer(buffer: buffer))
 
-        let serverPort = buffer.readUInt16()!
-        print("Server Port: \(serverPort)".blue)
+        try! handshake.decode()
 
-        let intention = try! buffer.readVarInt()
-        print("Intention: \(intention)".blue)
+//        let protocolVersion = try! buffer.readVarInt()
+        print("Protocol Version: \(handshake.version)".blue)
+
+//        let serverAddress = try! buffer.readVarString()!
+        print("Server Address: \(handshake.address)".blue)
+
+//        let serverPort = buffer.readUInt16()!
+        print("Server Port: \(handshake.port)".blue)
+
+//        let intention = try! buffer.readVarInt()
+        print("Intention: \(handshake.intention)".blue)
     }
 
     // Flush it out. This can make use of gathering writes if multiple buffers are pending
