@@ -106,15 +106,6 @@ extension ByteBuffer {
         self.writeBytes(out)
     }
 
-    /// Read a `UInt16` off this `ByteBuffer`, move the reader index forward by the size in bytes..
-    ///
-    /// - returns: A `UInt16` value deserialized from this `ByteBuffer` or `nil` if there aren't enough bytes readable.
-    @discardableResult
-    @inlinable
-    public mutating func readUInt16() -> UInt16? {
-        return self.readInteger(as: UInt16.self)
-    }
-
     /// Read a `VarString` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `String` value deserialized from this `ByteBuffer` or `nil` if there aren't enough bytes readable.

@@ -9,9 +9,7 @@ import Foundation
 import NIO
 
 struct Handshake: Packet {
-    var length: Int32
-    var id: Int32
-    var buffer: ByteBuffer
+    var id: Int32 = 0x00
     var data: [String : Any] = [:]
     var definition: [(name: String, type: PacketData, args: [String:Any]?)] = [
         (name: "protocol_version", type: .varInt, args: nil),
