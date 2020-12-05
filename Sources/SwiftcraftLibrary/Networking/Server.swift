@@ -26,8 +26,8 @@ open class Server {
             // Set the handlers that are appled to the accepted Channels
             .childChannelInitializer { channel in
                 // Ensure we don't read faster than we can write by adding the BackPressureHandler into the pipeline.
-                channel.pipeline.addHandler(BackPressureHandler()).flatMap { v in
-                    channel.pipeline.addHandler(HandshakeHandler())
+                channel.pipeline.addHandler(ByteToMessageHandler(PacketDecoder())).flatMap { v in
+                    channel.pipeline.addHandler(DisplayPacketHandler())
                 }
             }
 
@@ -47,7 +47,7 @@ open class Server {
         self.channel = try { () -> Channel in
             return try self.bootstrap.bind(host: self.host, port: self.port).wait()
         }()
-        
+
         print("Server started and listening on \(channel!.localAddress!)")
 
         // This will never unblock as we don't close the ServerChannel
