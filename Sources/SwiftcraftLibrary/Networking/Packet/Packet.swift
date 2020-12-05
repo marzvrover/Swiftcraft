@@ -1,6 +1,6 @@
 //
 //  Packet.swift
-//  
+//
 //
 //  Created by Marz Rover on 12/2/20.
 //
@@ -24,10 +24,10 @@ enum PacketData: String {
     case float = "Float32"
     case double = "Float64"
     case uuid = "UUID"
+    case string = "String(length: Int)"
     case varInt = "vInt32"
     case varLong = "vInt64"
     case varString = "String"
-    case string = "String(length: Int)"
 }
 
 /// A Packet must have these fields.
@@ -39,8 +39,17 @@ protocol Packet {
 
 /// Because of a definition field we can quickly and easily decode / encode packets
 extension Packet {
-    mutating func decode(buffer: inout ByteBuffer) throws {
-        for def in definition {
+    mutating func decode(buffer: inout ByteBuffer,
+                         definition inDefinition: [(name: String,
+                                                    type: PacketData,
+                                                    args: [String:Any]?)]? = nil) throws {
+        var workingDef: [(name: String, type: PacketData, args: [String:Any]?)]
+        if inDefinition == nil {
+            workingDef = definition
+        } else {
+            workingDef = inDefinition!
+        }
+        for def in workingDef {
             switch def.type {
                 case .boolean:
                     data[def.name] = buffer.readByte()! != 0x00
@@ -80,8 +89,12 @@ extension Packet {
                     break
                 case .uuid:
                     let b = buffer.readBytes(length: 16)!
-                    let uuid: uuid_t = (b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15])
+                    let uuid: uuid_t = (b[0], b[1], b[2],  b[3],  b[4],  b[5],  b[6],  b[7],
+                                        b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15])
                     data[def.name] = UUID(uuid: uuid)
+                    break
+                case .string:
+                    data[def.name] = buffer.readString(length: def.args!["length"] as! Int)
                     break
                 case .varInt:
                     data[def.name] = try buffer.readVarInt()
@@ -91,9 +104,6 @@ extension Packet {
                     break
                 case .varString:
                     data[def.name] = try buffer.readVarString()
-                    break
-                case .string:
-                    data[def.name] = buffer.readString(length: def.args!["length"] as! Int)
                     break
             }
         }
