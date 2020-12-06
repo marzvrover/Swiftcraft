@@ -7,6 +7,7 @@
 
 import Foundation
 import NIO
+import Rainbow
 
 class DisplayPacketHandler: ChannelInboundHandler {
     typealias InboundIn = Packet
@@ -25,7 +26,7 @@ class DisplayPacketHandler: ChannelInboundHandler {
                 print("Intention: \(packet.intention)".blue)
                 break
             default:
-                print("Unkown Packet ID")
+                print("Unkown Packet ID".red)
         }
 
         context.fireChannelRead(wrapInboundOut(rawPacket))

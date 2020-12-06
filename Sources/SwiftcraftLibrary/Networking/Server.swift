@@ -7,7 +7,6 @@
 
 import Foundation
 import NIO
-import Rainbow
 
 open class Server {
     public var isRunning: Bool
@@ -48,7 +47,7 @@ open class Server {
             return try self.bootstrap.bind(host: self.host, port: self.port).wait()
         }()
 
-        print("Server started and listening on \(channel!.localAddress!)")
+        logger.info("Server started and listening on \(channel!.localAddress!)")
 
         // This will never unblock as we don't close the ServerChannel
         try channel!.closeFuture.wait()
@@ -58,10 +57,9 @@ open class Server {
         do {
             try self.group.syncShutdownGracefully()
         } catch let error {
-            print(error)
-            print("Forcing exit".red)
+            logger.error("Fatal Error", metadata: ["error": "\(error)"])
             exit(1)
         }
-        print("Server Shutdown".green)
+        logger.info("Server Shutdown")
     }
 }

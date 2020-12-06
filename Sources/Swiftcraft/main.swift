@@ -1,7 +1,7 @@
 import Foundation
+import Logging
 import NIO
 import SwiftcraftLibrary
-import Rainbow
 
 //  seed linux random number
 #if os(Linux)
@@ -9,14 +9,15 @@ srand(UInt(time(nil)))
 #endif
 
 signal(SIGINT) {_ in
-    print()
     if (server.isRunning == true) {
         server.shutdown()
     }
     exit(0)
 }
 
-print("Welcome to Swiftcraft!".green)
+let logger = Logger(label: "Swiftcraft")
+
+logger.info("Welcome to Swiftcraft!")
 
 let host = "127.0.0.1"
 let port = 25565
@@ -30,7 +31,6 @@ defer {
 do {
     try server.run()
 } catch let error {
-    print("Shutting down server due to fatal error".red)
-    print(error)
+    logger.error("Fatal error", metadata: ["error": "\(error)"])
     server.shutdown()
 }

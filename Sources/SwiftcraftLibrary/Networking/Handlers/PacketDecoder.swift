@@ -36,7 +36,12 @@ struct PacketDecoder: ByteToMessageDecoder {
 
             switch id {
                 case 0x00:
-                    packet = Handshake()
+                    if (length > 9) {
+                        packet = Handshake()
+                    } else {
+                        logger.debug("Packet length < 9", metadata: ["packet length": "\(length)"])
+                        throw PacketDecoderError.unknownPacketID(id)
+                    }
                     break
                 default:
                     throw PacketDecoderError.unknownPacketID(id)
