@@ -1,0 +1,21 @@
+name: ubuntu
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Install Swift on Linux
+    - uses: sersoft-gmbh/SwiftyActions@v1.1
+    - name: Build
+      run: swift build -v
+    - name: Run tests
+      run: swift test -v
