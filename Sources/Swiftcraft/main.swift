@@ -5,7 +5,7 @@ import SwiftcraftLibrary
 
 //  seed linux random number
 #if os(Linux)
-srand(UInt(time(nil)))
+srand(UInt32(time(nil)))
 #endif
 
 signal(SIGINT) {_ in
