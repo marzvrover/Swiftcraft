@@ -1,4 +1,4 @@
-![macos](https://github.com/marzvrover/Swiftcraft/workflows/macos/badge.svg)
+![macOS](https://github.com/marzvrover/Swiftcraft/workflows/macOS/badge.svg)
 ![ubuntu](https://github.com/marzvrover/Swiftcraft/workflows/ubuntu/badge.svg)
 
 # Swiftcraft
