@@ -16,6 +16,7 @@ let package = Package(
         // Dependencies declare other packages that this package depends on.
         // .package(url: /* package url */, from: "1.0.0"),
 
+        .package(url: "https://github.com/swiftpackages/DotEnv.git", from: "1.0.0"),
         .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
         .package(url: "https://github.com/apple/swift-nio.git", from: "2.23.0"),
         .package(url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
@@ -26,10 +27,11 @@ let package = Package(
         .target(
             name: "Swiftcraft",
             dependencies: [
+                "SwiftcraftLibrary",
+                .product(name: "DotEnv", package: "DotEnv"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "NIO", package: "swift-nio"),
-                "Rainbow",
-                "SwiftcraftLibrary",
+                .product(name: "Rainbow", package: "Rainbow"),
             ]
         ),
         .target(
@@ -37,7 +39,7 @@ let package = Package(
             dependencies: [
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "NIO", package: "swift-nio"),
-                "Rainbow",
+                .product(name: "Rainbow", package: "Rainbow"),
             ]
         ),
         .testTarget(
