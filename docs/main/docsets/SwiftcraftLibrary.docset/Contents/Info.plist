@@ -3,11 +3,11 @@
 <plist version="1.0">
   <dict>
     <key>CFBundleIdentifier</key>
-      <string>com.jazzy.</string>
+      <string>com.jazzy.swiftcraftlibrary</string>
     <key>CFBundleName</key>
-      <string></string>
+      <string>SwiftcraftLibrary</string>
     <key>DocSetPlatformFamily</key>
-      <string></string>
+      <string>swiftcraftlibrary</string>
     <key>isDashDocset</key>
       <true/>
     <key>dashIndexFilePath</key>
