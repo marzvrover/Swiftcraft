@@ -4,3 +4,4 @@ clean: true
 min_acl: private
 author: Marz Rover
 author_url: https://github.com/marzvrover 
+module: SwiftcraftLibrary
