@@ -8,17 +8,20 @@
 import Foundation
 import NIO
 
+/// A `Byte` is of the type `UInt8`
 public typealias Byte = UInt8
-public typealias ByteArray = [Byte]
-
+/// `Error` `enum` for `VarInt`
 enum VarIntError: Error {
+    /// Too many `Byte`s for the data to be a `VarInt`
     case varIntIsTooBig
 }
-
+/// `Error` `enum` for `VarLong`
 enum VarLongError: Error {
+    /// Too many `Byte`s for the data to be a `VarLong`
     case varLongIsTooBig
 }
 
+/// Extend `ByteBuffer` to add reading and writing Minecraft DataTypes
 extension ByteBuffer {
     /// Read a `Byte` off this `ByteBuffer`, move the reader index forward by one byte.
     ///
@@ -49,7 +52,10 @@ extension ByteBuffer {
 
         return Int32(bitPattern: result)
     }
-
+    /// Write a `VarInt` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    ///
+    /// - parameters:
+    ///     - varInt: A `Int32` value to write as a `VarInt`
     public mutating func writeVarInt(_ varInt: Int32) {
         var out: [Byte] = []
         var part: Byte
@@ -72,6 +78,7 @@ extension ByteBuffer {
     ///
     /// - returns: A `Int64` value deserialized from this `ByteBuffer`.
     /// - throws: `VarLongError.VarLongIsTooBig`
+    @discardableResult
     public mutating func readVarLong() throws -> Int64 {
         var result: UInt64 = 0
         var shift = 0
@@ -88,7 +95,10 @@ extension ByteBuffer {
 
         return Int64(bitPattern: result)
     }
-
+    /// Write a `VarLong` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    ///
+    /// - parameters:
+    ///     - varInt: A `Int64` value to write as a `VarLong`
     public mutating func writeVarLong(_ varLong: Int64) {
         var out: [Byte] = []
         var part: Byte
