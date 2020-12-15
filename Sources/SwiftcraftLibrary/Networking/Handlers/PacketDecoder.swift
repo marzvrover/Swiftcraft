@@ -1,21 +1,22 @@
-//
-//  PacketDecoder.swift
-//  
-//
-//  Created by Marz Rover on 12/3/20.
-//
-
 import Foundation
 import NIO
-
+/// Errors that may be thrown by `PacketDecoder`
 enum PacketDecoderError: Error {
+    /// Unkown `Packet`.`id`
     case unknownPacketID(Int32)
 }
-
+/// The `ByteToMessageDecoder` for decoding `Packets`
 struct PacketDecoder: ByteToMessageDecoder {
+    /// The `InboundIn` datatype is a `ByteBuffer`
     typealias InboundIn = ByteBuffer
+    /// The `InboundOut` datatype is a `Packet`
     typealias InboundOut = Packet
-
+    /// The method to decode the `Packet`
+    /// - parameters:
+    ///     - context: `ChannelHandlerContext`
+    ///     - buffer: `inout` `ByteBuffer`: The `ByteBuffer` to decode
+    /// - throws: May throw any `PacketDecoderError`
+    /// - returns: `DecodingState`
     mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
         // 5 bytes is the max length for a VarInt (which tells us our packet length)
         guard buffer.readableBytes >= 5 else {
