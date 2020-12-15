@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (18% documented)
+         (90% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -125,9 +125,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:17SwiftcraftLibrary9ByteArraya">ByteArray</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -144,10 +141,10 @@
 
                 </div>
               </div>
-            <p>Undocumented</p>
+            <p>The <code>ByteToMessageDecoder</code> for decoding <code>Packets</code></p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L15-L60">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L9-L61">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -169,7 +166,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>The <code>InboundIn</code> datatype is a <code>ByteBuffer</code></p>
 
                       </div>
                       <div class="declaration">
@@ -181,7 +178,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L11">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -189,9 +186,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:3NIO20ByteToMessageDecoderP10InboundOutQa"></a>
+                    <a name="/s:17SwiftcraftLibrary13PacketDecoderV10InboundOuta"></a>
                     <a name="//apple_ref/swift/Alias/InboundOut" class="dashAnchor"></a>
-                    <a class="token" href="#/s:3NIO20ByteToMessageDecoderP10InboundOutQa">InboundOut</a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary13PacketDecoderV10InboundOuta">InboundOut</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -199,7 +196,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The <code>InboundOut</code> datatype is a <code><a href="../Protocols/Packet.html">Packet</a></code></p>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -210,7 +208,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L143">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L13">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -218,9 +216,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:3NIO20ByteToMessageDecoderP6decode7context6bufferAA13DecodingStateOAA21ChannelHandlerContextC_AA0B6BufferVztKF"></a>
+                    <a name="/s:17SwiftcraftLibrary13PacketDecoderV6decode7context6buffer3NIO13DecodingStateOAG21ChannelHandlerContextC_AG10ByteBufferVztKF"></a>
                     <a name="//apple_ref/swift/Method/decode(context:buffer:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:3NIO20ByteToMessageDecoderP6decode7context6bufferAA13DecodingStateOAA21ChannelHandlerContextC_AA0B6BufferVztKF">decode(context:<wbr>buffer:<wbr>)</a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary13PacketDecoderV6decode7context6buffer3NIO13DecodingStateOAG21ChannelHandlerContextC_AG10ByteBufferVztKF">decode(context:<wbr>buffer:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -228,7 +226,13 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        
+                        <p>The method to decode the <code><a href="../Protocols/Packet.html">Packet</a></code></p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    May throw any <code><a href="../Enums/PacketDecoderError.html">PacketDecoderError</a></code>
+
+</div>
+
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -238,8 +242,43 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>context</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>ChannelHandlerContext</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>buffer</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p><code>inout</code> <code>ByteBuffer</code>: The <code>ByteBuffer</code> to decode</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p><code>DecodingState</code></p>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L19-L59">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/PacketDecoder.swift#L20-L60">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -252,7 +291,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-09)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-15)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

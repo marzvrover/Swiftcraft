@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (18% documented)
+         (90% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -125,9 +125,6 @@
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a>
               </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Typealiases.html#/s:17SwiftcraftLibrary9ByteArraya">ByteArray</a>
-              </li>
             </ul>
           </li>
         </ul>
@@ -144,9 +141,10 @@
 
                 </div>
               </div>
-            
+            <p>Extend <code>ByteBuffer</code> to add reading and writing Minecraft DataTypes</p>
+
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIO/ByteBuffer-core.swift#L22-L117">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIO/ByteBuffer-core.swift#L25-L127">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -186,7 +184,7 @@
                         <p>A <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L28-L30">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L31-L33">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -226,7 +224,7 @@
                         <p>A <code>Int32</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L37-L51">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L40-L54">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -244,7 +242,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Write a <code>VarInt</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -255,8 +253,27 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>varInt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Int32</code> value to write as a <code>VarInt</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L53-L69">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L59-L75">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -286,7 +303,8 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">readVarLong</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int64</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
+<span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">readVarLong</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int64</span></code></pre>
 
                         </div>
                       </div>
@@ -295,7 +313,7 @@
                         <p>A <code>Int64</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L75-L90">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L82-L97">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -313,7 +331,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Write a <code>VarLong</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -324,8 +342,27 @@
 
                         </div>
                       </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>varInt</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Int64</code> value to write as a <code>VarLong</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L92-L107">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L102-L117">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -360,7 +397,7 @@
                         <p>A <code>String</code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L113-L116">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L123-L126">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -373,7 +410,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-09)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-15)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
