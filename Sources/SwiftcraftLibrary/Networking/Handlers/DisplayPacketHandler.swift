@@ -1,18 +1,14 @@
-//
-//  DisplayPacketHandler.swift
-//  
-//
-//  Created by Marz Rover on 12/3/20.
-//
-
 import Foundation
 import NIO
 import Rainbow
-
+/// A `ChannelInboundHandler` to display `Packet`s.
 class DisplayPacketHandler: ChannelInboundHandler {
     typealias InboundIn = Packet
     typealias InboundOut = Packet
-
+    /// Channel Read
+    /// - parameters:
+    ///     - context: `ChannelHandlerContext`
+    ///     - data: `NIOAny` which can be unwrapped to have a `Packet`
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
         let rawPacket = self.unwrapInboundIn(data)
         print("Packet ID: \(rawPacket.id)".blue)
