@@ -138,4 +138,93 @@ extension Packet {
             }
         }
     }
+    /// Encode the pack according to the `Packet`.`definition` field.
+    /// Load the data from the `Packet`.`data` field.
+    ///
+    /// - parameters:
+    ///     - buffer: `inout` `ByteBuffer`. The `ByteBuffer` to write to.
+    ///     - definition: A `Packet`.`Definition` to override the packet's own definition field.
+    /// - throws: Could through various errors relating to reading the datatypes from the `ByteBuffer`.
+    ///     - Every error in `VarIntErrors`
+    ///     - Every error in `VarLongErrors`
+    func encode(buffer: inout ByteBuffer,
+                         definition inDefinition: Definition? = nil) {
+        var workingDef: Definition
+        if inDefinition == nil {
+            workingDef = definition
+        } else {
+            workingDef = inDefinition!
+        }
+        for def in workingDef {
+            switch def.type {
+                case .boolean:
+                    buffer.writeBool(data[def.name] as! Bool)
+                    break
+                case .byte:
+                    buffer.writeByte(UInt8(bitPattern: data[def.name] as! Int8))
+                    break
+                case .unsignedByte:
+                    buffer.writeByte(data[def.name] as! UInt8)
+                    break
+                case .byteArray:
+                    let out: [UInt8] = data[def.name] as! [UInt8]
+                    buffer.reserveCapacity(out.count)
+                    buffer.writeBytes(out)
+                    break
+                case .short:
+                    buffer.reserveCapacity(2) // 16 bits
+                    buffer.writeInteger(data[def.name] as! Int16, as: Int16.self)
+                    break
+                case .unsignedShort:
+                    buffer.reserveCapacity(2) // 16 bits
+                    buffer.writeInteger(data[def.name] as! UInt16, as: UInt16.self)
+                    break
+                case .int:
+                    buffer.reserveCapacity(4) // 32 bits
+                    buffer.writeInteger(data[def.name] as! Int32, as: Int32.self)
+                    break
+                case .unsignedInt:
+                    buffer.reserveCapacity(4) // 32 bits
+                    buffer.writeInteger(data[def.name] as! UInt32, as: UInt32.self)
+                    break
+                case .long:
+                    buffer.reserveCapacity(8) // 64 bits
+                    buffer.writeInteger(data[def.name] as! Int64, as: Int64.self)
+                    break
+                case .unsignedLong:
+                    buffer.reserveCapacity(8) // 64 bits
+                    buffer.writeInteger(data[def.name] as! UInt64, as: UInt64.self)
+                    break
+                case .float:
+                    buffer.reserveCapacity(4) // 32 bits
+                    buffer.writeInteger((data[def.name] as! Float32).bitPattern, as: UInt32.self)
+                    break
+                case .double:
+                    buffer.reserveCapacity(8) // 64 bits
+                    buffer.writeInteger((data[def.name] as! Float64).bitPattern, as: UInt64.self)
+                    break
+                case .uuid:
+                    buffer.reserveCapacity(16) // 128 bits
+                    let uuid = (data[def.name] as! UUID).uuid
+                    let bytes = [uuid.0, uuid.1, uuid.2,  uuid.3,  uuid.4,  uuid.5,  uuid.6,  uuid.7,
+                                 uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15]
+                    buffer.writeBytes(bytes)
+                    break
+                case .string:
+                    buffer.reserveCapacity((data[def.name] as! String).utf8.count)
+                    buffer.writeString(data[def.name] as! String)
+                    break
+                case .varInt:
+                    buffer.writeVarInt(data[def.name] as! Int32)
+                    break
+                case .varLong:
+                    buffer.writeVarLong(data[def.name] as! Int64)
+                    break
+                case .varString:
+                    buffer.writeVarString(data[def.name] as! String)
+                    break
+            }
+        }
+    }
+
 }
