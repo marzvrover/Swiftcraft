@@ -1,10 +1,3 @@
-//
-//  DataTypes.swift
-//  Swiftcraft
-//
-//  Created by Marz Rover on 11/21/20.
-//
-
 import Foundation
 import NIO
 

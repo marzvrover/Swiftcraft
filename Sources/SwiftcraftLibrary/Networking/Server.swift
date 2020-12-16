@@ -1,10 +1,3 @@
-//
-//  Server.swift
-//  Swiftcraft
-//
-//  Created by Marz Rover on 11/17/20.
-//
-
 import Foundation
 import NIO
 
