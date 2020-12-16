@@ -1,10 +1,3 @@
-//
-//  Packet.swift
-//
-//
-//  Created by Marz Rover on 12/2/20.
-//
-
 import Foundation
 import NIO
 
@@ -48,10 +41,84 @@ enum PacketData: String {
     /// Minecraft `VarString` is a `String`
     case varString = "String"
 }
+/// Packet class. This is the base class for all Packets.
+class Packet: PacketProtocol & Equatable {
+    /// Conform to `Equatable` using `AnyHashable` to determine if values of type `Any` are equal.
+    ///
+    /// - note: There has to be a better way to this.
+    ///         But seeing as we shouldn't have to compare `Packet`s often besides in tests this will do for now.
+    static func == (lhs: Packet, rhs: Packet) -> Bool {
+        guard lhs.id == rhs.id else {
+            return false
+        }
+        guard lhs.definition.count == rhs.definition.count else {
+            return false
+        }
+        guard lhs.data.count == rhs.data.count else {
+            return false
+        }
+        for (key, value) in lhs.data {
+            guard rhs.data.keys.contains(key) else {
+                return false
+            }
+            guard value is AnyHashable else {
+                return false
+            }
+            let rvalue = rhs.data[key]
+            guard rvalue is AnyHashable else {
+                return false
+            }
+            guard value as! AnyHashable == rvalue as! AnyHashable else {
+                return false
+            }
+        }
+        for (index, (name, type, args)) in lhs.definition.enumerated() {
+            guard name == rhs.definition[index].name else {
+                return false
+            }
+            guard type == rhs.definition[index].type else {
+                return false
+            }
+            guard args != nil else {
+                if rhs.definition[index].args == nil {
+                    continue
+                }
+                return false
+            }
+            for (key, value) in args! {
+                guard rhs.definition[index].args!.keys.contains(key) else {
+                    return false
+                }
+                guard value is AnyHashable else {
+                    return false
+                }
+                let rvalue = rhs.definition[index].args![key]
+                guard rvalue is AnyHashable else {
+                    return false
+                }
+                guard (value as! AnyHashable) == (rvalue as! AnyHashable) else {
+                    return false
+                }
+            }
+        }
+
+        return true
+    }
+    
+    var data: [String : Any]
+    var definition: Definition
+    var id: Int32
+    
+    internal init(id: Int32, definition: Definition, data: [String : Any]) {
+        self.id = id
+        self.definition = definition
+        self.data = data
+    }
+}
 
 /// A Packet must have these fields.
-protocol Packet {
-    typealias Definition = [(name: String, type: PacketData, args: [String:Any]?)]
+protocol PacketProtocol {
+    typealias Definition = [(name: String, type: PacketData, args: [String : Any]?)]
     /// This is where the key=>value pairs from the packet are stored.
     var data: [String:Any] { get set }
     /// Defines how to decode the packet
@@ -61,7 +128,7 @@ protocol Packet {
 }
 
 /// Because of a definition field we can quickly and easily decode / encode packets
-extension Packet {
+extension PacketProtocol {
     /// Decode the pack according to the `Packet`.`definition` field.
     /// Load the results into the `Packet`.`data` field.
     ///
