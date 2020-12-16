@@ -12,17 +12,32 @@ import NIO
 public typealias Byte = UInt8
 /// `Error` `enum` for `VarInt`
 enum VarIntError: Error {
-    /// Too many `Byte`s for the data to be a `VarInt`
+    /// Too many `Byte`s for the data to be a `PacketData`.`varInt`
     case varIntIsTooBig
 }
 /// `Error` `enum` for `VarLong`
 enum VarLongError: Error {
-    /// Too many `Byte`s for the data to be a `VarLong`
+    /// Too many `Byte`s for the data to be a `PacketData`.`varLong`
     case varLongIsTooBig
 }
 
 /// Extend `ByteBuffer` to add reading and writing Minecraft DataTypes
 extension ByteBuffer {
+    /// Write a `Bool` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    ///
+    /// - parameters:
+    ///     - bool: A `Bool` value to write to the `ByteBuffer`
+    public mutating func writeBool(_ bool: Bool) {
+        self.writeByte(bool ? 0x01 : 0x00)
+    }
+    /// Write a `Byte` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    ///
+    /// - parameters:
+    ///     - byte: A `Bool` value to write to the `ByteBuffer`
+    public mutating func writeByte(_ byte: Byte) {
+        self.reserveCapacity(1)
+        self.writeBytes([byte])
+    }
     /// Read a `Byte` off this `ByteBuffer`, move the reader index forward by one byte.
     ///
     /// - returns: A `Byte` value deserialized from this `ByteBuffer` or `nil` if there aren't enough bytes readable.
@@ -31,8 +46,7 @@ extension ByteBuffer {
     public mutating func readByte() -> Byte? {
         return self.readBytes(length: 1)?[0]
     }
-
-    /// Read a `VarInt` off this `ByteBuffer`, move the reader index forward by the size in bytes..
+    /// Read a `PacketData`.`varInt` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int32` value deserialized from this `ByteBuffer`.
     /// - throws: Throws `VarIntError.VarIntIsTooBig`
@@ -52,10 +66,10 @@ extension ByteBuffer {
 
         return Int32(bitPattern: result)
     }
-    /// Write a `VarInt` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    /// Write a `PacketData`.`varInt` into this `ByteBuffer`, move the writer index forward by number of bytes written.
     ///
     /// - parameters:
-    ///     - varInt: A `Int32` value to write as a `VarInt`
+    ///     - varInt: A `Int32` value to write as a `PacketData`.`varInt`
     public mutating func writeVarInt(_ varInt: Int32) {
         var out: [Byte] = []
         var part: Byte
@@ -73,8 +87,7 @@ extension ByteBuffer {
         self.reserveCapacity(out.count)
         self.writeBytes(out)
     }
-
-    /// Read a `VarLong` off this `ByteBuffer`, move the reader index forward by the size in bytes..
+    /// Read a `PacketData`.`varLong` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int64` value deserialized from this `ByteBuffer`.
     /// - throws: `VarLongError.VarLongIsTooBig`
@@ -95,10 +108,10 @@ extension ByteBuffer {
 
         return Int64(bitPattern: result)
     }
-    /// Write a `VarLong` into this `ByteBuffer`, move the writer index forward by number of bytes written.
+    /// Write a `PacketData`.`varLong` into this `ByteBuffer`, move the writer index forward by number of bytes written.
     ///
     /// - parameters:
-    ///     - varInt: A `Int64` value to write as a `VarLong`
+    ///     - varInt: A `Int64` value to write as a `PacketData`.`varLong`
     public mutating func writeVarLong(_ varLong: Int64) {
         var out: [Byte] = []
         var part: Byte
@@ -115,13 +128,22 @@ extension ByteBuffer {
         self.reserveCapacity(out.count)
         self.writeBytes(out)
     }
-
-    /// Read a `VarString` off this `ByteBuffer`, move the reader index forward by the size in bytes..
+    /// Read a `PacketData`.`varString` off this `ByteBuffer`, move the reader index forward by the size in bytes.
     ///
     /// - returns: A `String` value deserialized from this `ByteBuffer` or `nil` if there aren't enough bytes readable.
     @discardableResult
     public mutating func readVarString() throws -> String? {
         let length = Int(try self.readVarInt())
         return self.readString(length: length)
+    }
+    /// Write a `PacketData`.`varString` onto this `ByteBuffer`, move the writer index forward by the size in bytes.
+    ///
+    /// - parameters:
+    ///     - varString: A `String` value to write as a `PacketData`.`varString`
+    public mutating func writeVarString(_ varString: String) {
+        let length = varString.utf8.count
+        self.writeVarInt(Int32(length))
+        self.reserveCapacity(length)
+        self.writeString(varString)
     }
 }
