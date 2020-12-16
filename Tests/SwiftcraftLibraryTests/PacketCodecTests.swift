@@ -24,14 +24,14 @@ final class PacketCodecTests: XCTestCase {
 
     let allocator = ByteBufferAllocator()
 
-    func testPacketDecoder() {
+    func testDecodeHandshake() {
         var buffer = allocator.buffer(capacity: 0)
-        let test = TestPacket(definition: [
-            (name: "test", type: .varInt, args: nil),
-        ],
-        data: [
-            "test": Int32(47),
-        ])
+        let test = Handshake()
+        test.version = 724
+        test.port = 25564
+        test.intention = 1
+        test.address = "127.0.0.1"
+
         test.encode(buffer: &buffer)
         do {
             try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
@@ -45,6 +45,6 @@ final class PacketCodecTests: XCTestCase {
     }
 
     static var allTests = [
-        ("testPacketDecoder", testPacketDecoder),
+        ("testDecodeHandshake", testDecodeHandshake),
     ]
 }
