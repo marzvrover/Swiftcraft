@@ -3,15 +3,17 @@ import class Foundation.Bundle
 import NIO
 @testable import SwiftcraftLibrary
 
-struct TestPacket: Packet {
-    var data: [String : Any] = [:]
-
-    var definition: [(name: String, type: PacketData, args: [String : Any]?)]
-
-    var id: Int32 = Int32.min
-}
-
 final class DataTypeTests: XCTestCase {
+    class TestPacket: Packet {
+        init(definition: Definition) {
+            super.init(
+                id: Int32.min,
+                definition: definition,
+                data: [:]
+                )
+        }
+    }
+
     let allocator = ByteBufferAllocator()
 
     let varIntData: [(bytes: [Byte], value: Int32)] = [
