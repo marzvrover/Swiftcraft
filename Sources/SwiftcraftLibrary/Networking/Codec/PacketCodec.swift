@@ -59,3 +59,17 @@ struct PacketDecoder: ByteToMessageDecoder {
         }
     }
 }
+/// The `MessageToByteDecoder` for decoding `Packets`
+struct PacketEncoder: MessageToByteEncoder {
+    /// The `OutboundIn` datatype is a `Packet`
+    typealias OutboundIn = Packet
+    /// The `OutboundOut` datatype is a `ByteBuffer`
+    typealias OutboundOut = ByteBuffer
+    /// The method to encode the `Packet`
+    /// - parameters:
+    ///     - data: Out going `Packet`
+    ///     - out: `inout` `ByteBuffer`: The `ByteBuffer` to encode on
+    func encode(data: OutboundIn, out: inout ByteBuffer) throws {
+        data.encode(buffer: &out)
+    }
+}
