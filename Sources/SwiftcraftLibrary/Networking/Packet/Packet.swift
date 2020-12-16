@@ -222,76 +222,81 @@ extension PacketProtocol {
         } else {
             workingDef = inDefinition!
         }
+        var tmpBuffer = ByteBufferAllocator().buffer(buffer: buffer)
+        tmpBuffer.writeVarInt(self.id)
         for def in workingDef {
             switch def.type {
                 case .boolean:
-                    buffer.writeBool(data[def.name] as! Bool)
+                    tmpBuffer.writeBool(data[def.name] as! Bool)
                     break
                 case .byte:
-                    buffer.writeByte(UInt8(bitPattern: data[def.name] as! Int8))
+                    tmpBuffer.writeByte(UInt8(bitPattern: data[def.name] as! Int8))
                     break
                 case .unsignedByte:
-                    buffer.writeByte(data[def.name] as! UInt8)
+                    tmpBuffer.writeByte(data[def.name] as! UInt8)
                     break
                 case .byteArray:
                     let out: [UInt8] = data[def.name] as! [UInt8]
-                    buffer.reserveCapacity(out.count)
-                    buffer.writeBytes(out)
+                    tmpBuffer.reserveCapacity(out.count)
+                    tmpBuffer.writeBytes(out)
                     break
                 case .short:
-                    buffer.reserveCapacity(2) // 16 bits
-                    buffer.writeInteger(data[def.name] as! Int16, as: Int16.self)
+                    tmpBuffer.reserveCapacity(2) // 16 bits
+                    tmpBuffer.writeInteger(data[def.name] as! Int16, as: Int16.self)
                     break
                 case .unsignedShort:
-                    buffer.reserveCapacity(2) // 16 bits
-                    buffer.writeInteger(data[def.name] as! UInt16, as: UInt16.self)
+                    tmpBuffer.reserveCapacity(2) // 16 bits
+                    tmpBuffer.writeInteger(data[def.name] as! UInt16, as: UInt16.self)
                     break
                 case .int:
-                    buffer.reserveCapacity(4) // 32 bits
-                    buffer.writeInteger(data[def.name] as! Int32, as: Int32.self)
+                    tmpBuffer.reserveCapacity(4) // 32 bits
+                    tmpBuffer.writeInteger(data[def.name] as! Int32, as: Int32.self)
                     break
                 case .unsignedInt:
-                    buffer.reserveCapacity(4) // 32 bits
-                    buffer.writeInteger(data[def.name] as! UInt32, as: UInt32.self)
+                    tmpBuffer.reserveCapacity(4) // 32 bits
+                    tmpBuffer.writeInteger(data[def.name] as! UInt32, as: UInt32.self)
                     break
                 case .long:
-                    buffer.reserveCapacity(8) // 64 bits
-                    buffer.writeInteger(data[def.name] as! Int64, as: Int64.self)
+                    tmpBuffer.reserveCapacity(8) // 64 bits
+                    tmpBuffer.writeInteger(data[def.name] as! Int64, as: Int64.self)
                     break
                 case .unsignedLong:
-                    buffer.reserveCapacity(8) // 64 bits
-                    buffer.writeInteger(data[def.name] as! UInt64, as: UInt64.self)
+                    tmpBuffer.reserveCapacity(8) // 64 bits
+                    tmpBuffer.writeInteger(data[def.name] as! UInt64, as: UInt64.self)
                     break
                 case .float:
-                    buffer.reserveCapacity(4) // 32 bits
-                    buffer.writeInteger((data[def.name] as! Float32).bitPattern, as: UInt32.self)
+                    tmpBuffer.reserveCapacity(4) // 32 bits
+                    tmpBuffer.writeInteger((data[def.name] as! Float32).bitPattern, as: UInt32.self)
                     break
                 case .double:
-                    buffer.reserveCapacity(8) // 64 bits
-                    buffer.writeInteger((data[def.name] as! Float64).bitPattern, as: UInt64.self)
+                    tmpBuffer.reserveCapacity(8) // 64 bits
+                    tmpBuffer.writeInteger((data[def.name] as! Float64).bitPattern, as: UInt64.self)
                     break
                 case .uuid:
-                    buffer.reserveCapacity(16) // 128 bits
+                    tmpBuffer.reserveCapacity(16) // 128 bits
                     let uuid = (data[def.name] as! UUID).uuid
                     let bytes = [uuid.0, uuid.1, uuid.2,  uuid.3,  uuid.4,  uuid.5,  uuid.6,  uuid.7,
                                  uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15]
-                    buffer.writeBytes(bytes)
+                    tmpBuffer.writeBytes(bytes)
                     break
                 case .string:
-                    buffer.reserveCapacity((data[def.name] as! String).utf8.count)
-                    buffer.writeString(data[def.name] as! String)
+                    tmpBuffer.reserveCapacity((data[def.name] as! String).utf8.count)
+                    tmpBuffer.writeString(data[def.name] as! String)
                     break
                 case .varInt:
-                    buffer.writeVarInt(data[def.name] as! Int32)
+                    tmpBuffer.writeVarInt(data[def.name] as! Int32)
                     break
                 case .varLong:
-                    buffer.writeVarLong(data[def.name] as! Int64)
+                    tmpBuffer.writeVarLong(data[def.name] as! Int64)
                     break
                 case .varString:
-                    buffer.writeVarString(data[def.name] as! String)
+                    tmpBuffer.writeVarString(data[def.name] as! String)
                     break
             }
         }
+        let length: Int32 = Int32(tmpBuffer.readableBytes)
+        buffer.writeVarInt(length)
+        buffer.reserveCapacity(buffer.readableBytes + Int(length))
+        buffer.writeBuffer(&tmpBuffer)
     }
-
 }
