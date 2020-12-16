@@ -223,7 +223,6 @@ extension PacketProtocol {
             workingDef = inDefinition!
         }
         var tmpBuffer = ByteBufferAllocator().buffer(buffer: buffer)
-        tmpBuffer.writeVarInt(self.id)
         for def in workingDef {
             switch def.type {
                 case .boolean:
@@ -296,6 +295,7 @@ extension PacketProtocol {
         }
         let length: Int32 = Int32(tmpBuffer.readableBytes)
         buffer.writeVarInt(length)
+        buffer.writeVarInt(self.id)
         buffer.reserveCapacity(buffer.readableBytes + Int(length))
         buffer.writeBuffer(&tmpBuffer)
     }
