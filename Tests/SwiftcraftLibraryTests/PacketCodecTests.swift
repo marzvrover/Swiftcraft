@@ -5,23 +5,6 @@ import NIOTestUtils
 @testable import SwiftcraftLibrary
 
 final class PacketCodecTests: XCTestCase {
-    class TestPacket: Packet {
-        init(definition: Definition) {
-            super.init(
-                id: Int32.min,
-                definition: definition,
-                data: [:]
-                )
-        }
-        init(definition: Definition, data: [String:Any]) {
-            super.init(
-                id: Int32.min,
-                definition: definition,
-                data: data
-                )
-        }
-    }
-
     let allocator = ByteBufferAllocator()
 
     func testDecodeHandshake() {
@@ -33,12 +16,11 @@ final class PacketCodecTests: XCTestCase {
         test.address = "127.0.0.1"
 
         test.encode(buffer: &buffer)
-        print("buffer.getBytes(6) = \(String(describing: buffer.getBytes(at: buffer.readerIndex, length: 6)!))")
         do {
             try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
                 (buffer, [test])
             ]) {
-                return PacketDecoder()
+                return PacketCodec()
             }
         } catch {
             if !(error is PacketDecoderError) {

@@ -6,11 +6,15 @@ enum PacketDecoderError: Error {
     case unknownPacketID(Int32)
 }
 /// The `ByteToMessageDecoder` for decoding `Packets`
-struct PacketDecoder: ByteToMessageDecoder {
+struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// The `InboundIn` datatype is a `ByteBuffer`
     typealias InboundIn = ByteBuffer
     /// The `InboundOut` datatype is a `Packet`
     typealias InboundOut = Packet
+    /// The `OutboundIn` datatype is a `Packet`
+    typealias OutboundIn = Packet
+    /// The `OutboundOut` datatype is a `ByteBuffer`
+    typealias OutboundOut = ByteBuffer
     /// The method to decode the `Packet`
     /// - parameters:
     ///     - context: `ChannelHandlerContext`
@@ -66,13 +70,6 @@ struct PacketDecoder: ByteToMessageDecoder {
             throw error
         }
     }
-}
-/// The `MessageToByteDecoder` for decoding `Packets`
-struct PacketEncoder: MessageToByteEncoder {
-    /// The `OutboundIn` datatype is a `Packet`
-    typealias OutboundIn = Packet
-    /// The `OutboundOut` datatype is a `ByteBuffer`
-    typealias OutboundOut = ByteBuffer
     /// The method to encode the `Packet`
     /// - parameters:
     ///     - data: Out going `Packet`
