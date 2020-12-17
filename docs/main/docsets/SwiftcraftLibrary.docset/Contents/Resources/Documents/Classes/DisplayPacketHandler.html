@@ -57,6 +57,12 @@
                 <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
               </li>
             </ul>
@@ -104,7 +110,7 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/Packet.html">Packet</a>
+                <a class="nav-group-task-link" href="../Protocols/PacketProtocol.html">PacketProtocol</a>
               </li>
             </ul>
           </li>
@@ -112,10 +118,7 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Handshake.html">Handshake</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PacketDecoder.html">PacketDecoder</a>
+                <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
               </li>
             </ul>
           </li>
@@ -141,10 +144,10 @@
 
                 </div>
               </div>
-            <p>A <code>ChannelInboundHandler</code> to display <code><a href="../Protocols/Packet.html">Packet</a></code>s.</p>
+            <p>A <code>ChannelInboundHandler</code> to display <code><a href="../Classes/Packet.html">Packet</a></code>s.</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/DisplayPacketHandler.swift#L5-L30">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L5-L30">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -172,12 +175,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">InboundIn</span> <span class="o">=</span> <span class="kt"><a href="../Protocols/Packet.html">Packet</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">InboundIn</span> <span class="o">=</span> <span class="kt"><a href="../Classes/Packet.html">Packet</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/DisplayPacketHandler.swift#L40">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L40">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -201,12 +204,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">InboundOut</span> <span class="o">=</span> <span class="kt"><a href="../Protocols/Packet.html">Packet</a></span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">typealias</span> <span class="kt">InboundOut</span> <span class="o">=</span> <span class="kt"><a href="../Classes/Packet.html">Packet</a></span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/DisplayPacketHandler.swift#L43">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L43">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -259,7 +262,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p><code>NIOAny</code> which can be unwrapped to have a <code><a href="../Protocols/Packet.html">Packet</a></code></p>
+                                  <p><code>NIOAny</code> which can be unwrapped to have a <code><a href="../Classes/Packet.html">Packet</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -267,7 +270,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/DisplayPacketHandler.swift#L12-L29">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L12-L29">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -280,7 +283,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-16)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -57,6 +57,12 @@
                 <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
               </li>
             </ul>
@@ -104,7 +110,7 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/Packet.html">Packet</a>
+                <a class="nav-group-task-link" href="../Protocols/PacketProtocol.html">PacketProtocol</a>
               </li>
             </ul>
           </li>
@@ -112,10 +118,7 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Handshake.html">Handshake</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PacketDecoder.html">PacketDecoder</a>
+                <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
               </li>
             </ul>
           </li>
@@ -144,7 +147,7 @@
             <p>Extend <code>ByteBuffer</code> to add reading and writing Minecraft DataTypes</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIO/ByteBuffer-core.swift#L25-L127">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIO/ByteBuffer-core.swift#L18-L142">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -153,6 +156,104 @@
           <div class="section-content">
             <div class="task-group">
               <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3NIO10ByteBufferV17SwiftcraftLibraryE9writeBoolyySbF"></a>
+                    <a name="//apple_ref/swift/Method/writeBool(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3NIO10ByteBufferV17SwiftcraftLibraryE9writeBoolyySbF">writeBool(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write a <code>Bool</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">writeBool</span><span class="p">(</span><span class="n">_</span> <span class="nv">bool</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>bool</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Bool</code> value to write to the <code>ByteBuffer</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L23-L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3NIO10ByteBufferV17SwiftcraftLibraryE05writeB0yys5UInt8VF"></a>
+                    <a name="//apple_ref/swift/Method/writeByte(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3NIO10ByteBufferV17SwiftcraftLibraryE05writeB0yys5UInt8VF">writeByte(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write a <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">writeByte</span><span class="p">(</span><span class="n">_</span> <span class="nv">byte</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>byte</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>Bool</code> value to write to the <code>ByteBuffer</code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L30-L33">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
                 <li class="item">
                   <div>
                     <code>
@@ -184,7 +285,7 @@
                         <p>A <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L31-L33">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L39-L41">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -202,7 +303,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>VarInt</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     Throws <code>VarIntError.VarIntIsTooBig</code>
@@ -224,7 +325,7 @@
                         <p>A <code>Int32</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L40-L54">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L47-L61">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -242,7 +343,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write a <code>VarInt</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -265,7 +366,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>Int32</code> value to write as a <code>VarInt</code></p>
+                                  <p>A <code>Int32</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -273,7 +374,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L59-L75">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L66-L82">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -291,7 +392,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>VarLong</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">PacketData</code>.<code>varLong</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <code>VarLongError.VarLongIsTooBig</code>
@@ -313,7 +414,7 @@
                         <p>A <code>Int64</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L82-L97">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L88-L103">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -331,7 +432,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write a <code>VarLong</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">PacketData</code>.<code>varLong</a></code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -354,7 +455,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>Int64</code> value to write as a <code>VarLong</code></p>
+                                  <p>A <code>Int64</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">PacketData</code>.<code>varLong</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -362,7 +463,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L102-L117">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L108-L123">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -380,7 +481,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>VarString</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes.</p>
 
                       </div>
                       <div class="declaration">
@@ -397,7 +498,56 @@
                         <p>A <code>String</code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L123-L126">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L128-L131">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:3NIO10ByteBufferV17SwiftcraftLibraryE14writeVarStringyySSF"></a>
+                    <a name="//apple_ref/swift/Method/writeVarString(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:3NIO10ByteBufferV17SwiftcraftLibraryE14writeVarStringyySSF">writeVarString(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code> onto this <code>ByteBuffer</code>, move the writer index forward by the size in bytes.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">writeVarString</span><span class="p">(</span><span class="n">_</span> <span class="nv">varString</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>varString</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A <code>String</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code></p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L136-L141">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -410,7 +560,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-16)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

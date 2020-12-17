@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Handshake Structure Reference</title>
+    <title>Packet Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Struct/Handshake" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/Packet" class="dashAnchor"></a>
 
-    <a title="Handshake Structure Reference"></a>
+    <a title="Packet Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftcraftLibrary Reference</a>
       <img class="carat" src="../img/carat.png" />
-      Handshake Structure Reference
+      Packet Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -55,6 +55,12 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
@@ -104,7 +110,7 @@
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Protocols/Packet.html">Packet</a>
+                <a class="nav-group-task-link" href="../Protocols/PacketProtocol.html">PacketProtocol</a>
               </li>
             </ul>
           </li>
@@ -112,10 +118,7 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/Handshake.html">Handshake</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Structs/PacketDecoder.html">PacketDecoder</a>
+                <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
               </li>
             </ul>
           </li>
@@ -133,18 +136,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>Handshake</h1>
+            <h1>Packet</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">struct</span> <span class="kt">Handshake</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/Packet.html">Packet</a></span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Packet</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/PacketProtocol.html">PacketProtocol</a></span> <span class="o">&amp;</span> <span class="kt">Equatable</span></code></pre>
 
                 </div>
               </div>
-            <p>The Minecraft Handshake <code><a href="../Protocols/Packet.html">Packet</a></code></p>
+            <p>Packet class. This is the base class for all Packets.</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L12-L68">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L45-L117">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -156,9 +159,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV2ids5Int32Vvp"></a>
-                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV2ids5Int32Vvp">id</a>
+                    <a name="/s:17SwiftcraftLibrary6PacketC2eeoiySbAC_ACtFZ"></a>
+                    <a name="//apple_ref/swift/Method/==(_:_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary6PacketC2eeoiySbAC_ACtFZ">==(_:<wbr>_:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,19 +169,25 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>The <code><a href="../Protocols/Packet.html#/s:17SwiftcraftLibrary6PacketP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Handshake Packet is 0x00</p>
+                        <p>Conform to <code>Equatable</code> using <code>AnyHashable</code> to determine if values of type <code>Any</code> are equal.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    There has to be a better way to this.
+    But seeing as we shouldn&rsquo;t have to compare <code>Packet</code>s often besides in tests this will do for now.
+
+</div>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int32</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">static</span> <span class="kd">func</span> <span class="o">==</span> <span class="p">(</span><span class="nv">lhs</span><span class="p">:</span> <span class="kt">Packet</span><span class="p">,</span> <span class="nv">rhs</span><span class="p">:</span> <span class="kt">Packet</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L14">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L50-L106">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -186,9 +195,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV4dataSDySSypGvp"></a>
+                    <a name="/s:17SwiftcraftLibrary14PacketProtocolP4dataSDySSypGvp"></a>
                     <a name="//apple_ref/swift/Property/data" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV4dataSDySSypGvp">data</a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary14PacketProtocolP4dataSDySSypGvp">data</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -196,9 +205,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>This is where the key=&gt;value pairs from the packet are stored.
-At first this field is an empty [:] while waiting for the decoder to decode values.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -209,7 +216,7 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L17">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L123">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -217,9 +224,9 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV10definitionSaySS4name_AA10PacketDataO4typeSDySSypGSg4argstGvp"></a>
+                    <a name="/s:17SwiftcraftLibrary14PacketProtocolP10definitionSaySS4name_AA0C4DataO4typeSDySSypGSg4argstGvp"></a>
                     <a name="//apple_ref/swift/Property/definition" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV10definitionSaySS4name_AA10PacketDataO4typeSDySSypGSg4argstGvp">definition</a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary14PacketProtocolP10definitionSaySS4name_AA0C4DataO4typeSDySSypGSg4argstGvp">definition</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -227,42 +234,7 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Defines how to decode the <code>Handshake</code> <code><a href="../Protocols/Packet.html">Packet</a></code></p>
-
-<table><thead>
-<tr>
-<th>Field Name</th>
-<th>Datatype</th>
-<th>Decoder Arguments</th>
-<th>Notes</th>
-</tr>
-</thead><tbody>
-<tr>
-<td>protocol_version</td>
-<td><code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> aka <code>Int32</code></td>
-<td></td>
-<td>The Minecraft Protocol version number.</td>
-</tr>
-<tr>
-<td>server_address</td>
-<td><code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code> aka <code>String</code></td>
-<td></td>
-<td>The server address the client is connecting to.</td>
-</tr>
-<tr>
-<td>server_port</td>
-<td><code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO13unsignedShortyA2CmF">PacketData</code>.<code>unsignedShort</a></code> aka <code>UInt16</code></td>
-<td></td>
-<td>The server port the client is connecting to.</td>
-</tr>
-<tr>
-<td>intention</td>
-<td><code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> aka <code>Int32</code></td>
-<td></td>
-<td>1 for status, 2 for login</td>
-</tr>
-</tbody></table>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
@@ -273,7 +245,7 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L26">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L125">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -281,9 +253,9 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV7versions5Int32Vvp"></a>
-                    <a name="//apple_ref/swift/Property/version" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV7versions5Int32Vvp">version</a>
+                    <a name="/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp"></a>
+                    <a name="//apple_ref/swift/Property/id" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">id</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -291,19 +263,18 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Getter and setter for <code>Handshake</code>.<code>data[&quot;protocol_version&quot;]</code>.</p>
-
+                        
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">version</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">id</span><span class="p">:</span> <span class="kt">Int32</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L33-L40">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L127">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -311,9 +282,9 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV7addressSSvp"></a>
-                    <a name="//apple_ref/swift/Property/address" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV7addressSSvp">address</a>
+                    <a name="/s:17SwiftcraftLibrary6PacketC2id10definition4dataACs5Int32V_SaySS4name_AA0C4DataO4typeSDySSypGSg4argstGAMtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(id:definition:data:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary6PacketC2id10definition4dataACs5Int32V_SaySS4name_AA0C4DataO4typeSDySSypGSg4argstGAMtcfc">init(id:<wbr>definition:<wbr>data:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -321,79 +292,19 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Getter and setter for <code>Handshake</code>.<code>data[&quot;server_address&quot;]</code>.</p>
+                        <p>Undocumented</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">address</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="nf">init</span><span class="p">(</span><span class="nv">id</span><span class="p">:</span> <span class="kt">Int32</span><span class="p">,</span> <span class="nv">definition</span><span class="p">:</span> <span class="kt">Definition</span><span class="p">,</span> <span class="nv">data</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span> <span class="p">:</span> <span class="kt">Any</span><span class="p">])</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L42-L49">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV4ports6UInt16Vvp"></a>
-                    <a name="//apple_ref/swift/Property/port" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV4ports6UInt16Vvp">port</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Getter and setter for <code>Handshake</code>.<code>data[&quot;server_port&quot;]</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">port</span><span class="p">:</span> <span class="kt">UInt16</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L51-L58">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17SwiftcraftLibrary9HandshakeV9intentions5Int32Vvp"></a>
-                    <a name="//apple_ref/swift/Property/intention" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeV9intentions5Int32Vvp">intention</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Getter and setter for <code>Handshake</code>.<code>data[&quot;intention&quot;]</code>.</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">intention</span><span class="p">:</span> <span class="kt">Int32</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L60-L67">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L112-L116">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -406,7 +317,7 @@ At first this field is an empty [:] while waiting for the decoder to decode valu
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-16)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

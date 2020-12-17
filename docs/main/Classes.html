@@ -57,6 +57,12 @@
                 <a class="nav-group-task-link" href="Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/Packet.html">Packet</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/Server.html">Server</a>
               </li>
             </ul>
@@ -104,7 +110,7 @@
             <a class="nav-group-name-link" href="Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Protocols/Packet.html">Packet</a>
+                <a class="nav-group-task-link" href="Protocols/PacketProtocol.html">PacketProtocol</a>
               </li>
             </ul>
           </li>
@@ -112,10 +118,7 @@
             <a class="nav-group-name-link" href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/Handshake.html">Handshake</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Structs/PacketDecoder.html">PacketDecoder</a>
+                <a class="nav-group-task-link" href="Structs/PacketCodec.html">PacketCodec</a>
               </li>
             </ul>
           </li>
@@ -156,7 +159,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A <code>ChannelInboundHandler</code> to display <code><a href="Protocols/Packet.html">Packet</a></code>s.</p>
+                        <p>A <code>ChannelInboundHandler</code> to display <code><a href="Classes/Packet.html">Packet</a></code>s.</p>
 
                         <a href="Classes/DisplayPacketHandler.html" class="slightly-smaller">See more</a>
                       </div>
@@ -169,7 +172,107 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handlers/DisplayPacketHandler.swift#L5-L30">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L5-L30">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary9HandshakeC"></a>
+                    <a name="//apple_ref/swift/Class/Handshake" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary9HandshakeC">Handshake</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='the-minecraft-handshake-code-packet-code' class='heading'>The Minecraft Handshake <code><a href="Classes/Packet.html">Packet</a></code></h1>
+<h2 id='id' class='heading'>ID</h2>
+
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Handshake Packet is 0x00</p>
+<h2 id='definition' class='heading'>Definition</h2>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Datatype</th>
+<th>Decoder Arguments</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>protocol_version</td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> aka <code>Int32</code></td>
+<td></td>
+<td>The Minecraft Protocol version number.</td>
+</tr>
+<tr>
+<td>server_address</td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code> aka <code>String</code></td>
+<td></td>
+<td>The server address the client is connecting to.</td>
+</tr>
+<tr>
+<td>server_port</td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO13unsignedShortyA2CmF">PacketData</code>.<code>unsignedShort</a></code> aka <code>UInt16</code></td>
+<td></td>
+<td>The server port the client is connecting to.</td>
+</tr>
+<tr>
+<td>intention</td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code> aka <code>Int32</code></td>
+<td></td>
+<td>1 for status, 2 for login</td>
+</tr>
+</tbody></table>
+
+                        <a href="Classes/Handshake.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Handshake</span> <span class="p">:</span> <span class="kt"><a href="Classes/Packet.html">Packet</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Handshake.swift#L17-L67">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary6PacketC"></a>
+                    <a name="//apple_ref/swift/Class/Packet" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary6PacketC">Packet</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Packet class. This is the base class for all Packets.</p>
+
+                        <a href="Classes/Packet.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">Packet</span> <span class="p">:</span> <span class="kt"><a href="Protocols/PacketProtocol.html">PacketProtocol</a></span> <span class="o">&amp;</span> <span class="kt">Equatable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/Packet.swift#L45-L117">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -200,7 +303,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Server.swift#L12-L74">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Server.swift#L5-L67">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -213,7 +316,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-16)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-17)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>
