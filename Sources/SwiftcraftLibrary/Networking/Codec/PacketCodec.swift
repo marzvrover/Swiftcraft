@@ -40,11 +40,17 @@ struct PacketDecoder: ByteToMessageDecoder {
                     if (length > 9) {
                         packet = Handshake()
                     } else {
-                        logger.debug("Packet length < 9", metadata: ["packet length": "\(length)"])
+                        logger.error("Unkown Packet ID with length <= 9",
+                                     metadata: ["packet id": "\(id)",
+                                                "packet length": "\(length)"],
+                                     file: #file,
+                                     function: #function,
+                                     line: #line)
                         throw PacketDecoderError.unknownPacketID(id)
                     }
                     break
                 default:
+                    logger.error("Unkown Packet ID", metadata: ["packet-id": "\(id)"], file: #file, function: #function, line: #line)
                     throw PacketDecoderError.unknownPacketID(id)
             }
 
@@ -55,6 +61,8 @@ struct PacketDecoder: ByteToMessageDecoder {
             return .continue
         } catch {
             buffer = saved
+            // logger.error("Unexpected Error: \(error)", file: #file, function: #function, line: #line)
+            context.fireErrorCaught(error)
             throw error
         }
     }
