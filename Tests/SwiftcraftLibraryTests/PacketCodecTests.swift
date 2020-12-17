@@ -27,12 +27,13 @@ final class PacketCodecTests: XCTestCase {
     func testDecodeHandshake() {
         var buffer = allocator.buffer(capacity: 0)
         let test = Handshake()
-        test.version = 724
+        test.version = 754
         test.port = 25564
         test.intention = 1
         test.address = "127.0.0.1"
 
         test.encode(buffer: &buffer)
+        print("buffer.getBytes(6) = \(String(describing: buffer.getBytes(at: buffer.readerIndex, length: 6)!))")
         do {
             try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
                 (buffer, [test])
@@ -40,7 +41,9 @@ final class PacketCodecTests: XCTestCase {
                 return PacketDecoder()
             }
         } catch {
-            XCTFail("Unexpected Error: \(error)")
+            if !(error is PacketDecoderError) {
+                XCTFail("Unexpected Error: \(error)")
+            }
         }
     }
 
