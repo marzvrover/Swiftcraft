@@ -3,15 +3,17 @@ import class Foundation.Bundle
 import NIO
 @testable import SwiftcraftLibrary
 
-struct TestPacket: Packet {
-    var data: [String : Any] = [:]
-
-    var definition: [(name: String, type: PacketData, args: [String : Any]?)]
-
-    var id: Int32 = Int32.min
-}
-
 final class DataTypeTests: XCTestCase {
+    class TestPacket: Packet {
+        init(definition: Definition) {
+            super.init(
+                id: Int32.min,
+                definition: definition,
+                data: [:]
+                )
+        }
+    }
+
     let allocator = ByteBufferAllocator()
 
     let varIntData: [(bytes: [Byte], value: Int32)] = [
@@ -56,9 +58,15 @@ final class DataTypeTests: XCTestCase {
                  args: nil),
             ])
         try! packet.decode(buffer: &buffer)
-
+    
         XCTAssertTrue(packet.data["bool_true"] as! Bool)
         XCTAssertFalse(packet.data["bool_false"] as! Bool)
+
+        buffer.reserveCapacity(2)
+        packet.encode(buffer: &buffer)
+        try! buffer.readVarInt() // length
+        try! buffer.readVarInt() // Packet ID
+        XCTAssertEqual(buffer.readBytes(length: 2), [0x01, 0x00])
     }
 
     func testByte() {
@@ -77,6 +85,12 @@ final class DataTypeTests: XCTestCase {
                                                   args: ["length": bytes.count])])
             try! packet.decode(buffer: &buffer)
             XCTAssertEqual(packet.data["bytes"] as! [UInt8], bytes)
+
+            buffer.reserveCapacity(bytes.count)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(buffer.readBytes(length: bytes.count), bytes)
         }
     }
 
@@ -116,6 +130,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! Float32, x)
+
+            buffer.reserveCapacity(32)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(Float32(bitPattern: buffer.readInteger(as: UInt32.self)!), x)
         }
     }
 
@@ -131,6 +151,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! Float64, x)
+
+            buffer.reserveCapacity(64)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(Float64(bitPattern: buffer.readInteger(as: UInt64.self)!), x)
         }
     }
 
@@ -149,6 +175,17 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! UUID, x)
+
+            buffer.reserveCapacity(128)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            let byteArray = buffer.readBytes(length: 16)!
+            let uuid: uuid_t = (byteArray[0],  byteArray[1],  byteArray[2],  byteArray[3],
+                                byteArray[4],  byteArray[5],  byteArray[6],  byteArray[7],
+                                byteArray[8],  byteArray[9],  byteArray[10], byteArray[11],
+                                byteArray[12], byteArray[13], byteArray[14], byteArray[15])
+            XCTAssertEqual(UUID(uuid: uuid), x)
         }
     }
 
@@ -162,6 +199,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! String, x)
+
+            buffer.reserveCapacity(x.utf8.count)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(buffer.readString(length: x.utf8.count), x)
         }
     }
 
@@ -175,8 +218,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["var_int"] as! Int32, Int32(varInt.value))
-            // will remake the encode test when the encoder is made
-            // XCTAssertEqual(buffer.readBytes(length: varInt.bytes.count), varInt.bytes)
+
+            buffer.reserveCapacity(varInt.bytes.count)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(buffer.readBytes(length: varInt.bytes.count), varInt.bytes)
         }
     }
 
@@ -190,7 +237,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["var_long"] as! Int64, Int64(varLong.value))
-//            XCTAssertEqual(buffer.readBytes(length: varLong.bytes.count), varLong.bytes)
+
+            buffer.reserveCapacity(varLong.bytes.count)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(buffer.readBytes(length: varLong.bytes.count), varLong.bytes)
         }
     }
 
@@ -206,6 +258,14 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! String, x)
+
+            buffer.reserveCapacity(x.utf8.count + (Int32.bitWidth / 8))
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            let length = try! buffer.readVarInt()
+            XCTAssertEqual(length, Int32(x.utf8.count))
+            XCTAssertEqual(buffer.readString(length: Int(length)), x)
         }
     }
 
@@ -220,6 +280,12 @@ final class DataTypeTests: XCTestCase {
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! T, x)
+
+            buffer.reserveCapacity(T.bitWidth / 8)
+            packet.encode(buffer: &buffer)
+            try! buffer.readVarInt() // length
+            try! buffer.readVarInt() // Packet ID
+            XCTAssertEqual(buffer.readInteger(as: T.self), x)
         }
         var buffer = allocator.buffer(capacity: (T.bitWidth / 8) * 3)
         buffer.writeInteger(T.min, as: T.self)
@@ -239,6 +305,14 @@ final class DataTypeTests: XCTestCase {
         XCTAssertEqual(packet.data["min"] as! T, T.min)
         XCTAssertEqual(packet.data["zero"] as! T, 0)
         XCTAssertEqual(packet.data["max"] as! T, T.max)
+
+        buffer.reserveCapacity((T.bitWidth / 8) * 3)
+        packet.encode(buffer: &buffer)
+        try! buffer.readVarInt() // length
+        try! buffer.readVarInt() // Packet ID
+        XCTAssertEqual(buffer.readInteger(as: T.self), T.min)
+        XCTAssertEqual(buffer.readInteger(as: T.self), 0)
+        XCTAssertEqual(buffer.readInteger(as: T.self), T.max)
     }
 
     static var allTests = [

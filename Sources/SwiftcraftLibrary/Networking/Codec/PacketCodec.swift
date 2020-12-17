@@ -6,11 +6,15 @@ enum PacketDecoderError: Error {
     case unknownPacketID(Int32)
 }
 /// The `ByteToMessageDecoder` for decoding `Packets`
-struct PacketDecoder: ByteToMessageDecoder {
+struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// The `InboundIn` datatype is a `ByteBuffer`
     typealias InboundIn = ByteBuffer
     /// The `InboundOut` datatype is a `Packet`
     typealias InboundOut = Packet
+    /// The `OutboundIn` datatype is a `Packet`
+    typealias OutboundIn = Packet
+    /// The `OutboundOut` datatype is a `ByteBuffer`
+    typealias OutboundOut = ByteBuffer
     /// The method to decode the `Packet`
     /// - parameters:
     ///     - context: `ChannelHandlerContext`
@@ -40,11 +44,17 @@ struct PacketDecoder: ByteToMessageDecoder {
                     if (length > 9) {
                         packet = Handshake()
                     } else {
-                        logger.debug("Packet length < 9", metadata: ["packet length": "\(length)"])
+                        logger.error("Unkown Packet ID with length <= 9",
+                                     metadata: ["packet id": "\(id)",
+                                                "packet length": "\(length)"],
+                                     file: #file,
+                                     function: #function,
+                                     line: #line)
                         throw PacketDecoderError.unknownPacketID(id)
                     }
                     break
                 default:
+                    logger.error("Unkown Packet ID", metadata: ["packet-id": "\(id)"], file: #file, function: #function, line: #line)
                     throw PacketDecoderError.unknownPacketID(id)
             }
 
@@ -55,7 +65,16 @@ struct PacketDecoder: ByteToMessageDecoder {
             return .continue
         } catch {
             buffer = saved
+            // logger.error("Unexpected Error: \(error)", file: #file, function: #function, line: #line)
+            context.fireErrorCaught(error)
             throw error
         }
+    }
+    /// The method to encode the `Packet`
+    /// - parameters:
+    ///     - data: Out going `Packet`
+    ///     - out: `inout` `ByteBuffer`: The `ByteBuffer` to encode on
+    func encode(data: OutboundIn, out: inout ByteBuffer) throws {
+        data.encode(buffer: &out)
     }
 }

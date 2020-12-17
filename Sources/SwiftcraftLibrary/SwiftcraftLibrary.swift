@@ -1,10 +1,3 @@
-//
-//  SwiftcraftLibrary.swift
-//  Swiftcraft
-//
-//  Created by Marz Rover on 12/2/20.
-//
-
 import Foundation
 import Logging
 

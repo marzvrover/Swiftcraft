@@ -39,13 +39,13 @@ let package = Package(
             dependencies: [
                 "SwiftcraftLibrary",
                 .product(name: "NIO", package: "swift-nio"),
+                .product(name: "NIOTestUtils", package: "swift-nio"),
             ]
         ),
         .testTarget(
             name: "SwiftcraftTests",
             dependencies: [
                 "Swiftcraft",
-                .product(name: "NIO", package: "swift-nio"),
             ]
         ),
     ]
