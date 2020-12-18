@@ -41,6 +41,7 @@ enum PacketData: String {
     /// Minecraft `VarString` is a `String`
     case varString = "String"
 }
+// MARK: Packet
 /// Packet class. This is the base class for all Packets.
 class Packet: PacketProtocol & Equatable {
     /// Conform to `Equatable` using `AnyHashable` to determine if values of type `Any` are equal.
@@ -126,9 +127,9 @@ protocol PacketProtocol {
     /// The packet's Minecraft ID
     var id: Int32 { get }
 }
-
 /// Because of a definition field we can quickly and easily decode / encode packets
 extension PacketProtocol {
+    // MARK: Packet.decode
     /// Decode the pack according to the `Packet`.`definition` field.
     /// Load the results into the `Packet`.`data` field.
     ///
@@ -205,6 +206,7 @@ extension PacketProtocol {
             }
         }
     }
+    // MARK: Packet.encode
     /// Encode the pack according to the `Packet`.`definition` field.
     /// Load the data from the `Packet`.`data` field.
     ///

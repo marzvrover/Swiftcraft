@@ -13,7 +13,6 @@ enum VarLongError: Error {
     /// Too many `Byte`s for the data to be a `PacketData`.`varLong`
     case varLongIsTooBig
 }
-
 /// Extend `ByteBuffer` to add reading and writing Minecraft DataTypes
 extension ByteBuffer {
     /// Write a `Bool` into this `ByteBuffer`, move the writer index forward by number of bytes written.
@@ -23,6 +22,7 @@ extension ByteBuffer {
     public mutating func writeBool(_ bool: Bool) {
         self.writeByte(bool ? 0x01 : 0x00)
     }
+    // MARK: Byte
     /// Write a `Byte` into this `ByteBuffer`, move the writer index forward by number of bytes written.
     ///
     /// - parameters:
@@ -39,6 +39,7 @@ extension ByteBuffer {
     public mutating func readByte() -> Byte? {
         return self.readBytes(length: 1)?[0]
     }
+    // MARK: VarInt
     /// Read a `PacketData`.`varInt` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int32` value deserialized from this `ByteBuffer`.
@@ -80,6 +81,7 @@ extension ByteBuffer {
         self.reserveCapacity(out.count)
         self.writeBytes(out)
     }
+    // MARK: VarLong
     /// Read a `PacketData`.`varLong` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int64` value deserialized from this `ByteBuffer`.
@@ -121,6 +123,7 @@ extension ByteBuffer {
         self.reserveCapacity(out.count)
         self.writeBytes(out)
     }
+    // MARK: VarString
     /// Read a `PacketData`.`varString` off this `ByteBuffer`, move the reader index forward by the size in bytes.
     ///
     /// - returns: A `String` value deserialized from this `ByteBuffer` or `nil` if there aren't enough bytes readable.

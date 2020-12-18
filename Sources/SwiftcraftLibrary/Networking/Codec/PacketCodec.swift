@@ -15,6 +15,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     typealias OutboundIn = Packet
     /// The `OutboundOut` datatype is a `ByteBuffer`
     typealias OutboundOut = ByteBuffer
+    // MARK: PacketDecoder
     /// The method to decode the `Packet`
     /// - parameters:
     ///     - context: `ChannelHandlerContext`
@@ -22,6 +23,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// - throws: May throw any `PacketDecoderError`
     /// - returns: `DecodingState`
     mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
+        // TODO: handle 0xFE packet
         // 5 bytes is the max length for a VarInt (which tells us our packet length)
         guard buffer.readableBytes >= 5 else {
             return .needMoreData
@@ -70,6 +72,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
             throw error
         }
     }
+    // MARK: PacketEncoder
     /// The method to encode the `Packet`
     /// - parameters:
     ///     - data: Out going `Packet`
