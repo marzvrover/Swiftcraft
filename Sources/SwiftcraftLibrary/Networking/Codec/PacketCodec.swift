@@ -1,9 +1,12 @@
 import Foundation
 import NIO
-/// Errors that may be thrown by `PacketDecoder`
-enum PacketDecoderError: Error {
-    /// Unkown `Packet`.`id`
-    case unknownPacketID(Int32)
+/// Errors that may be thrown by `PacketCodec`
+enum PacketCodecError {
+    /// Errors related to decoding
+    enum decode: Error {
+        /// Unkown `Packet`.`id`
+        case unknownPacketID(Int32)
+    }
 }
 /// The `ByteToMessageDecoder` for decoding `Packets`
 struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
@@ -52,12 +55,12 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
                                      file: #file,
                                      function: #function,
                                      line: #line)
-                        throw PacketDecoderError.unknownPacketID(id)
+                        throw PacketCodecError.decode.unknownPacketID(id)
                     }
                     break
                 default:
                     logger.error("Unkown Packet ID", metadata: ["packet-id": "\(id)"], file: #file, function: #function, line: #line)
-                    throw PacketDecoderError.unknownPacketID(id)
+                    throw PacketCodecError.decode.unknownPacketID(id)
             }
 
             try packet.decode(buffer: &buffer)
