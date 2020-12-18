@@ -46,12 +46,12 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
 
             switch id {
                 case 0x00:
-                    if (length > 9) {
+                    if length > 9 {
                         packet = Handshake()
                     } else {
                         logger.error("Unkown Packet ID with length <= 9",
                                      metadata: ["packet id": "\(id)",
-                                                "packet length": "\(length)"],
+                                                "packet length": "\(length)",],
                                      file: #file,
                                      function: #function,
                                      line: #line)

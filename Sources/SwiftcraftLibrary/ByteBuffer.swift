@@ -53,7 +53,7 @@ extension ByteBuffer {
             input = self.readByte()!
             result |= UInt32(input & Byte(0x7F)) << UInt32(shift * 7)
             shift += 1
-            if (shift > 5) {
+            if shift > 5 {
                 throw VarIntError.varIntIsTooBig
             }
         } while ((input & 0x80) != 0)
@@ -72,7 +72,7 @@ extension ByteBuffer {
         repeat {
             part = Byte(value & 0x7F)
             value >>= 7
-            if (value != 0) {
+            if value != 0 {
                 part |= 0x80
             }
             out.append(part)
@@ -96,7 +96,7 @@ extension ByteBuffer {
             input = self.readByte()!
             result |= UInt64(input & Byte(0x7F)) << UInt64(shift * 7)
             shift += 1
-            if (shift > 10) {
+            if shift > 10 {
                 throw VarLongError.varLongIsTooBig
             }
         } while ((input & 0x80) != 0)
@@ -114,7 +114,7 @@ extension ByteBuffer {
         repeat {
             part = Byte(value & 0x7F)
             value >>= 7
-            if (value != 0) {
+            if value != 0 {
                 part |= 0x80
             }
             out.append(part)

@@ -105,12 +105,12 @@ class Packet: PacketProtocol & Equatable {
 
         return true
     }
-    
-    var data: [String : Any]
+
+    var data: [String: Any]
     var definition: Definition
     var id: Int32
-    
-    internal init(id: Int32, definition: Definition, data: [String : Any]) {
+
+    internal init(id: Int32, definition: Definition, data: [String: Any]) {
         self.id = id
         self.definition = definition
         self.data = data
@@ -119,9 +119,9 @@ class Packet: PacketProtocol & Equatable {
 
 /// A Packet must have these fields.
 protocol PacketProtocol {
-    typealias Definition = [(name: String, type: PacketData, args: [String : Any]?)]
+    typealias Definition = [(name: String, type: PacketData, args: [String: Any]?)]
     /// This is where the key=>value pairs from the packet are stored.
-    var data: [String:Any] { get set }
+    var data: [String: Any] { get set }
     /// Defines how to decode the packet
     var definition: Definition { get }
     /// The packet's Minecraft ID
@@ -187,7 +187,7 @@ extension PacketProtocol {
                     break
                 case .uuid:
                     let b = buffer.readBytes(length: 16)!
-                    let uuid: uuid_t = (b[0], b[1], b[2],  b[3],  b[4],  b[5],  b[6],  b[7],
+                    let uuid: uuid_t = (b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7],
                                         b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15])
                     data[def.name] = UUID(uuid: uuid)
                     break
@@ -276,8 +276,8 @@ extension PacketProtocol {
                 case .uuid:
                     tmpBuffer.reserveCapacity(16) // 128 bits
                     let uuid = (data[def.name] as! UUID).uuid
-                    let bytes = [uuid.0, uuid.1, uuid.2,  uuid.3,  uuid.4,  uuid.5,  uuid.6,  uuid.7,
-                                 uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15]
+                    let bytes = [uuid.0, uuid.1, uuid.2, uuid.3, uuid.4, uuid.5, uuid.6, uuid.7,
+                                 uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15,]
                     tmpBuffer.writeBytes(bytes)
                     break
                 case .string:

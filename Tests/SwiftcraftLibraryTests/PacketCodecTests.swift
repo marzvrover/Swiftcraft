@@ -18,7 +18,7 @@ final class PacketCodecTests: XCTestCase {
         test.encode(buffer: &buffer)
         do {
             try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
-                (buffer, [test])
+                (buffer, [test]),
             ]) {
                 return PacketCodec()
             }

@@ -9,7 +9,7 @@ srand(UInt32(time(nil)))
 #endif
 
 signal(SIGINT) {_ in
-    if (server.isRunning == true) {
+    if server.isRunning == true {
         server.shutdown()
     }
     exit(0)
