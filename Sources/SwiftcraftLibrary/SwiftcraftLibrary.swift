@@ -1,12 +1,13 @@
 import Foundation
 import Logging
 
-public enum State: Int8 {
-    case status = 1
-    case login = 2
-    case play = 3
+public enum State {
+    case handshaking
+    case status
+    case login
+    case play
 }
 
-var playerState: State = .status
+var playerState: State = .handshaking
 
 public let logger = Logger(label: "SwiftcraftLibrary")
