@@ -2,7 +2,7 @@ import XCTest
 import class Foundation.Bundle
 import NIO
 @testable import SwiftcraftLibrary
-
+// swiftlint:disable trailing_comma
 final class DataTypeTests: XCTestCase {
     class TestPacket: Packet {
         init(definition: Definition) {
@@ -82,7 +82,7 @@ final class DataTypeTests: XCTestCase {
             var buffer = allocator.buffer(bytes: bytes)
             var packet = TestPacket(definition: [(name: "bytes",
                                                   type: .byteArray,
-                                                  args: ["length": bytes.count]),])
+                                                  args: ["length": bytes.count])])
             try! packet.decode(buffer: &buffer)
             XCTAssertEqual(packet.data["bytes"] as! [UInt8], bytes)
 
@@ -126,7 +126,7 @@ final class DataTypeTests: XCTestCase {
             buffer.writeInteger(x.bitPattern, as: UInt32.self)
             var packet = TestPacket(definition: [(name: "data",
                                                   type: .float,
-                                                  args: nil),])
+                                                  args: nil)])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! Float32, x)
@@ -147,7 +147,7 @@ final class DataTypeTests: XCTestCase {
             buffer.writeInteger(x.bitPattern, as: UInt64.self)
             var packet = TestPacket(definition: [(name: "data",
                                                   type: .double,
-                                                  args: nil),])
+                                                  args: nil)])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! Float64, x)
@@ -171,7 +171,7 @@ final class DataTypeTests: XCTestCase {
             ])
             var packet = TestPacket(definition: [(name: "data",
                                                   type: .uuid,
-                                                  args: nil),])
+                                                  args: nil)])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! UUID, x)
@@ -195,7 +195,7 @@ final class DataTypeTests: XCTestCase {
             var buffer = allocator.buffer(bytes: x.utf8)
             var packet = TestPacket(definition: [(name: "data",
                                                   type: .string,
-                                                  args: ["length": x.utf8.count]),])
+                                                  args: ["length": x.utf8.count])])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! String, x)
@@ -214,7 +214,7 @@ final class DataTypeTests: XCTestCase {
 
             var packet = TestPacket(definition: [(name: "var_int",
                                                   type: .varInt,
-                                                  args: nil),])
+                                                  args: nil)])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["var_int"] as! Int32, Int32(varInt.value))
@@ -233,7 +233,7 @@ final class DataTypeTests: XCTestCase {
 
             var packet = TestPacket(definition: [(name: "var_long",
                                                   type: .varLong,
-                                                  args: nil),])
+                                                  args: nil)])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["var_long"] as! Int64, Int64(varLong.value))
@@ -254,7 +254,7 @@ final class DataTypeTests: XCTestCase {
             buffer.writeBytes(x.utf8)
             var packet = TestPacket(definition: [(name: "data",
                                                   type: .varString,
-                                                  args: ["length": x.utf8.count]),])
+                                                  args: ["length": x.utf8.count])])
             try! packet.decode(buffer: &buffer)
 
             XCTAssertEqual(packet.data["data"] as! String, x)
@@ -299,7 +299,7 @@ final class DataTypeTests: XCTestCase {
                                               args: nil),
                                              (name: "max",
                                               type: packetType,
-                                              args: nil),])
+                                              args: nil)])
         try! packet.decode(buffer: &buffer)
 
         XCTAssertEqual(packet.data["min"] as! T, T.min)
