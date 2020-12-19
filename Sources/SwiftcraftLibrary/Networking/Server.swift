@@ -1,5 +1,6 @@
 import Foundation
 import NIO
+import DotEnv
 
 /// Server class
 open class Server {
@@ -34,10 +35,21 @@ open class Server {
             .childChannelOption(ChannelOptions.recvAllocator, value: AdaptiveRecvByteBufferAllocator())
     }
     /// To instantiate the server you provide the host and path
-    public init(host: String, port: Int) {
+    public init(host: String? = nil, port: Int? = nil) {
         self.isRunning = false
-        self.host = host
-        self.port = port
+        DotEnv.load(path: "server.properties")
+        if host != nil {
+            self.host = host!
+        } else {
+            self.host = ProcessInfo.processInfo.environment["server-ip"] ?? "127.0.0.1"
+        }
+        if port != nil {
+            self.port = port!
+        } else if ProcessInfo.processInfo.environment["server-port"] == nil {
+            self.port = 25565
+        } else {
+            self.port = Int(ProcessInfo.processInfo.environment["server-port"]!)!
+        }
     }
     /// You start the server with the `run()` method.
     /// This binds the `Server`.`bootstrap` to the `Server`.`host` and `Server`.`port`.

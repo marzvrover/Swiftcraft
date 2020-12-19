@@ -19,10 +19,7 @@ let logger = Logger(label: "Swiftcraft")
 
 logger.info("Welcome to Swiftcraft!")
 
-let host = "127.0.0.1"
-let port = 25565
-
-var server = Server(host: host, port: port)
+var server = Server()
 
 defer {
     server.shutdown()
