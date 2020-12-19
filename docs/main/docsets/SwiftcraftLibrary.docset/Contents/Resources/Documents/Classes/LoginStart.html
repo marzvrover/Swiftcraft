@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>VarIntError Enumeration Reference</title>
+    <title>LoginStart Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/VarIntError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/LoginStart" class="dashAnchor"></a>
 
-    <a title="VarIntError Enumeration Reference"></a>
+    <a title="LoginStart Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftcraftLibrary Reference</a>
       <img class="carat" src="../img/carat.png" />
-      VarIntError Enumeration Reference
+      LoginStart Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -145,18 +145,43 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>VarIntError</h1>
+            <h1>LoginStart</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">VarIntError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LoginStart</span> <span class="p">:</span> <span class="kt"><a href="../Classes/Packet.html">Packet</a></span></code></pre>
 
                 </div>
               </div>
-            <p><code>Error</code> <code>enum</code> for <code>VarInt</code></p>
+            <h1 id='the-minecraft-login-start-code-packet-code' class='heading'>The Minecraft Login Start <code><a href="../Classes/Packet.html">Packet</a></code></h1>
+<h2 id='id' class='heading'>ID</h2>
+
+<p>The <code><a href="../Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Login Start Packet is 0x00</p>
+<h2 id='definition' class='heading'>Definition</h2>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Datatype</th>
+<th>Decoder Arguments</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Name</td>
+<td><code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code></td>
+<td></td>
+<td>Player&rsquo;s username</td>
+</tr>
+</tbody></table>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The protocol claims that name is a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6stringyA2CmF">PacketData</code>.<code>string</a></code> of length 16, but I have found it to be a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code>.
+
+</div>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L7-L10">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/LoginStart.swift#L16-L36">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -168,9 +193,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary11VarIntErrorO03varD8IsTooBigyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/varIntIsTooBig" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11VarIntErrorO03varD8IsTooBigyA2CmF">varIntIsTooBig</a>
+                    <a name="/s:17SwiftcraftLibrary10LoginStartCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary10LoginStartCACycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -178,19 +203,49 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Too many <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code>s for the data to be a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code></p>
+                        <p>LoginStart Initializer</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">varIntIsTooBig</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L9">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/LoginStart.swift#L18-L26">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary10LoginStartC4nameSSvp"></a>
+                    <a name="//apple_ref/swift/Property/name" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary10LoginStartC4nameSSvp">name</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Getter and setter for <code>LoginStart</code>.<code>data[&quot;name&quot;]</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="k">var</span> <span class="nv">name</span><span class="p">:</span> <span class="kt">String</span> <span class="p">{</span> <span class="k">get</span> <span class="k">set</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/LoginStart.swift#L28-L35">Show on GitHub</a>
                       </div>
                     </section>
                   </div>

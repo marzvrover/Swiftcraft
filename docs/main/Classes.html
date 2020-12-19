@@ -60,10 +60,16 @@
                 <a class="nav-group-task-link" href="Classes/Handshake.html">Handshake</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/LoginStart.html">LoginStart</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/Server.html">Server</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/StatusRequest.html">StatusRequest</a>
               </li>
             </ul>
           </li>
@@ -175,7 +181,7 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L5-L30">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Handler/DisplayPacketHandler.swift#L5-L42">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -249,6 +255,62 @@
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary10LoginStartC"></a>
+                    <a name="//apple_ref/swift/Class/LoginStart" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary10LoginStartC">LoginStart</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='the-minecraft-login-start-code-packet-code' class='heading'>The Minecraft Login Start <code><a href="Classes/Packet.html">Packet</a></code></h1>
+<h2 id='id' class='heading'>ID</h2>
+
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Login Start Packet is 0x00</p>
+<h2 id='definition' class='heading'>Definition</h2>
+
+<table><thead>
+<tr>
+<th>Field Name</th>
+<th>Datatype</th>
+<th>Decoder Arguments</th>
+<th>Notes</th>
+</tr>
+</thead><tbody>
+<tr>
+<td>Name</td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code></td>
+<td></td>
+<td>Player&rsquo;s username</td>
+</tr>
+</tbody></table>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    The protocol claims that name is a <code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6stringyA2CmF">PacketData</code>.<code>string</a></code> of length 16, but I have found it to be a <code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">PacketData</code>.<code>varString</a></code>.
+
+</div>
+
+                        <a href="Classes/LoginStart.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">LoginStart</span> <span class="p">:</span> <span class="kt"><a href="Classes/Packet.html">Packet</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/LoginStart.swift#L16-L36">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
             <div class="task-group">
@@ -296,6 +358,43 @@
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:17SwiftcraftLibrary13StatusRequestC"></a>
+                    <a name="//apple_ref/swift/Class/StatusRequest" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary13StatusRequestC">StatusRequest</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <h1 id='the-minecraft-server-bound-status-request-code-packet-code' class='heading'>The Minecraft Server Bound Status Request <code><a href="Classes/Packet.html">Packet</a></code></h1>
+<h2 id='id' class='heading'>ID</h2>
+
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Server Bound Status Request Packet is 0x00</p>
+<h2 id='definition' class='heading'>Definition</h2>
+
+<p>empty</p>
+
+                        <a href="Classes/StatusRequest.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">StatusRequest</span> <span class="p">:</span> <span class="kt"><a href="Classes/Packet.html">Packet</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/StatusRequest.swift#L11-L20">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:17SwiftcraftLibrary6ServerC"></a>
                     <a name="//apple_ref/swift/Class/Server" class="dashAnchor"></a>
                     <a class="token" href="#/s:17SwiftcraftLibrary6ServerC">Server</a>
@@ -332,7 +431,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-18)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external">Marz Rover</a>. All rights reserved. (Last updated: 2020-12-19)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.6</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

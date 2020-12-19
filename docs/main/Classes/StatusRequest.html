@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>VarIntError Enumeration Reference</title>
+    <title>StatusRequest Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,9 +14,9 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Enum/VarIntError" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/StatusRequest" class="dashAnchor"></a>
 
-    <a title="VarIntError Enumeration Reference"></a>
+    <a title="StatusRequest Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
@@ -44,7 +44,7 @@
     <p class="breadcrumbs">
       <a class="breadcrumb" href="../index.html">SwiftcraftLibrary Reference</a>
       <img class="carat" src="../img/carat.png" />
-      VarIntError Enumeration Reference
+      StatusRequest Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -145,18 +145,24 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>VarIntError</h1>
+            <h1>StatusRequest</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">enum</span> <span class="kt">VarIntError</span> <span class="p">:</span> <span class="kt">Error</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">StatusRequest</span> <span class="p">:</span> <span class="kt"><a href="../Classes/Packet.html">Packet</a></span></code></pre>
 
                 </div>
               </div>
-            <p><code>Error</code> <code>enum</code> for <code>VarInt</code></p>
+            <h1 id='the-minecraft-server-bound-status-request-code-packet-code' class='heading'>The Minecraft Server Bound Status Request <code><a href="../Classes/Packet.html">Packet</a></code></h1>
+<h2 id='id' class='heading'>ID</h2>
+
+<p>The <code><a href="../Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">Packet</code>.<code>id</a></code> for the Minecraft Server Bound Status Request Packet is 0x00</p>
+<h2 id='definition' class='heading'>Definition</h2>
+
+<p>empty</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L7-L10">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/StatusRequest.swift#L11-L20">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -168,9 +174,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary11VarIntErrorO03varD8IsTooBigyA2CmF"></a>
-                    <a name="//apple_ref/swift/Element/varIntIsTooBig" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11VarIntErrorO03varD8IsTooBigyA2CmF">varIntIsTooBig</a>
+                    <a name="/s:17SwiftcraftLibrary13StatusRequestCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary13StatusRequestCACycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -178,19 +184,19 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Too many <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code>s for the data to be a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">PacketData</code>.<code>varInt</a></code></p>
+                        <p>Server Bound Status Request Initializer</p>
 
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="k">case</span> <span class="n">varIntIsTooBig</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L9">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/StatusRequest.swift#L13-L19">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
