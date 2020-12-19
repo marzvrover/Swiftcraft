@@ -10,21 +10,33 @@ class DisplayPacketHandler: ChannelInboundHandler {
     ///     - context: `ChannelHandlerContext`
     ///     - data: `NIOAny` which can be unwrapped to have a `Packet`
     public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
-        let rawPacket = self.unwrapInboundIn(data)
-        print("Packet ID: \(rawPacket.id)".blue)
+        let packet = self.unwrapInboundIn(data)
+        print("Packet ID: \(packet.id)".green)
 
-        switch rawPacket.id {
-            case 0x00:
-                let packet = rawPacket as! Handshake
+        switch packet {
+            case is Handshake:
+                let packet = packet as! Handshake
                 print("Protocol Version: \(packet.version)".blue)
                 print("Server Address: \(packet.address)".blue)
                 print("Server Port: \(packet.port)".blue)
                 print("Intention: \(packet.intention)".blue)
+                if packet.intention == 1 {
+                    playerState = .status
+                } else if packet.intention == 2 {
+                    playerState = .login
+                }
+                break
+            case is StatusRequest:
+                print("Status Packet".blue)
+                break
+            case is LoginStart:
+                let packet = packet as! LoginStart
+                print("Name: \(packet.name)".blue)
                 break
             default:
-                print("Unkown Packet ID".red)
+                print("Unknown Packet Type: \(type(of: packet))")
         }
 
-        context.fireChannelRead(wrapInboundOut(rawPacket))
+        context.fireChannelRead(wrapInboundOut(packet))
     }
 }

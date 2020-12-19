@@ -44,20 +44,31 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
 
             let id = try buffer.readVarInt()
 
-            switch id {
+            packetID: switch id {
                 case 0x00:
-                    if length > 9 {
-                        packet = Handshake()
-                    } else {
-                        logger.error("Unkown Packet ID with length <= 9",
-                                     metadata: ["packet id": "\(id)",
-                                                "packet length": "\(length)",],
-                                     file: #file,
-                                     function: #function,
-                                     line: #line)
-                        throw PacketCodecError.decode.unknownPacketID(id)
+                    currentState: switch playerState {
+                        case .handshaking:
+                            packet = Handshake()
+                            break currentState
+                        case .login:
+                            packet = LoginStart()
+                            break currentState
+                        case .status:
+                            packet = StatusRequest()
+                            break currentState
+                        default:
+                            logger.error("Unkown Packet ID with playerState",
+                                         metadata: [
+                                            "packet id": "\(id)",
+                                            "packet length": "\(length)",
+                                            "player state": "\(playerState)",
+                                         ],
+                                         file: #file,
+                                         function: #function,
+                                         line: #line)
+                            throw PacketCodecError.decode.unknownPacketID(id)
                     }
-                    break
+                    break packetID
                 default:
                     logger.error("Unkown Packet ID", metadata: ["packet-id": "\(id)"], file: #file, function: #function, line: #line)
                     throw PacketCodecError.decode.unknownPacketID(id)
