@@ -20,7 +20,6 @@ let package = Package(
             name: "Swiftcraft",
             dependencies: [
                 "SwiftcraftLibrary",
-                .product(name: "DotEnv", package: "DotEnv"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "NIO", package: "swift-nio"),
                 .product(name: "Rainbow", package: "Rainbow"),
@@ -29,6 +28,7 @@ let package = Package(
         .target(
             name: "SwiftcraftLibrary",
             dependencies: [
+                .product(name: "DotEnv", package: "DotEnv"),
                 .product(name: "Logging", package: "swift-log"),
                 .product(name: "NIO", package: "swift-nio"),
                 .product(name: "Rainbow", package: "Rainbow"),
