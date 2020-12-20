@@ -1,8 +1,11 @@
+<div align="center">
+    <img src=".github/resources/logo.svg" width="90%"/>
+</div>
+<br />
+
 ![macOS](https://github.com/marzvrover/Swiftcraft/workflows/macOS/badge.svg)
 ![ubuntu](https://github.com/marzvrover/Swiftcraft/workflows/ubuntu/badge.svg)
 ![docs](https://github.com/marzvrover/Swiftcraft/workflows/docs/badge.svg)
-
-# Swiftcraft
 
 Swiftcraft is a swift implementation of the Minecraft Server. The goal of this project is to provide a fast resource efficient Minecraft server.
 **This is an active WIP.** Currently in the first steps of implementing the Minecraft Protocol.
