@@ -10,4 +10,4 @@ This is very much an active work in progress. There have been no releases yet.
 
 ## Reporting a Vulnerability
 
-Please raise an issue if you notice a security vulnerability. A pull request would be appreciated too.
+To report a secuirty issue please email me at [marzvrover@protonmail.com](mailto:marzvrover@protonmail.com?subject=Security%20Issue%20with%20github:marzvrover/Swiftcraft)
