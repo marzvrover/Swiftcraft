@@ -6,6 +6,7 @@
 ![macOS](https://github.com/marzvrover/Swiftcraft/workflows/macOS/badge.svg)
 ![ubuntu](https://github.com/marzvrover/Swiftcraft/workflows/ubuntu/badge.svg)
 ![docs](https://github.com/marzvrover/Swiftcraft/workflows/docs/badge.svg)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/624229af3a55439abde4852e6eda313e)](https://www.codacy.com/gh/marzvrover/Swiftcraft/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=marzvrover/Swiftcraft&amp;utm_campaign=Badge_Grade)
 
 Swiftcraft is a swift implementation of the Minecraft Server. The goal of this project is to provide a fast resource efficient Minecraft server.
 **This is an active WIP.** Currently in the first steps of implementing the Minecraft Protocol.
