@@ -1,6 +1,7 @@
 <div align="center">
     <img src=".github/resources/logo.svg" width="90%"/>
 </div>
+<br />
 
 ![macOS](https://github.com/marzvrover/Swiftcraft/workflows/macOS/badge.svg)
 ![ubuntu](https://github.com/marzvrover/Swiftcraft/workflows/ubuntu/badge.svg)
