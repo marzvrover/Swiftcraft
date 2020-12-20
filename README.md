@@ -13,6 +13,8 @@ You should expect massive amounts of refactoring.
 
 ## Protocol
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/1ec1262286484697929fb2375d1d4ab9)](https://app.codacy.com/gh/marzvrover/Swiftcraft?utm_source=github.com&utm_medium=referral&utm_content=marzvrover/Swiftcraft&utm_campaign=Badge_Grade_Settings)
+
 This server is built from the ground up implementing [Minecraft's Protocol.](https://wiki.vg/Protocol)
 
 ## Credits
