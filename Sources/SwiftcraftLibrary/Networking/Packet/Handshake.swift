@@ -1,6 +1,6 @@
 import Foundation
 import NIO
-
+// swiftlint:disable line_length
 /// # The Minecraft Handshake `Packet`
 ///
 /// ## ID
@@ -15,6 +15,7 @@ import NIO
 /// server_port      | `PacketData`.`unsignedShort` aka `UInt16` |                   | The server port the client is connecting to.
 /// intention        | `PacketData`.`varInt` aka `Int32`         |                   | 1 for status, 2 for login
 class Handshake: Packet {
+    // swiftlint:enable line_length
     /// Handshake Initializer
     init() {
         super.init(
@@ -31,6 +32,7 @@ class Handshake: Packet {
     /// Getter and setter for `Handshake`.`data["protocol_version"]`.
     var version: Int32 {
         get {
+            // swiftlint:disable:next force_cast
             return self.data["protocol_version"] as! Int32
         }
         set(value) {
@@ -40,6 +42,7 @@ class Handshake: Packet {
     /// Getter and setter for `Handshake`.`data["server_address"]`.
     var address: String {
         get {
+            // swiftlint:disable:next force_cast
             return self.data["server_address"] as! String
         }
         set(value) {
@@ -49,6 +52,7 @@ class Handshake: Packet {
     /// Getter and setter for `Handshake`.`data["server_port"]`.
     var port: UInt16 {
         get {
+            // swiftlint:disable:next force_cast
             return self.data["server_port"] as! UInt16
         }
         set(value) {
@@ -58,6 +62,7 @@ class Handshake: Packet {
     /// Getter and setter for `Handshake`.`data["intention"]`.
     var intention: Int32 {
         get {
+            // swiftlint:disable:next force_cast
             return self.data["intention"] as! Int32
         }
         set(value) {

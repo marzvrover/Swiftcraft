@@ -15,6 +15,7 @@ class DisplayPacketHandler: ChannelInboundHandler {
 
         switch packet {
             case is Handshake:
+                // swiftlint:disable:next force_cast
                 let packet = packet as! Handshake
                 print("Protocol Version: \(packet.version)".blue)
                 print("Server Address: \(packet.address)".blue)
@@ -25,14 +26,12 @@ class DisplayPacketHandler: ChannelInboundHandler {
                 } else if packet.intention == 2 {
                     playerState = .login
                 }
-                break
             case is StatusRequest:
                 print("Status Packet".blue)
-                break
             case is LoginStart:
+                // swiftlint:disable:next force_cast
                 let packet = packet as! LoginStart
                 print("Name: \(packet.name)".blue)
-                break
             default:
                 print("Unknown Packet Type: \(type(of: packet))")
         }

@@ -3,7 +3,7 @@ import NIO
 /// Errors that may be thrown by `PacketCodec`
 enum PacketCodecError {
     /// Errors related to decoding
-    enum decode: Error {
+    enum Decode: Error {
         /// Unkown `Packet`.`id`
         case unknownPacketID(Int32)
     }
@@ -26,6 +26,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// - throws: May throw any `PacketDecoderError`
     /// - returns: `DecodingState`
     mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
+        // swiftlint:disable:previous function_body_length
         // TODO: handle 0xFE packet
         // 5 bytes is the max length for a VarInt (which tells us our packet length)
         guard buffer.readableBytes >= 5 else {
@@ -34,7 +35,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
         let saved = buffer
         do {
             // length of PacketID + Data
-            let length = try! buffer.readVarInt()
+            let length = try buffer.readVarInt()
 
             guard buffer.readableBytes >= length else {
                 return .needMoreData
@@ -42,7 +43,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
 
             var packet: Packet
 
-            let id = try buffer.readVarInt()
+            let id = try buffer.readVarInt() // swiftlint:disable:this identifier_name
 
             packetID: switch id {
                 case 0x00:
@@ -66,12 +67,16 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
                                          file: #file,
                                          function: #function,
                                          line: #line)
-                            throw PacketCodecError.decode.unknownPacketID(id)
+                            throw PacketCodecError.Decode.unknownPacketID(id)
                     }
                     break packetID
                 default:
-                    logger.error("Unkown Packet ID", metadata: ["packet-id": "\(id)"], file: #file, function: #function, line: #line)
-                    throw PacketCodecError.decode.unknownPacketID(id)
+                    logger.error("Unkown Packet ID",
+                                 metadata: ["packet-id": "\(id)"],
+                                 file: #file,
+                                 function: #function,
+                                 line: #line)
+                    throw PacketCodecError.Decode.unknownPacketID(id)
             }
 
             try packet.decode(buffer: &buffer)

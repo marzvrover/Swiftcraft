@@ -12,7 +12,8 @@ import NIO
 /// -----------------|-------------------------------------------|-------------------|--------------------
 /// Name             | `PacketData`.`varString`                  |                   | Player's username
 ///
-/// - note: The protocol claims that name is a `PacketData`.`string` of length 16, but I have found it to be a `PacketData`.`varString`.
+/// - note: The protocol claims that name is a `PacketData`.`string` of length 16,
+///         but I have found it to be a `PacketData`.`varString`.
 class LoginStart: Packet {
     /// LoginStart Initializer
     init() {
@@ -27,6 +28,7 @@ class LoginStart: Packet {
     /// Getter and setter for `LoginStart`.`data["name"]`.
     var name: String {
         get {
+            // swiftlint:disable:next force_cast
             return self.data["name"] as! String
         }
         set(value) {

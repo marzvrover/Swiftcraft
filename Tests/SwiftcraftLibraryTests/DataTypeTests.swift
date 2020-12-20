@@ -2,7 +2,7 @@ import XCTest
 import class Foundation.Bundle
 import NIO
 @testable import SwiftcraftLibrary
-// swiftlint:disable trailing_comma
+// swiftlint:disable all
 final class DataTypeTests: XCTestCase {
     class TestPacket: Packet {
         init(definition: Definition) {

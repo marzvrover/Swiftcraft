@@ -48,7 +48,7 @@ class Packet: PacketProtocol & Equatable {
     ///
     /// - note: There has to be a better way to this.
     ///         But seeing as we shouldn't have to compare `Packet`s often besides in tests this will do for now.
-    static func == (lhs: Packet, rhs: Packet) -> Bool {
+    static func == (lhs: Packet, rhs: Packet) -> Bool { // swiftlint:disable:this cyclomatic_complexity
         guard lhs.id == rhs.id else {
             return false
         }
@@ -69,6 +69,7 @@ class Packet: PacketProtocol & Equatable {
             guard rvalue is AnyHashable else {
                 return false
             }
+            // swiftlint:disable:next force_cast
             guard value as! AnyHashable == rvalue as! AnyHashable else {
                 return false
             }
@@ -97,6 +98,7 @@ class Packet: PacketProtocol & Equatable {
                 guard rvalue is AnyHashable else {
                     return false
                 }
+                // swiftlint:disable:next force_cast
                 guard (value as! AnyHashable) == (rvalue as! AnyHashable) else {
                     return false
                 }
@@ -108,8 +110,9 @@ class Packet: PacketProtocol & Equatable {
 
     var data: [String: Any]
     var definition: Definition
-    var id: Int32
+    var id: Int32 // swiftlint:disable:this identifier_name
 
+    // swiftlint:disable:next identifier_name
     internal init(id: Int32, definition: Definition, data: [String: Any]) {
         self.id = id
         self.definition = definition
@@ -125,7 +128,7 @@ protocol PacketProtocol {
     /// Defines how to decode the packet
     var definition: Definition { get }
     /// The packet's Minecraft ID
-    var id: Int32 { get }
+    var id: Int32 { get } // swiftlint:disable:this identifier_name
 }
 /// Because of a definition field we can quickly and easily decode / encode packets
 extension PacketProtocol {
@@ -139,7 +142,7 @@ extension PacketProtocol {
     /// - throws: Could through various errors relating to reading the datatypes from the `ByteBuffer`.
     ///     - Every error in `VarIntErrors`
     ///     - Every error in `VarLongErrors`
-    mutating func decode(buffer: inout ByteBuffer,
+    mutating func decode(buffer: inout ByteBuffer, // swiftlint:disable:this function_body_length cyclomatic_complexity
                          definition inDefinition: Definition? = nil) throws {
         var workingDef: Definition
         if inDefinition == nil {
@@ -151,58 +154,45 @@ extension PacketProtocol {
             switch def.type {
                 case .boolean:
                     data[def.name] = buffer.readByte()! != 0x00
-                    break
                 case .byte:
                     data[def.name] = buffer.readInteger(as: Int8.self)
-                    break
                 case .unsignedByte:
                     data[def.name] = buffer.readInteger(as: UInt8.self)
-                    break
                 case .byteArray:
+                    // swiftlint:disable:next force_cast
                     data[def.name] = buffer.readBytes(length: def.args!["length"] as! Int)
-                    break
                 case .short:
                     data[def.name] = buffer.readInteger(as: Int16.self)
-                    break
                 case .unsignedShort:
                     data[def.name] = buffer.readInteger(as: UInt16.self)
-                    break
                 case .int:
                     data[def.name] = buffer.readInteger(as: Int32.self)
-                    break
                 case .unsignedInt:
                     data[def.name] = buffer.readInteger(as: UInt32.self)
-                    break
                 case .long:
                     data[def.name] = buffer.readInteger(as: Int64.self)
-                    break
                 case .unsignedLong:
                     data[def.name] = buffer.readInteger(as: UInt64.self)
-                    break
                 case .float:
                     data[def.name] = Float32(bitPattern: buffer.readInteger(as: UInt32.self)!)
-                    break
                 case .double:
                     data[def.name] = Float64(bitPattern: buffer.readInteger(as: UInt64.self)!)
-                    break
                 case .uuid:
+                    // swiftlint:disable:next identifier_name
                     let b = buffer.readBytes(length: 16)!
-                    let uuid: uuid_t = (b[0], b[1], b[2], b[3], b[4], b[5], b[6], b[7],
+                    // swiftlint:disable:next comma
+                    let uuid: uuid_t = (b[0], b[1], b[2],  b[3],  b[4],  b[5],  b[6],  b[7],
                                         b[8], b[9], b[10], b[11], b[12], b[13], b[14], b[15])
                     data[def.name] = UUID(uuid: uuid)
-                    break
                 case .string:
+                    // swiftlint:disable:next force_cast
                     data[def.name] = buffer.readString(length: def.args!["length"] as! Int)
-                    break
                 case .varInt:
                     data[def.name] = try buffer.readVarInt()
-                    break
                 case .varLong:
                     data[def.name] = try buffer.readVarLong()
-                    break
                 case .varString:
                     data[def.name] = try buffer.readVarString()
-                    break
             }
         }
     }
@@ -216,8 +206,8 @@ extension PacketProtocol {
     /// - throws: Could through various errors relating to reading the datatypes from the `ByteBuffer`.
     ///     - Every error in `VarIntErrors`
     ///     - Every error in `VarLongErrors`
-    func encode(buffer: inout ByteBuffer,
-                         definition inDefinition: Definition? = nil) {
+    func encode(buffer: inout ByteBuffer, // swiftlint:disable:this function_body_length cyclomatic_complexity
+                definition inDefinition: Definition? = nil) {
         var workingDef: Definition
         if inDefinition == nil {
             workingDef = definition
@@ -228,72 +218,73 @@ extension PacketProtocol {
         for def in workingDef {
             switch def.type {
                 case .boolean:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeBool(data[def.name] as! Bool)
-                    break
                 case .byte:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeByte(UInt8(bitPattern: data[def.name] as! Int8))
-                    break
                 case .unsignedByte:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeByte(data[def.name] as! UInt8)
-                    break
                 case .byteArray:
+                    // swiftlint:disable:next force_cast
                     let out: [UInt8] = data[def.name] as! [UInt8]
                     tmpBuffer.reserveCapacity(out.count)
                     tmpBuffer.writeBytes(out)
-                    break
                 case .short:
                     tmpBuffer.reserveCapacity(2) // 16 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! Int16, as: Int16.self)
-                    break
                 case .unsignedShort:
                     tmpBuffer.reserveCapacity(2) // 16 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! UInt16, as: UInt16.self)
-                    break
                 case .int:
                     tmpBuffer.reserveCapacity(4) // 32 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! Int32, as: Int32.self)
-                    break
                 case .unsignedInt:
                     tmpBuffer.reserveCapacity(4) // 32 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! UInt32, as: UInt32.self)
-                    break
                 case .long:
                     tmpBuffer.reserveCapacity(8) // 64 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! Int64, as: Int64.self)
-                    break
                 case .unsignedLong:
                     tmpBuffer.reserveCapacity(8) // 64 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger(data[def.name] as! UInt64, as: UInt64.self)
-                    break
                 case .float:
                     tmpBuffer.reserveCapacity(4) // 32 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger((data[def.name] as! Float32).bitPattern, as: UInt32.self)
-                    break
                 case .double:
                     tmpBuffer.reserveCapacity(8) // 64 bits
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeInteger((data[def.name] as! Float64).bitPattern, as: UInt64.self)
-                    break
                 case .uuid:
                     tmpBuffer.reserveCapacity(16) // 128 bits
+                    // swiftlint:disable:next force_cast
                     let uuid = (data[def.name] as! UUID).uuid
                     let bytes = [uuid.0, uuid.1, uuid.2, uuid.3, uuid.4, uuid.5, uuid.6, uuid.7,
                                  uuid.8, uuid.9, uuid.10, uuid.11, uuid.12, uuid.13, uuid.14, uuid.15]
                     // swiftlint:disable:previous trailing_comma
                     tmpBuffer.writeBytes(bytes)
-                    break
                 case .string:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.reserveCapacity((data[def.name] as! String).utf8.count)
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeString(data[def.name] as! String)
-                    break
                 case .varInt:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeVarInt(data[def.name] as! Int32)
-                    break
                 case .varLong:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeVarLong(data[def.name] as! Int64)
-                    break
                 case .varString:
+                    // swiftlint:disable:next force_cast
                     tmpBuffer.writeVarString(data[def.name] as! String)
-                    break
             }
         }
         let length: Int32 = Int32(tmpBuffer.readableBytes)

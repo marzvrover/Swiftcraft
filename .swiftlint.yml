@@ -2,3 +2,5 @@ trailing_comma:
     mandatory_comma: true
 disabled_rules:
     - switch_case_alignment
+excluded: # paths to ignore during linting.
+    - .build

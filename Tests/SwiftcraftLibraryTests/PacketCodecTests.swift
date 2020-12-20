@@ -23,7 +23,7 @@ final class PacketCodecTests: XCTestCase {
                 return PacketCodec()
             }
         } catch {
-            if !(error is PacketCodecError.decode) {
+            if !(error is PacketCodecError.Decode) {
                 XCTFail("Unexpected Error: \(error)")
             }
         }
