@@ -27,7 +27,6 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// - returns: `DecodingState`
     mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
         // swiftlint:disable:previous function_body_length
-        // TODO: handle 0xFE packet
         // 5 bytes is the max length for a VarInt (which tells us our packet length)
         guard buffer.readableBytes >= 5 else {
             return .needMoreData
