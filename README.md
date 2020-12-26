@@ -1,5 +1,5 @@
 <div align="center">
-    <img src=".github/resources/logo.svg" width="90%"/>
+    <img src="https://raw.githubusercontent.com/marzvrover/Swiftcraft/main/.github/resources/logo.svg" width="90%"/>
 </div>
 <br />
 
