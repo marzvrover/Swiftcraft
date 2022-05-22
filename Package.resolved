@@ -6,8 +6,8 @@
         "repositoryURL": "https://github.com/swiftpackages/DotEnv.git",
         "state": {
           "branch": null,
-          "revision": "81924d9df130f465a54da36079a5b4c44a70d03c",
-          "version": "1.0.0"
+          "revision": "1f15bb9de727d694af1d003a1a5d7a553752850f",
+          "version": "3.0.0"
         }
       },
       {
@@ -33,8 +33,8 @@
         "repositoryURL": "https://github.com/apple/swift-nio.git",
         "state": {
           "branch": null,
-          "revision": "2bae395344d41710dffab456265d534d7dc34ab8",
-          "version": "2.25.0"
+          "revision": "124119f0bb12384cef35aa041d7c3a686108722d",
+          "version": "2.40.0"
         }
       }
     ]

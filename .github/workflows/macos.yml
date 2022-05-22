@@ -15,8 +15,16 @@ jobs:
     steps:
     - uses: actions/checkout@v2
     - name: Setup Swift
-      uses: fwal/setup-swift@v1.5.0
+      uses: fwal/setup-swift@v1.14.0
     - name: Build
       run: swift build -v
     - name: Run tests
       run: swift test -v
+    - name: Run the action # You would run your tests before this using the output to set state/desc
+      uses: Sibz/github-status-action@v1
+      with:
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'macOS unit tests'
+        description: 'Run unit tests on macOS'
+        state: 'success'
+        sha: ${{github.event.pull_request.head.sha || github.sha}}

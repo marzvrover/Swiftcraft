@@ -43,7 +43,11 @@ open class Server {
     /// To instantiate the server you provide the host and path
     public init(host: String? = nil, port: Int? = nil) {
         self.isRunning = false
-        DotEnv.load(path: "server.properties")
+        do {
+            try DotEnv.load(path: "server.properties")
+        } catch {
+            print("Error loading server.properties")
+        }
         if host != nil {
             self.host = host!
         } else {
