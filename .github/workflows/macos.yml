@@ -23,8 +23,8 @@ jobs:
       uses: Sibz/github-status-action@v1
       with:
         authToken: ${{secrets.GITHUB_TOKEN}}
-        context: 'macOS unit tests'
-        description: 'Run unit tests on macOS'
+        context: 'macOS / unit tests'
+        description: 'Unit tests on macOS succeeded'
         state: 'success'
         sha: ${{github.event.pull_request.head.sha || github.sha}}
     - name: Status Check Failure
@@ -32,8 +32,8 @@ jobs:
       uses: Sibz/github-status-action@v1
       with:
         authToken: ${{secrets.GITHUB_TOKEN}}
-        context: 'macOS unit tests'
-        description: 'Run unit tests on macOS'
+        context: 'macOS / unit tests'
+        description: 'Unit tests on macOS failed'
         state: 'failure'
         sha: ${{github.event.pull_request.head.sha || github.sha}}
   add_pending_status_check:
@@ -43,7 +43,7 @@ jobs:
         uses: Sibz/github-status-action@v1
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
-          context: 'macOS unit tests'
+          context: 'macOS / unit tests'
           description: 'Run unit tests on macOS'
           state: 'pending'
           sha: ${{github.event.pull_request.head.sha || github.sha}}

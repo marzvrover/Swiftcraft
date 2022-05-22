@@ -26,7 +26,7 @@ jobs:
       with:
         authToken: ${{secrets.GITHUB_TOKEN}}
         context: 'ubuntu / unit tests'
-        description: 'Unit tests on ubuntu successed'
+        description: 'Unit tests on ubuntu succeeded'
         state: 'success'
         sha: ${{github.event.pull_request.head.sha || github.sha}}
     - name: Status Check Failure
