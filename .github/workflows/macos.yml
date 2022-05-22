@@ -8,23 +8,42 @@ on:
   workflow_dispatch:
 
 jobs:
-  build:
-
+  test:
     runs-on: macos-latest
-
     steps:
     - uses: actions/checkout@v2
     - name: Setup Swift
       uses: fwal/setup-swift@v1.14.0
     - name: Build
       run: swift build -v
-    - name: Run tests
+    - name: Test
       run: swift test -v
-    - name: Run the action # You would run your tests before this using the output to set state/desc
+    - name: Status Check Success
+      if: ${{ success() }}
       uses: Sibz/github-status-action@v1
       with:
         authToken: ${{secrets.GITHUB_TOKEN}}
-        context: 'macOS unit tests'
-        description: 'Run unit tests on macOS'
+        context: 'macOS / unit tests'
+        description: 'Unit tests on macOS succeeded'
         state: 'success'
         sha: ${{github.event.pull_request.head.sha || github.sha}}
+    - name: Status Check Failure
+      if: ${{ failure() }}
+      uses: Sibz/github-status-action@v1
+      with:
+        authToken: ${{secrets.GITHUB_TOKEN}}
+        context: 'macOS / unit tests'
+        description: 'Unit tests on macOS failed'
+        state: 'failure'
+        sha: ${{github.event.pull_request.head.sha || github.sha}}
+  add_pending_status_check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pending Status Check
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'macOS / unit tests'
+          description: 'Running unit tests on macOS'
+          state: 'pending'
+          sha: ${{github.event.pull_request.head.sha || github.sha}}
