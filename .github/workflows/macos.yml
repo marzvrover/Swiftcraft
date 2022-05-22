@@ -36,7 +36,7 @@ jobs:
         description: 'Run unit tests on macOS'
         state: 'failure'
         sha: ${{github.event.pull_request.head.sha || github.sha}}
-  pending_status_check:
+  add_pending_status_check:
     runs-on: ubuntu-latest
     steps:
       - name: Pending Status Check
