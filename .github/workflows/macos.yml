@@ -40,7 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Pending Status Check
-        if: ${{ success() }}
         uses: Sibz/github-status-action@v1
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
