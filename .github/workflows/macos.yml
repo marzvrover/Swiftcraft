@@ -44,6 +44,6 @@ jobs:
         with:
           authToken: ${{secrets.GITHUB_TOKEN}}
           context: 'macOS / unit tests'
-          description: 'Run unit tests on macOS'
+          description: 'Running unit tests on macOS'
           state: 'pending'
           sha: ${{github.event.pull_request.head.sha || github.sha}}
