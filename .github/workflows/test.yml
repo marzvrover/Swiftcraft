@@ -1,0 +1,56 @@
+name: test
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+jobs:
+  test:
+    continue-on-error: true
+    strategy:
+      matrix:
+        os: [macos-latest, ubuntu-latest]
+        swift: [
+          "5.2",
+          "5.3",
+          "5.4",
+          "5.5",
+          "5.6",
+          "5",
+        ]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Add Status Check | Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests'
+          description: 'Running unit tests with Swift v${{ matrix.swift }} on ${{ matrix.os }}'
+          state: 'pending'
+          sha: ${{github.event.pull_request.head.sha || github.sha}}
+      - uses: actions/checkout@v3
+      - name: Setup Swift @ ${{ matrix.swift}}
+        uses: swift-actions/setup-swift@v1
+        with:
+          swift-version: ${{ matrix.swift }}
+      - name: Run tests
+        run: swift test -v
+      - name: Status Check Success | Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests
+        if: ${{ success() }}
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests'
+          description: 'Unit tests with Swift v${{ matrix.swift }} on ${{ matrix.os }} succeeded'
+          state: 'success'
+          sha: ${{github.event.pull_request.head.sha || github.sha}}
+      - name: Status Check Failure | Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests
+        if: ${{ failure() }}
+        uses: Sibz/github-status-action@v1
+        with:
+          authToken: ${{secrets.GITHUB_TOKEN}}
+          context: 'Swift v${{ matrix.swift }} on ${{ matrix.os }} / unit tests'
+          description: 'Unit tests with Swift v${{ matrix.swift }} on ${{ matrix.os }} failed'
+          state: 'failure'
+          sha: ${{github.event.pull_request.head.sha || github.sha}}
