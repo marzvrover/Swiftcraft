@@ -10,10 +10,17 @@ on:
 jobs:
   test:
     runs-on: macos-latest
+    strategy:
+      matrix:
+        swift: [
+          "5",
+        ]
     steps:
     - uses: actions/checkout@v2
-    - name: Setup Swift
+    - name: Setup Swift @ ${{ matrix.swift}}
       uses: swift-actions/setup-swift@v1
+      with:
+        swift-version: ${{ matrix.swift }}
     - name: Build
       run: swift build -v
     - name: Test
