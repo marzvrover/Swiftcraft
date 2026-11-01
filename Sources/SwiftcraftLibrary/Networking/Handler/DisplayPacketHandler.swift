@@ -59,9 +59,15 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                     return
                 }
             case is LoginStart:
-                // swiftlint:disable:next force_cast
-                let packet = packet as! LoginStart
-                print("Name: \(packet.name)".blue)
+                do {
+                    let reply = try LoginDisconnect(
+                        message: "Swiftcraft gameplay is not implemented yet."
+                    )
+                    send(reply, context: context, closeAfterWrite: true)
+                } catch {
+                    errorCaught(context: context, error: error)
+                }
+                return
             case let ping as StatusPing:
                 guard let payload = ping.data["payload"] as? Int64 else {
                     errorCaught(

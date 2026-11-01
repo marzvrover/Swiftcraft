@@ -318,4 +318,95 @@ final class PacketCodecTests: XCTestCase {
             )
         }
     }
+
+    func testLoginStartProducesDisconnectAndCloses() throws {
+        let connection = ConnectionContext()
+
+        let channel = EmbeddedChannel(handlers: [
+            ByteToMessageHandler(
+                PacketCodec(connection: connection)
+            ),
+            MessageToByteHandler(
+                PacketCodec(connection: connection)
+            ),
+            DisplayPacketHandler(connection: connection),
+        ])
+
+        try channel.connect(
+            to: SocketAddress(ipAddress: "127.0.0.1", port: 25565)
+        ).wait()
+
+        // Protocol 754 handshake with intention 2: login.
+        let handshakeBytes: [UInt8] = [
+            0x10, 0x00, 0xF2, 0x05, 0x09,
+            0x6C, 0x6F, 0x63, 0x61, 0x6C,
+            0x68, 0x6F, 0x73, 0x74,
+            0x63, 0xDD, 0x02,
+        ]
+
+        try channel.writeInbound(
+            allocator.buffer(bytes: handshakeBytes)
+        )
+
+        XCTAssertTrue(connection.get() == .login)
+
+        let handshake = try channel.readInbound(as: Packet.self)
+        XCTAssertTrue(handshake is Handshake)
+
+        XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+        XCTAssertTrue(channel.isActive)
+
+        // Login Start: packet ID 0, username "Steve".
+        let loginStartBytes: [UInt8] = [
+            0x07,                   // Frame length: 1 + 1 + 5
+            0x00,                   // Login Start ID
+            0x05,                   // Username byte length
+            0x53, 0x74, 0x65, 0x76, 0x65,
+        ]
+
+        try channel.writeInbound(
+            allocator.buffer(bytes: loginStartBytes)
+        )
+
+        channel.embeddedEventLoop.run()
+
+        var response = try XCTUnwrap(
+            channel.readOutbound(as: ByteBuffer.self),
+            "Expected a Login Disconnect"
+        )
+
+        let frameLength = try response.readVarInt()
+        XCTAssertGreaterThan(frameLength, 0)
+        XCTAssertEqual(Int(frameLength), response.readableBytes)
+
+        let packetID = try response.readVarInt()
+        XCTAssertEqual(packetID, 0x00)
+
+        let json = try XCTUnwrap(response.readVarString())
+        XCTAssertEqual(response.readableBytes, 0)
+
+        let object = try JSONSerialization.jsonObject(
+            with: Data(json.utf8)
+        )
+        let reason = try XCTUnwrap(object as? [String: Any])
+
+        XCTAssertEqual(
+            reason["text"] as? String,
+            "Swiftcraft gameplay is not implemented yet."
+        )
+
+        XCTAssertFalse(
+            channel.isActive,
+            "The connection should close after sending the rejection"
+        )
+
+        XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+
+        // The Login Start branch returns without forwarding the packet.
+        XCTAssertNil(try channel.readInbound(as: Packet.self))
+
+        XCTAssertTrue(
+            try channel.finish(acceptAlreadyClosed: true).isClean
+        )
+    }
 }
