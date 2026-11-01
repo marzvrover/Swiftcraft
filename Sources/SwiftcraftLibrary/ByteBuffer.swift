@@ -6,12 +6,14 @@ public typealias Byte = UInt8
 /// `Error` `enum` for `VarInt`
 enum VarIntError: Error {
     /// Too many `Byte`s for the data to be a `PacketData`.`varInt`
-    case varIntIsTooBig
+    case isTooBig
+    /// Incomplete `varInt` read, not enough bytes available
+    case incomplete
 }
 /// `Error` `enum` for `VarLong`
 enum VarLongError: Error {
     /// Too many `Byte`s for the data to be a `PacketData`.`varLong`
-    case varLongIsTooBig
+    case isTooBig
 }
 /// Extend `ByteBuffer` to add reading and writing Minecraft DataTypes
 extension ByteBuffer {
@@ -43,23 +45,44 @@ extension ByteBuffer {
     /// Read a `PacketData`.`varInt` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int32` value deserialized from this `ByteBuffer`.
-    /// - throws: Throws `VarIntError.VarIntIsTooBig`
+    /// - throws: Throws `VarIntError.isTooBig`
     @discardableResult
     public mutating func readVarInt() throws -> Int32 {
-        var result: UInt32 = 0
-        var shift = 0
-        var input: Byte
-        repeat {
-            input = self.readByte()!
-            result |= UInt32(input & Byte(0x7F)) << UInt32(shift * 7)
-            shift += 1
-            if shift > 5 {
-                throw VarIntError.varIntIsTooBig
-            }
-        } while ((input & 0x80) != 0)
-
-        return Int32(bitPattern: result)
+        guard let value = try readVarIntIfAvailable() else {
+            throw VarIntError.incomplete
+        }
+        return value
     }
+
+    // MARK: VarIntIfAvailable
+    /// Read a `PacketData`.`varInt` off this `ByteBuffer`, move the reader index forward by the size in bytes.
+    ///
+    /// - returns: A `Int32` value deserialized from this `ByteBuffer`.
+    /// - throws: Throws `VarIntError.isTooBig`
+    internal mutating func readVarIntIfAvailable() throws -> Int32? {
+        var working = self
+        var result: UInt32 = 0
+
+        for index in 0..<5 {
+            guard let byte = working.readByte() else {
+                return nil
+            }
+
+            if index == 4 && (byte & 0xF0) != 0 {
+                throw VarIntError.isTooBig
+            }
+
+            result |= UInt32(byte & 0x7F) << (index * 7)
+
+            if (byte & 0x80) == 0 {
+                self = working
+                return Int32(bitPattern: result)
+            }
+        }
+
+        throw VarIntError.isTooBig
+    }
+
     /// Write a `PacketData`.`varInt` into this `ByteBuffer`, move the writer index forward by number of bytes written.
     ///
     /// - parameters:
@@ -85,7 +108,7 @@ extension ByteBuffer {
     /// Read a `PacketData`.`varLong` off this `ByteBuffer`, move the reader index forward by the size in bytes..
     ///
     /// - returns: A `Int64` value deserialized from this `ByteBuffer`.
-    /// - throws: `VarLongError.VarLongIsTooBig`
+    /// - throws: `VarLongError.isTooBig`
     @discardableResult
     public mutating func readVarLong() throws -> Int64 {
         var result: UInt64 = 0
@@ -97,7 +120,7 @@ extension ByteBuffer {
             result |= UInt64(input & Byte(0x7F)) << UInt64(shift * 7)
             shift += 1
             if shift > 10 {
-                throw VarLongError.varLongIsTooBig
+                throw VarLongError.isTooBig
             }
         } while ((input & 0x80) != 0)
 

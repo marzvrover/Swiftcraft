@@ -6,6 +6,14 @@ enum PacketCodecError {
     enum Decode: Error {
         /// Unkown `Packet`.`id`
         case unknownPacketID(Int32)
+        /// Invalid Frame Length
+        case invalidFrameLength(Int32)
+        /// Invalid Length Prefix
+        case invalidLengthPrefix
+        /// incompletePacketID
+        case incompletePacketID
+        /// trailingPacketData
+        case trailingPacketData
     }
 }
 /// The `ByteToMessageDecoder` for decoding `Packets`
@@ -34,70 +42,74 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     /// - throws: May throw any `PacketDecoderError`
     /// - returns: `DecodingState`
     mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
-        // swiftlint:disable:previous function_body_length
-        // 5 bytes is the max length for a VarInt (which tells us our packet length)
-        guard buffer.readableBytes >= 5 else {
+        var working = buffer
+        let prefixStart = working.readerIndex
+
+        guard let length = try working.readVarIntIfAvailable() else {
+            if working.readableBytes >= 3 {
+                throw PacketCodecError.Decode.invalidLengthPrefix
+            }
             return .needMoreData
         }
-        let saved = buffer
-        do {
-            // length of PacketID + Data
-            let length = try buffer.readVarInt()
 
-            guard buffer.readableBytes >= length else {
-                return .needMoreData
-            }
-
-            var packet: Packet
-
-            let id = try buffer.readVarInt() // swiftlint:disable:this identifier_name
-
-            packetID: switch id {
-                case 0x00:
-                    let state = connection.get()
-                    currentState: switch state {
-                        case .handshaking:
-                            packet = Handshake()
-                            break currentState
-                        case .login:
-                            packet = LoginStart()
-                            break currentState
-                        case .status:
-                            packet = StatusRequest()
-                            break currentState
-                        default:
-                            logger.error("Unkown Packet ID with playerState",
-                                         metadata: [
-                                            "packet id": "\(id)",
-                                            "packet length": "\(length)",
-                                            "player state": "\(state)",
-                                         ],
-                                         file: #file,
-                                         function: #function,
-                                         line: #line)
-                            throw PacketCodecError.Decode.unknownPacketID(id)
-                    }
-                    break packetID
-                default:
-                    logger.error("Unkown Packet ID",
-                                 metadata: ["packet-id": "\(id)"],
-                                 file: #file,
-                                 function: #function,
-                                 line: #line)
-                    throw PacketCodecError.Decode.unknownPacketID(id)
-            }
-
-            try packet.decode(buffer: &buffer)
-
-            context.fireChannelRead(self.wrapInboundOut(packet))
-
-            return .continue
-        } catch {
-            buffer = saved
-            // logger.error("Unexpected Error: \(error)", file: #file, function: #function, line: #line)
-            context.fireErrorCaught(error)
-            throw error
+        guard working.readerIndex - prefixStart <= 3 else {
+            throw PacketCodecError.Decode.invalidLengthPrefix
         }
+        guard length > 0 && length <= 2_097_151 else {
+            throw PacketCodecError.Decode.invalidFrameLength(length)
+        }
+        guard var frame = working.readSlice(length: Int(length)) else {
+            return .needMoreData
+        }
+        guard let id = try frame.readVarIntIfAvailable() else {
+            throw PacketCodecError.Decode.incompletePacketID
+        }
+
+        var packet: Packet
+
+        packetID: switch id {
+            case 0x00:
+                let state = connection.get()
+                currentState: switch state {
+                    case .handshaking:
+                        packet = Handshake()
+                        break currentState
+                    case .login:
+                        packet = LoginStart()
+                        break currentState
+                    case .status:
+                        packet = StatusRequest()
+                        break currentState
+                    default:
+                        logger.error("Unkown Packet ID with playerState",
+                                        metadata: [
+                                        "packet id": "\(id)",
+                                        "packet length": "\(length)",
+                                        "player state": "\(state)",
+                                        ],
+                                        file: #file,
+                                        function: #function,
+                                        line: #line)
+                        throw PacketCodecError.Decode.unknownPacketID(id)
+                }
+                break packetID
+            default:
+                logger.error("Unkown Packet ID",
+                                metadata: ["packet-id": "\(id)"],
+                                file: #file,
+                                function: #function,
+                                line: #line)
+                throw PacketCodecError.Decode.unknownPacketID(id)
+        }
+
+        try packet.decode(buffer: &frame)
+        guard frame.readableBytes == 0 else {
+            throw PacketCodecError.Decode.trailingPacketData
+        }
+
+        buffer = working
+        context.fireChannelRead(self.wrapInboundOut(packet))
+        return .continue
     }
     // MARK: PacketEncoder
     /// The method to encode the `Packet`
@@ -106,5 +118,15 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     ///     - out: `inout` `ByteBuffer`: The `ByteBuffer` to encode on
     func encode(data: OutboundIn, out: inout ByteBuffer) throws {
         data.encode(buffer: &out)
+    }
+
+    // MARK: Error Handling
+    /// Called when an error occurs
+    /// - parameters:
+    ///     - context: `ChannelHandlerContext`
+    ///     - error: `Error`
+    func errorCaught(context: ChannelHandlerContext, error: Error) {
+        logger.error("Connection failed: \(error)", file: #file, function: #function, line: #line)
+        context.close(promise: nil)
     }
 }
