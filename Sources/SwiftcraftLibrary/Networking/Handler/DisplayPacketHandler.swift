@@ -53,10 +53,7 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                     let json = String(decoding: data, as: UTF8.self)
                     let response = StatusResponse(json: json)
 
-                    context.writeAndFlush(
-                        wrapInboundOut(response),
-                        promise: nil
-                    )
+                    send(response, context: context, closeAfterWrite: false)
                 } catch {
                     errorCaught(context: context, error: error)
                     return
@@ -65,10 +62,48 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 // swiftlint:disable:next force_cast
                 let packet = packet as! LoginStart
                 print("Name: \(packet.name)".blue)
+            case let ping as StatusPing:
+                guard let payload = ping.data["payload"] as? Int64 else {
+                    errorCaught(
+                        context: context,
+                        error: PacketFieldError.missing("payload")
+                    )
+                    return
+                }
+
+                send(
+                    StatusPong(payload: payload),
+                    context: context,
+                    closeAfterWrite: true
+                )
+                return
             default:
                 print("Unknown Packet Type: \(type(of: packet))")
         }
 
         context.fireChannelRead(wrapInboundOut(packet))
+    }
+
+    private func send(
+        _ packet: Packet,
+        context: ChannelHandlerContext,
+        closeAfterWrite: Bool
+    ) {
+        let promise = context.eventLoop.makePromise(of: Void.self)
+        let channel = context.channel
+
+        promise.futureResult.whenComplete { result in
+            switch result {
+            case .success:
+                if closeAfterWrite {
+                    channel.close(promise: nil)
+                }
+            case .failure(let error):
+                logger.error("Reply failed: \(error)")
+                channel.close(promise: nil)
+            }
+        }
+
+        context.writeAndFlush(wrapInboundOut(packet), promise: promise)
     }
 }
