@@ -12,15 +12,16 @@ import NIO
 /// -----------------|-------------------------------------------|-------------------|--------------------
 /// Name             | `PacketData`.`varString`                  |                   | Player's username
 ///
-/// - note: The protocol claims that name is a `PacketData`.`string` of length 16,
-///         but I have found it to be a `PacketData`.`varString`.
+/// The player's username is a VarInt-length-prefixed UTF-8 String
+/// limited to 16 characters, not a fixed 16-byte field.
+/// The length prefix specifies the number of UTF-8 bytes that follow.
 class LoginStart: Packet {
     /// LoginStart Initializer
     init() {
         super.init(
             id: 0x00,
             definition: [
-                (name: "name", type: .varString, args: nil),
+                (name: "name", type: .varString, args: ["maxCharacters": 16]),
             ],
             data: [:]
         )
