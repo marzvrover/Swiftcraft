@@ -314,24 +314,4 @@ final class DataTypeTests: XCTestCase {
         XCTAssertEqual(buffer.readInteger(as: T.self), 0)
         XCTAssertEqual(buffer.readInteger(as: T.self), T.max)
     }
-
-    static let allTests = [
-        ("testBoolean", testBoolean),
-        ("testByte", testByte),
-        ("testUnsignedByte", testUnsignedByte),
-        ("testByteArray", testByteArray),
-        ("testShort", testShort),
-        ("testUnsignedShort", testUnsignedShort),
-        ("testInt", testInt),
-        ("testUnsignedInt", testUnsignedInt),
-        ("testLong", testLong),
-        ("testUnsignedLong", testUnsignedLong),
-        ("testFloat", testFloat),
-        ("testDouble", testDouble),
-        ("testUUID", testUUID),
-        ("testString", testString),
-        ("testVarInt", testVarInt),
-        ("testVarLong", testVarLong),
-        ("testVarString", testVarString),
-    ]
 }
