@@ -57,14 +57,14 @@ open class Server {
         if host != nil {
             self.host = host!
         } else {
-            self.host = ProcessInfo.processInfo.environment["server-ip"] ?? "127.0.0.1"
+            self.host = ProcessInfo.processInfo.environment["server_ip"] ?? "127.0.0.1"
         }
         if port != nil {
             self.port = port!
-        } else if ProcessInfo.processInfo.environment["server-port"] == nil {
+        } else if ProcessInfo.processInfo.environment["server_port"] == nil {
             self.port = 25565
         } else {
-            self.port = Int(ProcessInfo.processInfo.environment["server-port"]!)!
+            self.port = Int(ProcessInfo.processInfo.environment["server_port"]!)!
         }
     }
     /// You start the server with the `run()` method.

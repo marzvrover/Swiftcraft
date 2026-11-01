@@ -4,7 +4,7 @@ import NIO
 /// # The Minecraft Login Start `Packet`
 ///
 /// ## ID
-/// The `Packet`.`id` for the Minecraft Login Start Packet is 0x00
+/// The `Packet`.`id` for the Minecraft Login Start Packet is Protocol754.LoginServerbound.startID
 ///
 /// ## Definition
 ///
@@ -19,7 +19,7 @@ class LoginStart: Packet {
     /// LoginStart Initializer
     init() {
         super.init(
-            id: 0x00,
+            id: Protocol754.LoginServerbound.startID,
             definition: [
                 (name: "name", type: .varString, args: ["maxCharacters": 16]),
             ],

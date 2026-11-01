@@ -32,9 +32,9 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 print("Server Port: \(packet.port)".blue)
                 print("Intention: \(packet.intention)".blue)
                 switch packet.intention {
-                    case 1:
+                    case Protocol754.Handshake.statusIntention:
                         connection.set(.status)
-                    case 2:
+                    case Protocol754.Handshake.loginIntention:
                         connection.set(.login)
                     default:
                         logger.error("Unsupported Handshake Intention: \(packet.intention)")
@@ -43,9 +43,17 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 }
             case is StatusRequest:
                 let info = StatusInfo(
-                    version: .init(name: "1.16.5", protocol: 754),
-                    players: .init(max: 8, online: 0),
-                    description: .init(text: "hello, world: Swiftcraft is learning to talk.")
+                    version: .init(
+                        name: "1.16.5",
+                        protocol: Protocol754.v754.rawValue
+                    ),
+                    players: .init(
+                        max: ProcessInfo.processInfo.environment["max_players"].flatMap(Int.init) ?? 255,
+                        online: 0
+                    ),
+                    description: .init(
+                        text: ProcessInfo.processInfo.environment["motd"] ?? "Swiftcraft v\(ProcessInfo.version())"
+                    )
                 )
 
                 do {

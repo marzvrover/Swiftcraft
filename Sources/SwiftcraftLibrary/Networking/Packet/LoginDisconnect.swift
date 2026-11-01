@@ -8,7 +8,7 @@ final class LoginDisconnect: Packet {
         let json = String(decoding: data, as: UTF8.self)
 
         super.init(
-            id: 0x00,
+            id: Protocol754.LoginClientbound.disconnectID,
             definition: [
                 (name: "reason", type: .varString, args: nil),
             ],

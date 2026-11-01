@@ -4,7 +4,7 @@ import NIO
 /// # The Minecraft Handshake `Packet`
 ///
 /// ## ID
-/// The `Packet`.`id` for the Minecraft Handshake Packet is 0x00
+/// The `Packet`.`id` for the Minecraft Handshake Packet is Protocol754.Handshake.serverboundID
 ///
 /// ## Definition
 ///
@@ -19,10 +19,13 @@ class Handshake: Packet {
     /// Handshake Initializer
     init() {
         super.init(
-            id: 0x00,
+            id: Protocol754.Handshake.serverboundID,
             definition: [
                 (name: "protocol_version", type: .varInt, args: nil),
-                (name: "server_address", type: .varString, args: ["maxCharacters": 255]),
+                (name: "server_address",
+                    type: .varString,
+                    args: ["maxCharacters": Protocol754.WireLimits.handshakeAddressMaximumCharacters]
+                ),
                 (name: "server_port", type: .unsignedShort, args: nil),
                 (name: "intention", type: .varInt, args: nil),
             ],

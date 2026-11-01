@@ -46,16 +46,16 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
         let prefixStart = working.readerIndex
 
         guard let length = try working.readVarIntIfAvailable() else {
-            if working.readableBytes >= 3 {
+            if working.readableBytes >= Protocol754.WireLimits.packetLengthMaximumBytes {
                 throw PacketCodecError.Decode.invalidLengthPrefix
             }
             return .needMoreData
         }
 
-        guard working.readerIndex - prefixStart <= 3 else {
+        guard working.readerIndex - prefixStart <= Protocol754.WireLimits.packetLengthMaximumBytes else {
             throw PacketCodecError.Decode.invalidLengthPrefix
         }
-        guard length > 0 && length <= 2_097_151 else {
+        guard length > 0 && length <= Protocol754.WireLimits.packetLengthMaximum else {
             throw PacketCodecError.Decode.invalidFrameLength(length)
         }
         guard var frame = working.readSlice(length: Int(length)) else {
@@ -65,43 +65,46 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
             throw PacketCodecError.Decode.incompletePacketID
         }
 
+        let state = connection.get()
         var packet: Packet
 
-        packetID: switch id {
-            case 0x00:
-                let state = connection.get()
-                currentState: switch state {
-                    case .handshaking:
-                        packet = Handshake()
-                        break currentState
-                    case .login:
-                        packet = LoginStart()
-                        break currentState
-                    case .status:
-                        packet = StatusRequest()
-                        break currentState
-                    default:
-                        logger.error("Unkown Packet ID with playerState",
-                                        metadata: [
-                                        "packet id": "\(id)",
-                                        "packet length": "\(length)",
-                                        "player state": "\(state)",
-                                        ],
-                                        file: #file,
-                                        function: #function,
-                                        line: #line)
-                        throw PacketCodecError.Decode.unknownPacketID(id)
-                }
-                break packetID
-            case 0x01 where connection.get() == .status:
+        switch state {
+        case .handshaking:
+            guard id == Protocol754.Handshake.serverboundID else {
+                throw PacketCodecError.Decode.unknownPacketID(id)
+            }
+            packet = Handshake()
+        case .status:
+            switch id {
+            case Protocol754.StatusServerbound.requestID:
+                packet = StatusRequest()
+            case Protocol754.StatusServerbound.pingID:
                 packet = StatusPing()
             default:
-                logger.error("Unkown Packet ID",
-                                metadata: ["packet-id": "\(id)"],
-                                file: #file,
-                                function: #function,
-                                line: #line)
+                logger.error("Unknown Packet ID: \(id)", metadata: [
+                    "id": "\(id)",
+                    "state": "\(state)",
+                    "frame": "\(frame)",
+                ])
                 throw PacketCodecError.Decode.unknownPacketID(id)
+            }
+        case .login:
+            guard id == Protocol754.LoginServerbound.startID else {
+                logger.error("Unknown Packet ID: \(id)", metadata: [
+                    "id": "\(id)",
+                    "state": "\(state)",
+                    "frame": "\(frame)",
+                ])
+                throw PacketCodecError.Decode.unknownPacketID(id)
+            }
+            packet = LoginStart()
+        case .play:
+            logger.error("Unknown Packet ID: \(id)", metadata: [
+                "id": "\(id)",
+                "state": "\(state)",
+                "frame": "\(frame)",
+            ])
+            throw PacketCodecError.Decode.unknownPacketID(id)
         }
 
         try packet.decode(buffer: &frame)

@@ -209,7 +209,7 @@ final class PacketCodecTests: XCTestCase {
         let players = try XCTUnwrap(
             root["players"] as? [String: Any]
         )
-        XCTAssertEqual(players["max"] as? Int, 8)
+        XCTAssertEqual(players["max"] as? Int, 255)
         XCTAssertEqual(players["online"] as? Int, 0)
 
         let description = try XCTUnwrap(
@@ -217,7 +217,7 @@ final class PacketCodecTests: XCTestCase {
         )
         XCTAssertEqual(
             description["text"] as? String,
-            "hello, world: Swiftcraft is learning to talk."
+            "Swiftcraft v0"
         )
     }
 
