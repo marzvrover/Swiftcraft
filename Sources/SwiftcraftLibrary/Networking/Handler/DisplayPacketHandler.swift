@@ -42,7 +42,25 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                         return
                 }
             case is StatusRequest:
-                print("Status Packet".blue)
+                let info = StatusInfo(
+                    version: .init(name: "1.16.5", protocol: 754),
+                    players: .init(max: 8, online: 0),
+                    description: .init(text: "hello, world: Swiftcraft is learning to talk.")
+                )
+
+                do {
+                    let data = try JSONEncoder().encode(info)
+                    let json = String(decoding: data, as: UTF8.self)
+                    let response = StatusResponse(json: json)
+
+                    context.writeAndFlush(
+                        wrapInboundOut(response),
+                        promise: nil
+                    )
+                } catch {
+                    errorCaught(context: context, error: error)
+                    return
+                }
             case is LoginStart:
                 // swiftlint:disable:next force_cast
                 let packet = packet as! LoginStart

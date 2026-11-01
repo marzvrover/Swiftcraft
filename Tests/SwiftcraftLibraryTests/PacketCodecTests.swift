@@ -137,4 +137,87 @@ final class PacketCodecTests: XCTestCase {
             XCTAssertTrue(try channel.finish().isClean)
         }
     }
+
+    func testStatusRequestProducesJSONResponse() throws {
+        let connection = ConnectionContext()
+
+        let channel = EmbeddedChannel(handlers: [
+            ByteToMessageHandler(
+                PacketCodec(connection: connection)
+            ),
+            MessageToByteHandler(
+                PacketCodec(connection: connection)
+            ),
+            DisplayPacketHandler(connection: connection),
+        ])
+
+        let handshakeBytes: [UInt8] = [
+            0x10,                   // Frame length
+            0x00,                   // Handshake ID
+            0xF2, 0x05,             // Protocol version: 754
+            0x09,                   // Address length
+            0x6C, 0x6F, 0x63,
+            0x61, 0x6C, 0x68,
+            0x6F, 0x73, 0x74,       // "localhost"
+            0x63, 0xDD,             // Port: 25565
+            0x01,                   // Intention: status
+        ]
+
+        try channel.writeInbound(
+            allocator.buffer(bytes: handshakeBytes)
+        )
+
+        XCTAssertTrue(connection.get() == .status)
+
+        // The handshake itself should not produce a response.
+        XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+
+        try channel.writeInbound(
+            allocator.buffer(bytes: [0x01, 0x00])
+        )
+
+        // Read the bytes that would be sent to the Minecraft client.
+        var response = try XCTUnwrap(
+            channel.readOutbound(as: ByteBuffer.self),
+            "Expected a Status Response"
+        )
+
+        let frameLength = try response.readVarInt()
+
+        // After reading the prefix, all remaining bytes belong to this frame.
+        XCTAssertGreaterThan(frameLength, 0)
+        XCTAssertEqual(Int(frameLength), response.readableBytes)
+
+        let packetID = try response.readVarInt()
+        XCTAssertEqual(packetID, 0x00)
+
+        // The response body is one Minecraft String containing JSON.
+        let json = try XCTUnwrap(response.readVarString())
+        XCTAssertEqual(response.readableBytes, 0)
+
+        let object = try JSONSerialization.jsonObject(
+            with: Data(json.utf8)
+        )
+        let root = try XCTUnwrap(object as? [String: Any])
+
+        let version = try XCTUnwrap(
+            root["version"] as? [String: Any]
+        )
+        XCTAssertEqual(version["name"] as? String, "1.16.5")
+        XCTAssertEqual(version["protocol"] as? Int, 754)
+
+        let players = try XCTUnwrap(
+            root["players"] as? [String: Any]
+        )
+        XCTAssertEqual(players["max"] as? Int, 8)
+        XCTAssertEqual(players["online"] as? Int, 0)
+
+        let description = try XCTUnwrap(
+            root["description"] as? [String: Any]
+        )
+        XCTAssertEqual(
+            description["text"] as? String,
+            "hello, world: Swiftcraft is learning to talk."
+        )
+    }
 }
