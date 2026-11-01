@@ -29,7 +29,7 @@ final class PacketCodecTests: XCTestCase {
         }
     }
 
-    static var allTests = [
+    static let allTests = [
         ("testDecodeHandshake", testDecodeHandshake),
     ]
 }

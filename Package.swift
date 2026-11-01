@@ -1,22 +1,22 @@
-// swift-tools-version:5.3
+// swift-tools-version:6.2
 import PackageDescription
 let package = Package(
     name: "Swiftcraft",
     platforms: [
-        .macOS(.v10_10),
+        .macOS(.v12),
     ],
     products: [
         .executable(name: "Swiftcraft", targets: ["Swiftcraft"]),
         .library(name: "SwiftcraftLibrary", targets: ["SwiftcraftLibrary"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/swiftpackages/DotEnv.git", from: "3.0.0"),
-        .package(url: "https://github.com/onevcat/Rainbow", from: "3.0.0"),
-        .package(url: "https://github.com/apple/swift-nio.git", from: "2.23.0"),
-        .package(url: "https://github.com/apple/swift-log.git", from: "1.4.0"),
+        .package(url: "https://github.com/swiftpackages/DotEnv.git", from: "3.0.1"),
+        .package(url: "https://github.com/onevcat/Rainbow", from: "4.2.2"),
+        .package(url: "https://github.com/apple/swift-nio.git", from: "2.104.0"),
+        .package(url: "https://github.com/apple/swift-log.git", from: "1.16.2"),
     ],
     targets: [
-        .target(
+        .executableTarget(
             name: "Swiftcraft",
             dependencies: [
                 "SwiftcraftLibrary",
@@ -48,5 +48,6 @@ let package = Package(
                 "Swiftcraft",
             ]
         ),
-    ]
+    ],
+    swiftLanguageModes: [.v6]
 )

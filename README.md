@@ -12,6 +12,10 @@ Swiftcraft is a swift implementation of the Minecraft Server. The goal of this p
 **This is an active WIP.** Currently in the first steps of implementing the Minecraft Protocol.
 You should expect massive amounts of refactoring.
 
+## Requirements
+
+Building and testing Swiftcraft requires Swift 6.2 or newer and macOS 12 or newer (or Linux).
+
 ## Protocol
 
 This server is built from the ground up implementing [Minecraft's Protocol.](https://wiki.vg/Protocol)

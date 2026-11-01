@@ -2,7 +2,7 @@ import Foundation
 import NIO
 import Rainbow
 /// A `ChannelInboundHandler` to display `Packet`s.
-class DisplayPacketHandler: ChannelInboundHandler {
+final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     typealias InboundIn = Packet
     typealias InboundOut = Packet
     /// Channel Read
@@ -22,9 +22,9 @@ class DisplayPacketHandler: ChannelInboundHandler {
                 print("Server Port: \(packet.port)".blue)
                 print("Intention: \(packet.intention)".blue)
                 if packet.intention == 1 {
-                    playerState = .status
+                    playerState.set(.status)
                 } else if packet.intention == 2 {
-                    playerState = .login
+                    playerState.set(.login)
                 }
             case is StatusRequest:
                 print("Status Packet".blue)
