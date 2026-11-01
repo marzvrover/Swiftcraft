@@ -238,7 +238,7 @@ extension PacketProtocol {
         } else {
             workingDef = inDefinition!
         }
-        var tmpBuffer = ByteBufferAllocator().buffer(buffer: buffer)
+        var tmpBuffer = ByteBufferAllocator().buffer(capacity: 0)
         for def in workingDef {
             switch def.type {
                 case .boolean:
@@ -311,10 +311,11 @@ extension PacketProtocol {
                     tmpBuffer.writeVarString(data[def.name] as! String)
             }
         }
-        let length: Int32 = Int32(tmpBuffer.readableBytes)
-        buffer.writeVarInt(length)
-        buffer.writeVarInt(self.id)
-        buffer.reserveCapacity(buffer.readableBytes + Int(length))
-        buffer.writeBuffer(&tmpBuffer)
+        var frame = ByteBufferAllocator().buffer(capacity: 0)
+        frame.writeVarInt(self.id)
+        frame.writeBuffer(&tmpBuffer)
+
+        buffer.writeVarInt(Int32(frame.readableBytes))
+        buffer.writeBuffer(&frame)
     }
 }

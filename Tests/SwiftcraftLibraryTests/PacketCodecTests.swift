@@ -18,26 +18,44 @@ final class PacketCodecTests: XCTestCase {
         XCTAssertTrue(second.get() == .handshaking)
     }
 
-    func testDecodeHandshake() {
+    func testDecodeHandshake() throws {
         var buffer = allocator.buffer(capacity: 0)
-        let test = Handshake()
-        test.version = 754
-        test.port = 25564
-        test.intention = 1
-        test.address = "127.0.0.1"
+        let handshake = Handshake()
+        handshake.version = 754
+        handshake.port = 25564
+        handshake.intention = 1
+        handshake.address = "127.0.0.1"
 
-        test.encode(buffer: &buffer)
-        do {
-            try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
-                (buffer, [test]),
-            ]) {
-                return PacketCodec(connection: ConnectionContext())
-            }
-        } catch {
-            if !(error is PacketCodecError.Decode) {
-                XCTFail("Unexpected Error: \(error)")
-            }
+        handshake.encode(buffer: &buffer)
+
+        try ByteToMessageDecoderVerifier.verifyDecoder(
+            inputOutputPairs: [
+                (buffer, [handshake]),
+            ]
+        ) {
+            PacketCodec(connection: ConnectionContext())
         }
+    }
+
+    func testEncodeStatusRequestHasCorrectWireBytes() {
+        var buffer = allocator.buffer(capacity: 0)
+
+        StatusRequest().encode(buffer: &buffer)
+
+        XCTAssertEqual(Array(buffer.readableBytesView), [0x01, 0x00])
+    }
+
+    func testEncodeStatusRequestAppendsToExistingBuffer() {
+        var buffer = allocator.buffer(capacity: 0)
+        let request = StatusRequest()
+
+        request.encode(buffer: &buffer)
+        request.encode(buffer: &buffer)
+
+        XCTAssertEqual(
+            Array(buffer.readableBytesView),
+            [0x01, 0x00, 0x01, 0x00]
+        )
     }
 
     func testHandshakeRequestAtEverySplit() throws {
