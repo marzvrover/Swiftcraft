@@ -7,6 +7,17 @@ import NIOTestUtils
 final class PacketCodecTests: XCTestCase {
     let allocator = ByteBufferAllocator()
 
+    func testConnectionStateIsIndependent() {
+        let first = ConnectionContext()
+        let sameFirst = first
+        let second = ConnectionContext()
+
+        sameFirst.set(.status)
+
+        XCTAssertTrue(first.get() == .status)
+        XCTAssertTrue(second.get() == .handshaking)
+    }
+
     func testDecodeHandshake() {
         var buffer = allocator.buffer(capacity: 0)
         let test = Handshake()
@@ -20,7 +31,7 @@ final class PacketCodecTests: XCTestCase {
             try ByteToMessageDecoderVerifier.verifyDecoder(inputOutputPairs: [
                 (buffer, [test]),
             ]) {
-                return PacketCodec()
+                return PacketCodec(connection: ConnectionContext())
             }
         } catch {
             if !(error is PacketCodecError.Decode) {

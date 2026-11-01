@@ -5,6 +5,16 @@ import Rainbow
 final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     typealias InboundIn = Packet
     typealias InboundOut = Packet
+    /// The `ConnectionContext` for the `DisplayPacketHandler`
+    private let connection: ConnectionContext
+
+    /// MARK: Initialization
+    /// The `DisplayPacketHandler` is initialized with a `ConnectionContext`
+    /// - parameter connection: The `ConnectionContext` for the `DisplayPacketHandler`
+    init(connection: ConnectionContext) {
+        self.connection = connection
+    }
+
     /// Channel Read
     /// - parameters:
     ///     - context: `ChannelHandlerContext`
@@ -22,9 +32,9 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 print("Server Port: \(packet.port)".blue)
                 print("Intention: \(packet.intention)".blue)
                 if packet.intention == 1 {
-                    playerState.set(.status)
+                    connection.set(.status)
                 } else if packet.intention == 2 {
-                    playerState.set(.login)
+                    connection.set(.login)
                 }
             case is StatusRequest:
                 print("Status Packet".blue)

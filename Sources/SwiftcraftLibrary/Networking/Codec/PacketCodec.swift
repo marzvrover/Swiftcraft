@@ -18,6 +18,14 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     typealias OutboundIn = Packet
     /// The `OutboundOut` datatype is a `ByteBuffer`
     typealias OutboundOut = ByteBuffer
+    /// The `ConnectionContext` for the `PacketCodec`
+    private let connection: ConnectionContext
+    /// MARK: Initialization
+    /// The `PacketCodec` is initialized with a `ConnectionContext`
+    /// - parameter connection: The `ConnectionContext` for the `PacketCodec`
+    init(connection: ConnectionContext) {
+        self.connection = connection
+    }
     // MARK: PacketDecoder
     /// The method to decode the `Packet`
     /// - parameters:
@@ -46,7 +54,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
 
             packetID: switch id {
                 case 0x00:
-                    let state = playerState.get()
+                    let state = connection.get()
                     currentState: switch state {
                         case .handshaking:
                             packet = Handshake()
