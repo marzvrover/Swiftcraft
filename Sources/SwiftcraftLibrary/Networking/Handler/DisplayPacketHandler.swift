@@ -31,10 +31,15 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 print("Server Address: \(packet.address)".blue)
                 print("Server Port: \(packet.port)".blue)
                 print("Intention: \(packet.intention)".blue)
-                if packet.intention == 1 {
-                    connection.set(.status)
-                } else if packet.intention == 2 {
-                    connection.set(.login)
+                switch packet.intention {
+                    case 1:
+                        connection.set(.status)
+                    case 2:
+                        connection.set(.login)
+                    default:
+                        logger.error("Unsupported Handshake Intention: \(packet.intention)")
+                        context.close(promise: nil)
+                        return
                 }
             case is StatusRequest:
                 print("Status Packet".blue)

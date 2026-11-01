@@ -41,6 +41,15 @@ enum PacketData: String {
     /// Minecraft `VarString` is a `String`
     case varString = "String"
 }
+
+/// Errors that can occur when reading a `Packet` from a `ByteBuffer`.
+enum PacketFieldError: Error {
+    /// The field with the given name is missing from the `ByteBuffer`.
+    case missing(String)
+    /// The string length is invalid.
+    case invalidStringLength
+}
+
 // MARK: Packet
 /// Packet class. This is the base class for all Packets.
 class Packet: PacketProtocol & Equatable {
@@ -164,7 +173,10 @@ extension PacketProtocol {
                 case .short:
                     data[def.name] = buffer.readInteger(as: Int16.self)
                 case .unsignedShort:
-                    data[def.name] = buffer.readInteger(as: UInt16.self)
+                    guard let value = buffer.readInteger(as: UInt16.self) else {
+                        throw PacketFieldError.missing(def.name)
+                    }
+                    data[def.name] = value
                 case .int:
                     data[def.name] = buffer.readInteger(as: Int32.self)
                 case .unsignedInt:
@@ -192,7 +204,19 @@ extension PacketProtocol {
                 case .varLong:
                     data[def.name] = try buffer.readVarLong()
                 case .varString:
-                    data[def.name] = try buffer.readVarString()
+                    let byteCount = try buffer.readVarInt()
+                    let maxCharacters = def.args?["maxCharacters"] as? Int ?? 32767
+                    guard byteCount >= 0,
+                          Int(byteCount) <= maxCharacters else {
+                        throw PacketFieldError.invalidStringLength
+                    }
+                    guard let value = buffer.readString(length: Int(byteCount)) else {
+                        throw PacketFieldError.missing(def.name)
+                    }
+                    guard value.utf16.count <= maxCharacters else {
+                        throw PacketFieldError.invalidStringLength
+                    }
+                    data[def.name] = value
             }
         }
     }

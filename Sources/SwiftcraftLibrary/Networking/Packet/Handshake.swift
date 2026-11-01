@@ -22,7 +22,7 @@ class Handshake: Packet {
             id: 0x00,
             definition: [
                 (name: "protocol_version", type: .varInt, args: nil),
-                (name: "server_address", type: .varString, args: nil),
+                (name: "server_address", type: .varString, args: ["maxCharacters": 255]),
                 (name: "server_port", type: .unsignedShort, args: nil),
                 (name: "intention", type: .varInt, args: nil),
             ],

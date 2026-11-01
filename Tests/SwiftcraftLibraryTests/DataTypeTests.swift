@@ -314,4 +314,16 @@ final class DataTypeTests: XCTestCase {
         XCTAssertEqual(buffer.readInteger(as: T.self), 0)
         XCTAssertEqual(buffer.readInteger(as: T.self), T.max)
     }
+
+    func testPartialVarIntPerservesInput() throws {
+        var buffer = allocator.buffer(bytes: [0xF2])
+        let originalIndex = buffer.readerIndex
+
+        XCTAssertNil(try buffer.readVarIntIfAvailable())
+        XCTAssertEqual(buffer.readerIndex, originalIndex)
+
+        buffer.writeBytes([0x05])
+        XCTAssertEqual(try buffer.readVarIntIfAvailable(), 754)
+        XCTAssertEqual(buffer.readableBytes, 0)
+    }
 }
