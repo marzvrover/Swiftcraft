@@ -3,7 +3,7 @@ import NIO
 final class StatusPing: Packet {
     init() {
         super.init(
-            id: 0x01,
+            id: Protocol754.StatusServerbound.pingID,
             definition: [
                 (name: "payload", type: .long, args: nil)
             ],
@@ -15,7 +15,7 @@ final class StatusPing: Packet {
 final class StatusPong: Packet {
     init(payload: Int64) {
         super.init(
-            id: 0x01,
+            id: Protocol754.StatusClientbound.pongID,
             definition: [
                 (name: "payload", type: .long, args: nil)
             ],
