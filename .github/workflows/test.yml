@@ -23,6 +23,12 @@ jobs:
           state: 'pending'
           sha: ${{github.event.pull_request.head.sha || github.sha}}
       - uses: actions/checkout@v3
+      - name: Import Swift signing keys
+        if: runner.os == 'Linux'
+        run: |
+          curl --fail --silent --show-error --location --compressed https://www.swift.org/keys/all-keys.asc --output swift-signing-keys.asc
+          gpg --import swift-signing-keys.asc
+          rm swift-signing-keys.asc
       - name: Setup Swift @ ${{ matrix.swift}}
         uses: swift-actions/setup-swift@v3.0.0-beta.1
         with:
