@@ -23,7 +23,7 @@
         <a class="header-link" href="index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (89% documented)
+         (85% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -42,7 +42,7 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="index.html">SwiftcraftLibrary Reference</a>
+      <a class="breadcrumb" href="index.html">SwiftcraftLibrary</a>
       <img class="carat" src="img/carat.png" alt=""/>
       Classes  Reference
     </p>
@@ -66,6 +66,9 @@
                 <a class="nav-group-task-link" href="Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="Classes/PlayerState.html">PlayerState</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="Classes/Server.html">Server</a>
               </li>
               <li class="nav-group-task">
@@ -80,7 +83,7 @@
                 <a class="nav-group-task-link" href="Global%20Variables.html#/s:17SwiftcraftLibrary6logger7Logging6LoggerVvp">logger</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA0D0Ovp">playerState</a>
+                <a class="nav-group-task-link" href="Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA06PlayerD0Cvp">playerState</a>
               </li>
             </ul>
           </li>
@@ -176,7 +179,7 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">class</span> <span class="kt">DisplayPacketHandler</span> <span class="p">:</span> <span class="kt">ChannelInboundHandler</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">DisplayPacketHandler</span> <span class="p">:</span> <span class="kt">ChannelInboundHandler</span><span class="p">,</span> <span class="kt">Sendable</span></code></pre>
 
                         </div>
                       </div>
@@ -202,7 +205,7 @@
                         <h1 id='the-minecraft-handshake-code-packet-code' class='heading'>The Minecraft Handshake <code><a href="Classes/Packet.html">Packet</a></code></h1>
 <h2 id='id' class='heading'>ID</h2>
 
-<p>The <code>Packet</code>.<code>id</code> for the Minecraft Handshake Packet is 0x00</p>
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">code&gt;.&lt;code&gt;id</a></code> for the Minecraft Handshake Packet is 0x00</p>
 <h2 id='definition' class='heading'>Definition</h2>
 
 <table><thead>
@@ -215,25 +218,25 @@
 </thead><tbody>
 <tr>
 <td>protocol_version</td>
-<td><code>PacketData</code>.<code>varInt</code> aka <code>Int32</code></td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> aka <code>Int32</code></td>
 <td></td>
 <td>The Minecraft Protocol version number.</td>
 </tr>
 <tr>
 <td>server_address</td>
-<td><code>PacketData</code>.<code>varString</code> aka <code>String</code></td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code> aka <code>String</code></td>
 <td></td>
 <td>The server address the client is connecting to.</td>
 </tr>
 <tr>
 <td>server_port</td>
-<td><code>PacketData</code>.<code>unsignedShort</code> aka <code>UInt16</code></td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO13unsignedShortyA2CmF">code&gt;.&lt;code&gt;unsignedShort</a></code> aka <code>UInt16</code></td>
 <td></td>
 <td>The server port the client is connecting to.</td>
 </tr>
 <tr>
 <td>intention</td>
-<td><code>PacketData</code>.<code>varInt</code> aka <code>Int32</code></td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> aka <code>Int32</code></td>
 <td></td>
 <td>1 for status, 2 for login</td>
 </tr>
@@ -271,7 +274,7 @@
                         <h1 id='the-minecraft-login-start-code-packet-code' class='heading'>The Minecraft Login Start <code><a href="Classes/Packet.html">Packet</a></code></h1>
 <h2 id='id' class='heading'>ID</h2>
 
-<p>The <code>Packet</code>.<code>id</code> for the Minecraft Login Start Packet is 0x00</p>
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">code&gt;.&lt;code&gt;id</a></code> for the Minecraft Login Start Packet is 0x00</p>
 <h2 id='definition' class='heading'>Definition</h2>
 
 <table><thead>
@@ -284,15 +287,15 @@
 </thead><tbody>
 <tr>
 <td>Name</td>
-<td><code>PacketData</code>.<code>varString</code></td>
+<td><code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code></td>
 <td></td>
 <td>Player&rsquo;s username</td>
 </tr>
 </tbody></table>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    The protocol claims that name is a <code>PacketData</code>.<code>string</code> of length 16,
-    but I have found it to be a <code>PacketData</code>.<code>varString</code>.
+    The protocol claims that name is a <code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6stringyA2CmF">code&gt;.&lt;code&gt;string</a></code> of length 16,
+    but I have found it to be a <code><a href="Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code>.
 
 </div>
 
@@ -372,7 +375,7 @@
                         <h1 id='the-minecraft-server-bound-status-request-code-packet-code' class='heading'>The Minecraft Server Bound Status Request <code><a href="Classes/Packet.html">Packet</a></code></h1>
 <h2 id='id' class='heading'>ID</h2>
 
-<p>The <code>Packet</code>.<code>id</code> for the Minecraft Server Bound Status Request Packet is 0x00</p>
+<p>The <code><a href="Classes/Packet.html#/s:17SwiftcraftLibrary14PacketProtocolP2ids5Int32Vvp">code&gt;.&lt;code&gt;id</a></code> for the Minecraft Server Bound Status Request Packet is 0x00</p>
 <h2 id='definition' class='heading'>Definition</h2>
 
 <p>empty</p>
@@ -419,7 +422,38 @@
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Server.swift#L6-L89">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Server.swift#L6-L87">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary11PlayerStateC"></a>
+                    <a name="//apple_ref/swift/Class/PlayerState" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary11PlayerStateC">PlayerState</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="Classes/PlayerState.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PlayerState</span> <span class="p">:</span> <span class="kd">@unchecked</span> <span class="kt">Sendable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L11-L27">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -432,8 +466,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2022-05-27)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-01)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>

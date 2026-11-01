@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (89% documented)
+         (85% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -42,9 +42,11 @@
     </header>
 
     <p class="breadcrumbs">
-      <a class="breadcrumb" href="../index.html">SwiftcraftLibrary Reference</a>
+      <a class="breadcrumb" href="../index.html">SwiftcraftLibrary</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      ByteBuffer Extension Reference
+      <a class="breadcrumb" href="../Extensions.html">Extensions</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      NIOCore.ByteBuffer Extension Reference
     </p>
 
     <div class="content-wrapper">
@@ -66,6 +68,9 @@
                 <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/PlayerState.html">PlayerState</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
               </li>
               <li class="nav-group-task">
@@ -80,7 +85,7 @@
                 <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary6logger7Logging6LoggerVvp">logger</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA0D0Ovp">playerState</a>
+                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA06PlayerD0Cvp">playerState</a>
               </li>
             </ul>
           </li>
@@ -338,7 +343,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>PacketData</code>.<code>varInt</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     Throws <code>VarIntError.VarIntIsTooBig</code>
@@ -378,7 +383,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write a <code>PacketData</code>.<code>varInt</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -401,7 +406,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>Int32</code> value to write as a <code>PacketData</code>.<code>varInt</code></p>
+                                  <p>A <code>Int32</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -440,7 +445,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>PacketData</code>.<code>varLong</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">code&gt;.&lt;code&gt;varLong</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
     <code>VarLongError.VarLongIsTooBig</code>
@@ -480,7 +485,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write a <code>PacketData</code>.<code>varLong</code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">code&gt;.&lt;code&gt;varLong</a></code> into this <code>ByteBuffer</code>, move the writer index forward by number of bytes written.</p>
 
                       </div>
                       <div class="declaration">
@@ -503,7 +508,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>Int64</code> value to write as a <code>PacketData</code>.<code>varLong</code></p>
+                                  <p>A <code>Int64</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">code&gt;.&lt;code&gt;varLong</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -542,7 +547,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Read a <code>PacketData</code>.<code>varString</code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes.</p>
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes.</p>
 
                       </div>
                       <div class="declaration">
@@ -577,7 +582,7 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Write a <code>PacketData</code>.<code>varString</code> onto this <code>ByteBuffer</code>, move the writer index forward by the size in bytes.</p>
+                        <p>Write a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code> onto this <code>ByteBuffer</code>, move the writer index forward by the size in bytes.</p>
 
                       </div>
                       <div class="declaration">
@@ -600,7 +605,7 @@
                               </td>
                               <td>
                                 <div>
-                                  <p>A <code>String</code> value to write as a <code>PacketData</code>.<code>varString</code></p>
+                                  <p>A <code>String</code> value to write as a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO9varStringyA2CmF">code&gt;.&lt;code&gt;varString</a></code></p>
                                 </div>
                               </td>
                             </tr>
@@ -621,8 +626,8 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2022 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2022-05-27)</p>
-      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.14.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-01)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>
 </html>
