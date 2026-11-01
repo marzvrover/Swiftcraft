@@ -21,15 +21,23 @@ open class Server {
             .serverChannelOption(ChannelOptions.backlog, value: 256)
             .serverChannelOption(ChannelOptions.socketOption(.so_reuseaddr), value: 1)
 
-            // Set the handlers that are appled to the accepted Channels
+            // Set the handlers that are applied to the accepted Channels
             .childChannelInitializer { channel in
-                // Ensure we don't read faster than we can write by adding the BackPressureHandler into the pipeline.
                 channel.eventLoop.submit {
+                    let connection = ConnectionContext()
+
                     try channel.pipeline.syncOperations.addHandlers([
-                            ByteToMessageHandler(PacketCodec()),
-                            MessageToByteHandler(PacketCodec()),
-                        ], position: .first)
-                    try channel.pipeline.syncOperations.addHandler(DisplayPacketHandler())
+                        ByteToMessageHandler(
+                            PacketCodec(connection: connection)
+                        ),
+                        MessageToByteHandler(
+                            PacketCodec(connection: connection)
+                        )
+                    ], position: .first)
+
+                    try channel.pipeline.syncOperations.addHandler(
+                        DisplayPacketHandler(connection: connection)
+                    )
                 }
             }
 

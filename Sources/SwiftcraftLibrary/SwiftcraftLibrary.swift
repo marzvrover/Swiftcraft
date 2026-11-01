@@ -8,10 +8,10 @@ public enum State: Sendable {
     case play
 }
 
-final class PlayerState: @unchecked Sendable {
+final class ConnectionContext: @unchecked Sendable {
     // All access to the state is protected by this lock.
     private let lock = NSLock()
-    private var state = State.handshaking
+    private var state: State = .handshaking
 
     func get() -> State {
         lock.lock()
@@ -25,7 +25,5 @@ final class PlayerState: @unchecked Sendable {
         self.state = state
     }
 }
-
-let playerState = PlayerState()
 
 public let logger = Logger(label: "SwiftcraftLibrary")
