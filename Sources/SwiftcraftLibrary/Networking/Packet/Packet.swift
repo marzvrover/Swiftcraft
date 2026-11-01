@@ -182,7 +182,10 @@ extension PacketProtocol {
                 case .unsignedInt:
                     data[def.name] = buffer.readInteger(as: UInt32.self)
                 case .long:
-                    data[def.name] = buffer.readInteger(as: Int64.self)
+                    guard let value = buffer.readInteger(as: Int64.self) else {
+                        throw PacketFieldError.missing(def.name)
+                    }
+                    data[def.name] = value
                 case .unsignedLong:
                     data[def.name] = buffer.readInteger(as: UInt64.self)
                 case .float:

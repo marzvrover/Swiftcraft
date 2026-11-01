@@ -93,6 +93,8 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
                         throw PacketCodecError.Decode.unknownPacketID(id)
                 }
                 break packetID
+            case 0x01 where connection.get() == .status:
+                packet = StatusPing()
             default:
                 logger.error("Unkown Packet ID",
                                 metadata: ["packet-id": "\(id)"],

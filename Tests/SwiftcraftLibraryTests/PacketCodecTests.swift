@@ -220,4 +220,102 @@ final class PacketCodecTests: XCTestCase {
             "hello, world: Swiftcraft is learning to talk."
         )
     }
+
+    func testStatusPingEchoesPayloadAndCloses() throws {
+        let handshakeBytes: [UInt8] = [
+            0x10, 0x00, 0xF2, 0x05, 0x09,
+            0x6C, 0x6F, 0x63, 0x61, 0x6C,
+            0x68, 0x6F, 0x73, 0x74,
+            0x63, 0xDD, 0x01,
+        ]
+
+        let pingBytes: [UInt8] = [
+            0x09,                   // Frame length: ID + 8-byte payload
+            0x01,                   // Ping ID
+            0x00, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x2A, // Payload: 42
+        ]
+
+        for sendStatusRequest in [true, false] {
+            let connection = ConnectionContext()
+
+            let channel = EmbeddedChannel(handlers: [
+                ByteToMessageHandler(
+                    PacketCodec(connection: connection)
+                ),
+                MessageToByteHandler(
+                    PacketCodec(connection: connection)
+                ),
+                DisplayPacketHandler(connection: connection),
+            ])
+
+            // Activate the simulated connection; no real socket is opened.
+            try channel.connect(
+                to: SocketAddress(ipAddress: "127.0.0.1", port: 25565)
+            ).wait()
+
+            XCTAssertTrue(channel.isActive)
+
+            try channel.writeInbound(
+                allocator.buffer(bytes: handshakeBytes)
+            )
+
+            XCTAssertTrue(connection.get() == .status)
+
+            let handshake = try channel.readInbound(as: Packet.self)
+            XCTAssertTrue(handshake is Handshake)
+            XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+
+            if sendStatusRequest {
+                try channel.writeInbound(
+                    allocator.buffer(bytes: [0x01, 0x00])
+                )
+
+                // Consume the JSON response before checking the Pong.
+                _ = try XCTUnwrap(
+                    channel.readOutbound(as: ByteBuffer.self),
+                    "Expected a Status Response before Pong"
+                )
+
+                let request = try channel.readInbound(as: Packet.self)
+                XCTAssertTrue(request is StatusRequest)
+
+                // Sending the status information should not close the channel.
+                channel.embeddedEventLoop.run()
+                XCTAssertTrue(channel.isActive)
+            }
+
+            try channel.writeInbound(
+                allocator.buffer(bytes: pingBytes)
+            )
+
+            // Run callbacks scheduled by the reply's write promise.
+            channel.embeddedEventLoop.run()
+
+            let pong = try XCTUnwrap(
+                channel.readOutbound(as: ByteBuffer.self),
+                "Expected Pong; sendStatusRequest = \(sendStatusRequest)"
+            )
+
+            XCTAssertEqual(
+                Array(pong.readableBytesView),
+                pingBytes,
+                "Pong must echo the exact payload"
+            )
+
+            XCTAssertFalse(
+                channel.isActive,
+                "The connection should close after writing Pong"
+            )
+
+            XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+
+            // The Ping branch returns without forwarding the Ping downstream.
+            XCTAssertNil(try channel.readInbound(as: Packet.self))
+
+            XCTAssertTrue(
+                try channel.finish(acceptAlreadyClosed: true).isClean
+            )
+        }
+    }
 }
