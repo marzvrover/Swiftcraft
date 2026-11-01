@@ -6,7 +6,7 @@ final class SwiftcraftTests: XCTestCase {
         XCTAssertTrue(true)
     }
 
-    static var allTests = [
+    static let allTests = [
         ("testExample", testExample),
     ]
 }

@@ -24,14 +24,12 @@ open class Server {
             // Set the handlers that are appled to the accepted Channels
             .childChannelInitializer { channel in
                 // Ensure we don't read faster than we can write by adding the BackPressureHandler into the pipeline.
-                channel.pipeline
-                    .addHandlers([
+                channel.eventLoop.submit {
+                    try channel.pipeline.syncOperations.addHandlers([
                             ByteToMessageHandler(PacketCodec()),
                             MessageToByteHandler(PacketCodec()),
-                        ],
-                        position: .first)
-                    .flatMap { _ in
-                    channel.pipeline.addHandler(DisplayPacketHandler())
+                        ], position: .first)
+                    try channel.pipeline.syncOperations.addHandler(DisplayPacketHandler())
                 }
             }
 

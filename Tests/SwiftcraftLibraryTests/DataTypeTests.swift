@@ -315,7 +315,7 @@ final class DataTypeTests: XCTestCase {
         XCTAssertEqual(buffer.readInteger(as: T.self), T.max)
     }
 
-    static var allTests = [
+    static let allTests = [
         ("testBoolean", testBoolean),
         ("testByte", testByte),
         ("testUnsignedByte", testUnsignedByte),

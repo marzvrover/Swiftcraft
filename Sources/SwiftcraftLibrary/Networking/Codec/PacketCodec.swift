@@ -46,7 +46,8 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
 
             packetID: switch id {
                 case 0x00:
-                    currentState: switch playerState {
+                    let state = playerState.get()
+                    currentState: switch state {
                         case .handshaking:
                             packet = Handshake()
                             break currentState
@@ -61,7 +62,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
                                          metadata: [
                                             "packet id": "\(id)",
                                             "packet length": "\(length)",
-                                            "player state": "\(playerState)",
+                                            "player state": "\(state)",
                                          ],
                                          file: #file,
                                          function: #function,
