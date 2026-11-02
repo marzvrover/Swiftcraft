@@ -28,7 +28,7 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     typealias OutboundOut = ByteBuffer
     /// The `ConnectionContext` for the `PacketCodec`
     private let connection: ConnectionContext
-    /// MARK: Initialization
+    // MARK: Initialization
     /// The `PacketCodec` is initialized with a `ConnectionContext`
     /// - parameter connection: The `ConnectionContext` for the `PacketCodec`
     init(connection: ConnectionContext) {

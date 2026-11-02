@@ -2,10 +2,14 @@ import Foundation
 
 final class LoginDisconnect: Packet {
     init(message: String) throws {
-        let data = try JSONEncoder().encode(
-            StatusInfo.Description(text: message)
-        )
-        let json = String(decoding: data, as: UTF8.self)
+        let description = StatusInfo.Description(text: message)
+        let data = try JSONEncoder().encode(description)
+        guard let json = String(decoding: data, as: UTF8.self) else {
+            throw EncodingError.invalidValue(
+                description,
+                .init(codingPath: [], debugDescription: "Status JSON is not UTF-8")
+            )
+        }
 
         super.init(
             id: Protocol754.LoginClientbound.disconnectID,
