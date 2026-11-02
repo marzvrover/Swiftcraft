@@ -1,6 +1,5 @@
 import Foundation
 import NIO
-import Rainbow
 /// A `ChannelInboundHandler` to display `Packet`s.
 final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     typealias InboundIn = Packet
@@ -25,81 +24,110 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     /// - parameters:
     ///     - context: `ChannelHandlerContext`
     ///     - data: `NIOAny` which can be unwrapped to have a `Packet`
-    public func channelRead(context: ChannelHandlerContext, data: NIOAny) {
+    public func channelRead(
+        context: ChannelHandlerContext,
+        data: NIOAny
+    ) {
         let packet = self.unwrapInboundIn(data)
-        print("Packet ID: \(packet.id)".green)
+        logger.trace("Packet ID: \(packet.id)")
 
         switch packet {
-            case is Handshake:
-                // swiftlint:disable:next force_cast
-                let packet = packet as! Handshake
-                print("Protocol Version: \(packet.version)".blue)
-                print("Server Address: \(packet.address)".blue)
-                print("Server Port: \(packet.port)".blue)
-                print("Intention: \(packet.intention)".blue)
-                switch packet.intention {
-                    case Protocol754.Handshake.statusIntention:
-                        connection.set(.status)
-                    case Protocol754.Handshake.loginIntention:
-                        guard packet.version == Int32(configuration.protocolVersion.rawValue) else {
-                            logger.info("Rejecting login protocol \(packet.version); ",
-                                metadata: ["server supports": "\(configuration.protocolVersion.rawValue)"]
-                            )
-                            context.close(promise: nil)
-                            return
-                        }
-                        connection.set(.login)
-                    default:
-                        logger.info("Rejecting unsupported handshake intention \(packet.intention)")
-                        context.close(promise: nil)
-                        return
-                }
-            case is StatusRequest:
-                do {
-                    let info = StatusInfo(configuration: configuration)
-                    let data = try JSONEncoder().encode(info)
-                    guard let json = String(decoding: data, as: UTF8.self) else {
-                        throw EncodingError.invalidValue(
-                            info,
-                            .init(codingPath: [], debugDescription: "Status JSON is not UTF-8")
-                        )
-                    }
-                    let response = StatusResponse(json: json)
-                    send(response, context: context, closeAfterWrite: false)
-                } catch {
-                    errorCaught(context: context, error: error)
-                    return
-                }
-            case is LoginStart:
-                do {
-                    let reply = try LoginDisconnect(
-                        message: configuration.loginRejectionMessage
-                    )
-                    send(reply, context: context, closeAfterWrite: true)
-                } catch {
-                    errorCaught(context: context, error: error)
-                }
+        case let handshake as Handshake:
+            guard handle(handshake, context: context) else {
                 return
-            case let ping as StatusPing:
-                guard let payload = ping.data["payload"] as? Int64 else {
-                    errorCaught(
-                        context: context,
-                        error: PacketFieldError.missing("payload")
-                    )
-                    return
-                }
-
-                send(
-                    StatusPong(payload: payload),
-                    context: context,
-                    closeAfterWrite: true
-                )
+            }
+        case is StatusRequest:
+            guard handleStatusRequest(context: context) else {
                 return
-            default:
-                print("Unknown Packet Type: \(type(of: packet))")
+            }
+        case is LoginStart:
+            handleLoginStart(context: context)
+            return
+        case let ping as StatusPing:
+            handle(ping, context: context)
+            return
+        default:
+            logger.warning("Unknown Packet Type: \(type(of: packet))")
         }
 
         context.fireChannelRead(wrapInboundOut(packet))
+    }
+
+    private func handle(
+        _ packet: Handshake,
+        context: ChannelHandlerContext
+    ) -> Bool {
+        logger.debug("Protocol Version: \(packet.version)")
+        logger.debug("Server Address: \(packet.address)")
+        logger.debug("Server Port: \(packet.port)")
+        logger.debug("Intention: \(packet.intention)")
+
+        switch packet.intention {
+        case Protocol754.Handshake.statusIntention:
+            connection.set(.status)
+            return true
+        case Protocol754.Handshake.loginIntention:
+            guard packet.version == Int32(configuration.protocolVersion.rawValue)
+            else {
+                logger.info(
+                    "Rejecting login protocol \(packet.version); ",
+                    metadata: [
+                        "server supports":
+                            "\(configuration.protocolVersion.rawValue)",
+                    ]
+                )
+                context.close(promise: nil)
+                return false
+            }
+            connection.set(.login)
+            return true
+        default:
+            logger.info(
+                "Rejecting unsupported handshake intention \(packet.intention)"
+            )
+            context.close(promise: nil)
+            return false
+        }
+    }
+
+    private func handleStatusRequest(
+        context: ChannelHandlerContext
+    ) -> Bool {
+        do {
+            let info = StatusInfo(configuration: configuration)
+            let response = StatusResponse(json: try info.json())
+            send(response, context: context, closeAfterWrite: false)
+            return true
+        } catch {
+            errorCaught(context: context, error: error)
+            return false
+        }
+    }
+
+    private func handleLoginStart(context: ChannelHandlerContext) {
+        do {
+            let reply = try LoginDisconnect(
+                message: configuration.loginRejectionMessage
+            )
+            send(reply, context: context, closeAfterWrite: true)
+        } catch {
+            errorCaught(context: context, error: error)
+        }
+    }
+
+    private func handle(_ ping: StatusPing, context: ChannelHandlerContext) {
+        guard let payload = ping.data["payload"] as? Int64 else {
+            errorCaught(
+                context: context,
+                error: PacketFieldError.missing("payload")
+            )
+            return
+        }
+        send(
+            StatusPong(payload: payload),
+            context: context,
+            closeAfterWrite: true
+        )
     }
 
     private func send(
@@ -110,7 +138,7 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
         let promise = context.eventLoop.makePromise(of: Void.self)
         let channel = context.channel
 
-        promise.futureResult.whenComplete { result in
+        promise.futureResult.whenComplete({ result in
             switch result {
             case .success:
                 if closeAfterWrite {
@@ -120,8 +148,13 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 logger.error("Reply failed: \(error)")
                 channel.close(promise: nil)
             }
-        }
+        })
 
         context.writeAndFlush(wrapInboundOut(packet), promise: promise)
+    }
+
+    func errorCaught(context: ChannelHandlerContext, error: Error) {
+        logger.error("Connection failed: \(error)")
+        context.close(promise: nil)
     }
 }

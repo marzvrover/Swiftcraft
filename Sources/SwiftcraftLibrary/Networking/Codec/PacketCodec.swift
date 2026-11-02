@@ -41,72 +41,23 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     ///     - buffer: `inout` `ByteBuffer`: The `ByteBuffer` to decode
     /// - throws: May throw any `PacketDecoderError`
     /// - returns: `DecodingState`
-    mutating func decode(context: ChannelHandlerContext, buffer: inout ByteBuffer) throws -> DecodingState {
+    mutating func decode(
+        context: ChannelHandlerContext,
+        buffer: inout ByteBuffer
+    ) throws -> DecodingState {
         var working = buffer
-        let prefixStart = working.readerIndex
-
-        guard let length = try working.readVarIntIfAvailable() else {
-            if working.readableBytes >= Protocol754.WireLimits.packetLengthMaximumBytes {
-                throw PacketCodecError.Decode.invalidLengthPrefix
-            }
+        guard var frame = try readFrame(from: &working) else {
             return .needMoreData
         }
-
-        guard working.readerIndex - prefixStart <= Protocol754.WireLimits.packetLengthMaximumBytes else {
-            throw PacketCodecError.Decode.invalidLengthPrefix
-        }
-        guard length > 0 && length <= Protocol754.WireLimits.packetLengthMaximum else {
-            throw PacketCodecError.Decode.invalidFrameLength(length)
-        }
-        guard var frame = working.readSlice(length: Int(length)) else {
-            return .needMoreData
-        }
-        guard let id = try frame.readVarIntIfAvailable() else {
+        guard let packetID = try frame.readVarIntIfAvailable() else {
             throw PacketCodecError.Decode.incompletePacketID
         }
 
-        let state = connection.get()
-        var packet: Packet
-
-        switch state {
-        case .handshaking:
-            guard id == Protocol754.Handshake.serverboundID else {
-                throw PacketCodecError.Decode.unknownPacketID(id)
-            }
-            packet = Handshake()
-        case .status:
-            switch id {
-            case Protocol754.StatusServerbound.requestID:
-                packet = StatusRequest()
-            case Protocol754.StatusServerbound.pingID:
-                packet = StatusPing()
-            default:
-                logger.error("Unknown Packet ID: \(id)", metadata: [
-                    "id": "\(id)",
-                    "state": "\(state)",
-                    "frame": "\(frame)",
-                ])
-                throw PacketCodecError.Decode.unknownPacketID(id)
-            }
-        case .login:
-            guard id == Protocol754.LoginServerbound.startID else {
-                logger.error("Unknown Packet ID: \(id)", metadata: [
-                    "id": "\(id)",
-                    "state": "\(state)",
-                    "frame": "\(frame)",
-                ])
-                throw PacketCodecError.Decode.unknownPacketID(id)
-            }
-            packet = LoginStart()
-        case .play:
-            logger.error("Unknown Packet ID: \(id)", metadata: [
-                "id": "\(id)",
-                "state": "\(state)",
-                "frame": "\(frame)",
-            ])
-            throw PacketCodecError.Decode.unknownPacketID(id)
-        }
-
+        var packet = try makePacket(
+            packetID: packetID,
+            state: connection.get(),
+            frame: frame
+        )
         try packet.decode(buffer: &frame)
         guard frame.readableBytes == 0 else {
             throw PacketCodecError.Decode.trailingPacketData
@@ -116,6 +67,107 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
         context.fireChannelRead(self.wrapInboundOut(packet))
         return .continue
     }
+
+    private func readFrame(from buffer: inout ByteBuffer) throws -> ByteBuffer? {
+        let prefixStart = buffer.readerIndex
+        guard let length = try buffer.readVarIntIfAvailable() else {
+            if buffer.readableBytes >= Protocol754.WireLimits.packetLengthMaximumBytes {
+                throw PacketCodecError.Decode.invalidLengthPrefix
+            }
+            return nil
+        }
+        guard buffer.readerIndex - prefixStart
+                <= Protocol754.WireLimits.packetLengthMaximumBytes else {
+            throw PacketCodecError.Decode.invalidLengthPrefix
+        }
+        guard length > 0 && length <= Protocol754.WireLimits.packetLengthMaximum else {
+            throw PacketCodecError.Decode.invalidFrameLength(length)
+        }
+        return buffer.readSlice(length: Int(length))
+    }
+
+    private func makePacket(
+        packetID: Int32,
+        state: State,
+        frame: ByteBuffer
+    ) throws -> Packet {
+        switch state {
+        case .handshaking:
+            return try makeHandshakePacket(packetID: packetID)
+        case .status:
+            return try makeStatusPacket(
+                packetID: packetID,
+                state: state,
+                frame: frame
+            )
+        case .login:
+            return try makeLoginPacket(
+                packetID: packetID,
+                state: state,
+                frame: frame
+            )
+        case .play:
+            throw unknownPacket(
+                packetID: packetID,
+                state: state,
+                frame: frame
+            )
+        }
+    }
+
+    private func makeHandshakePacket(packetID: Int32) throws -> Packet {
+        guard packetID == Protocol754.Handshake.serverboundID else {
+            throw PacketCodecError.Decode.unknownPacketID(packetID)
+        }
+        return Handshake()
+    }
+
+    private func makeStatusPacket(
+        packetID: Int32,
+        state: State,
+        frame: ByteBuffer
+    ) throws -> Packet {
+        switch packetID {
+        case Protocol754.StatusServerbound.requestID:
+            return StatusRequest()
+        case Protocol754.StatusServerbound.pingID:
+            return StatusPing()
+        default:
+            throw unknownPacket(
+                packetID: packetID,
+                state: state,
+                frame: frame
+            )
+        }
+    }
+
+    private func makeLoginPacket(
+        packetID: Int32,
+        state: State,
+        frame: ByteBuffer
+    ) throws -> Packet {
+        guard packetID == Protocol754.LoginServerbound.startID else {
+            throw unknownPacket(
+                packetID: packetID,
+                state: state,
+                frame: frame
+            )
+        }
+        return LoginStart()
+    }
+
+    private func unknownPacket(
+        packetID: Int32,
+        state: State,
+        frame: ByteBuffer
+    ) -> PacketCodecError.Decode {
+        logger.error("Unknown Packet ID: \(packetID)", metadata: [
+            "id": "\(packetID)",
+            "state": "\(state)",
+            "frame": "\(frame)",
+        ])
+        return .unknownPacketID(packetID)
+    }
     // MARK: PacketEncoder
     /// The method to encode the `Packet`
     /// - parameters:
@@ -123,15 +175,5 @@ struct PacketCodec: ByteToMessageDecoder, MessageToByteEncoder {
     ///     - out: `inout` `ByteBuffer`: The `ByteBuffer` to encode on
     func encode(data: OutboundIn, out: inout ByteBuffer) throws {
         data.encode(buffer: &out)
-    }
-
-    // MARK: Error Handling
-    /// Called when an error occurs
-    /// - parameters:
-    ///     - context: `ChannelHandlerContext`
-    ///     - error: `Error`
-    func errorCaught(context: ChannelHandlerContext, error: Error) {
-        logger.error("Connection failed: \(error)", file: #file, function: #function, line: #line)
-        context.close(promise: nil)
     }
 }

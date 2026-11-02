@@ -4,7 +4,7 @@ final class LoginDisconnect: Packet {
     init(message: String) throws {
         let description = StatusInfo.Description(text: message)
         let data = try JSONEncoder().encode(description)
-        guard let json = String(decoding: data, as: UTF8.self) else {
+        guard let json = String(bytes: data, encoding: .utf8) else {
             throw EncodingError.invalidValue(
                 description,
                 .init(codingPath: [], debugDescription: "Status JSON is not UTF-8")
