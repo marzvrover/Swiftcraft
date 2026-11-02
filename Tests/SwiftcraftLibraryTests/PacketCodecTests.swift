@@ -247,6 +247,72 @@ final class PacketCodecTests: XCTestCase {
         }
     }
 
+    func testRejectsInvalidFrameLengths() throws {
+        let invalidFrames: [([UInt8], PacketCodecError.Decode)] = [
+            ([0x00], .invalidFrameLength(0)),
+            ([0x80, 0x80, 0x80], .invalidLengthPrefix),
+            ([0x80, 0x80, 0x80, 0x01], .invalidLengthPrefix),
+        ]
+
+        for (bytes, expectedError) in invalidFrames {
+            let channel = EmbeddedChannel(
+                handler: ByteToMessageHandler(
+                    PacketCodec(connection: ConnectionContext())
+                )
+            )
+            XCTAssertThrowsError(
+                try channel.writeInbound(allocator.buffer(bytes: bytes))
+            ) { error in
+                guard let actualError = error as? PacketCodecError.Decode else {
+                    XCTFail("Unexpected error type: \(error)")
+                    return
+                }
+                switch (actualError, expectedError) {
+                case let (.invalidFrameLength(actual), .invalidFrameLength(expected)):
+                    XCTAssertEqual(actual, expected)
+                case (.invalidLengthPrefix, .invalidLengthPrefix):
+                    break
+                default:
+                    XCTFail("Unexpected decoder error: \(actualError)")
+                }
+            }
+            XCTAssertTrue(try channel.finish(acceptAlreadyClosed: true).isClean)
+        }
+    }
+
+    func testMultiByteFrameLengthPrefixCanArriveInFragments() throws {
+        var buffer = allocator.buffer(capacity: 0)
+        let handshake = Handshake()
+        handshake.version = 754
+        handshake.address = String(repeating: "a", count: 128)
+        handshake.port = 25565
+        handshake.intention = 1
+        handshake.encode(buffer: &buffer)
+        let bytes = Array(buffer.readableBytesView)
+        XCTAssertGreaterThan(bytes[0] & 0x80, 0)
+
+        let connection = ConnectionContext()
+        let channel = EmbeddedChannel(
+            handler: ByteToMessageHandler(PacketCodec(connection: connection))
+        )
+        try channel.writeInbound(allocator.buffer(bytes: [bytes[0]]))
+        XCTAssertNil(try channel.readInbound(as: Packet.self))
+        XCTAssertTrue(connection.get() == .handshaking)
+
+        try channel.writeInbound(
+            allocator.buffer(bytes: Array(bytes.dropFirst()))
+        )
+        let decoded = try XCTUnwrap(
+            try channel.readInbound(as: Packet.self) as? Handshake
+        )
+        XCTAssertEqual(decoded.address, handshake.address)
+        XCTAssertEqual(decoded.version, handshake.version)
+        XCTAssertEqual(decoded.port, handshake.port)
+        XCTAssertEqual(decoded.intention, handshake.intention)
+        XCTAssertNil(try channel.readInbound(as: Packet.self))
+        XCTAssertTrue(try channel.finish().isClean)
+    }
+
     func testStatusRequestAtEverySplit() throws {
         let bytes: [UInt8] = [0x01, 0x00]
 
