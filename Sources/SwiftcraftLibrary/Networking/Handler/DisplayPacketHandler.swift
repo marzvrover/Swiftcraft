@@ -10,10 +10,11 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     /// The `ServerConfiguration` for the `DisplayPacketHandler`
     private let configuration: ServerConfiguration
 
-    /// MARK: Initialization
+    // MARK: Initialization
     /// The `DisplayPacketHandler` is initialized with a `ConnectionContext`
     /// - parameter connection: The `ConnectionContext` for the `DisplayPacketHandler`
-    init(connection: ConnectionContext,
+    init(
+        connection: ConnectionContext,
         configuration: ServerConfiguration
     ) {
         self.connection = connection
@@ -57,7 +58,12 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                 do {
                     let info = StatusInfo(configuration: configuration)
                     let data = try JSONEncoder().encode(info)
-                    let json = String(decoding: data, as: UTF8.self)
+                    guard let json = String(decoding: data, as: UTF8.self) else {
+                        throw EncodingError.invalidValue(
+                            info,
+                            .init(codingPath: [], debugDescription: "Status JSON is not UTF-8")
+                        )
+                    }
                     let response = StatusResponse(json: json)
                     send(response, context: context, closeAfterWrite: false)
                 } catch {

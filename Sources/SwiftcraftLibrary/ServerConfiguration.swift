@@ -9,10 +9,11 @@ enum ServerConfigurationError: Error, Equatable {
 }
 
 public struct ServerConfiguration: Sendable, Equatable {
+    public static let SwiftcraftVersion = "0.0.1"
     public static let defaultHost = "127.0.0.1"
     public static let defaultPort = 25565
     public static let defaultProtocolVersion: Protocol754 = .v754
-    public static let defaultMOTD = "Swiftcraft v\(ProcessInfo.version())"
+    public static let defaultMOTD = "Swiftcraft v\(SwiftcraftVersion)"
     public static let defaultMaxPlayers = 255
     public static let defaultLoginRejectionMessage =
         "Swiftcraft gameplay is not implemented yet."
@@ -46,6 +47,7 @@ public struct ServerConfiguration: Sendable, Equatable {
         )
     }
 
+    // swiftlint:disable:nextline
     init(
         fileValues: [String: String],
         environment: [String: String]
@@ -83,7 +85,6 @@ public struct ServerConfiguration: Sendable, Equatable {
                 value: portText
             )
         }
-
 
         let protocolVersionText = value(
             "protocol_version",

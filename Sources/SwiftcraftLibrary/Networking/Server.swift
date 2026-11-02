@@ -38,7 +38,7 @@ open class Server {
                         ),
                         MessageToByteHandler(
                             PacketCodec(connection: connection)
-                        )
+                        ),
                     ], position: .first)
 
                     try channel.pipeline.syncOperations.addHandler(
