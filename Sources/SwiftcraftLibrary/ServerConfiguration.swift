@@ -85,6 +85,7 @@ public struct ServerConfiguration: Sendable, Equatable {
         self.maxPlayers = values.maxPlayers
         self.loginRejectionMessage = values.loginRejectionMessage
         try Self.validateStatusResponseLength(for: self)
+        try Self.validateLoginRejectionLength(for: self)
     }
 
     private static func parseValues(
@@ -175,5 +176,34 @@ public struct ServerConfiguration: Sendable, Equatable {
                 value: configuration.motd
             )
         }
+    }
+
+    private static func validateLoginRejectionLength(
+        for configuration: ServerConfiguration
+    ) throws {
+        let json = try LoginDisconnect.reasonJSON(
+            message: configuration.loginRejectionMessage
+        )
+        let byteCount = json.utf8.count
+        let frameLength = 1 + varIntByteCount(byteCount) + byteCount
+        guard json.utf16.count
+                <= Protocol754.WireLimits.stringMaximumCharacters,
+              byteCount <= Protocol754.WireLimits.stringMaximumBytes,
+              frameLength <= Protocol754.WireLimits.packetLengthMaximum else {
+            throw ServerConfigurationError.invalidValue(
+                key: "login_rejection_message",
+                value: configuration.loginRejectionMessage
+            )
+        }
+    }
+
+    private static func varIntByteCount(_ value: Int) -> Int {
+        var remaining = value
+        var byteCount = 1
+        while remaining >= 0x80 {
+            remaining >>= 7
+            byteCount += 1
+        }
+        return byteCount
     }
 }

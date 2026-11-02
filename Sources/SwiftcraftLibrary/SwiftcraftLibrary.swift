@@ -12,6 +12,7 @@ final class ConnectionContext: @unchecked Sendable {
     // All access to the state is protected by this lock.
     private let lock = NSLock()
     private var state: State = .handshaking
+    private var statusResponseSent = false
 
     func get() -> State {
         lock.lock()
@@ -23,6 +24,16 @@ final class ConnectionContext: @unchecked Sendable {
         lock.lock()
         defer { lock.unlock() }
         self.state = state
+    }
+
+    func markStatusResponseSent() -> Bool {
+        lock.lock()
+        defer { lock.unlock() }
+        guard !statusResponseSent else {
+            return false
+        }
+        statusResponseSent = true
+        return true
     }
 }
 

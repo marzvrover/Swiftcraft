@@ -72,6 +72,14 @@ private enum ServerConfigurationWireTestSupport {
             environment: [:]
         )
     }
+
+    static func makeLoginConfiguration(message: String) throws
+        -> ServerConfiguration {
+        try ServerConfiguration(
+            fileValues: ["login_rejection_message": message],
+            environment: [:]
+        )
+    }
 }
 
 final class ServerConfigurationWireTests: XCTestCase {
@@ -152,6 +160,67 @@ final class ServerConfigurationWireTests: XCTestCase {
         XCTAssertTrue(
             try channel.finish(acceptAlreadyClosed: true).isClean
         )
+    }
+
+    func testLoginRejectionAtStringLimitIsAcceptedWithinFrameLimit() throws {
+        let baseline = try LoginDisconnect.reasonJSON(message: "")
+        let message = String(
+            repeating: "x",
+            count: Protocol754.WireLimits.stringMaximumCharacters
+                - baseline.utf16.count
+        )
+        let configuration =
+            try ServerConfigurationWireTestSupport.makeLoginConfiguration(
+                message: message
+            )
+        let reason = try LoginDisconnect.reasonJSON(
+            message: configuration.loginRejectionMessage
+        )
+        XCTAssertEqual(
+            reason.utf16.count,
+            Protocol754.WireLimits.stringMaximumCharacters
+        )
+
+        let disconnect = try LoginDisconnect(message: message)
+        var wire = ByteBufferAllocator().buffer(capacity: 0)
+        disconnect.encode(buffer: &wire)
+        let frameLength = try wire.readVarInt()
+        XCTAssertLessThanOrEqual(
+            frameLength,
+            Protocol754.WireLimits.packetLengthMaximum
+        )
+        XCTAssertEqual(Int(frameLength), wire.readableBytes)
+    }
+
+    func testEscapedLoginRejectionOverStringLimitIsRejected() throws {
+        let baseline = try LoginDisconnect.reasonJSON(message: "")
+        let message = String(
+            repeating: "\"",
+            count: Protocol754.WireLimits.stringMaximumCharacters
+                - baseline.utf16.count
+        )
+        XCTAssertLessThanOrEqual(
+            baseline.utf16.count + message.utf16.count,
+            Protocol754.WireLimits.stringMaximumCharacters
+        )
+        XCTAssertGreaterThan(
+            try LoginDisconnect.reasonJSON(message: message).utf16.count,
+            Protocol754.WireLimits.stringMaximumCharacters
+        )
+
+        XCTAssertThrowsError(
+            try ServerConfigurationWireTestSupport.makeLoginConfiguration(
+                message: message
+            )
+        ) { error in
+            XCTAssertEqual(
+                error as? ServerConfigurationError,
+                .invalidValue(
+                    key: "login_rejection_message",
+                    value: message
+                )
+            )
+        }
     }
 
     func testMOTDAtStatusJSONLengthBoundaryIsAccepted() throws {
