@@ -93,6 +93,9 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     private func handleStatusRequest(
         context: ChannelHandlerContext
     ) -> Bool {
+        guard connection.markStatusResponseSent() else {
+            return false
+        }
         do {
             let info = StatusInfo(configuration: configuration)
             let response = StatusResponse(json: try info.json())

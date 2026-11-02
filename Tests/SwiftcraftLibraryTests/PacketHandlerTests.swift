@@ -78,6 +78,35 @@ final class PacketHandlerTests: XCTestCase {
         }
     }
 
+    func testStatusRequestIsAnsweredOnceAndPingStillWorks() throws {
+        let channel = try PacketCodecTestSupport.makeConnectedStatusChannel(
+            sendStatusRequest: false
+        )
+        let allocator = ByteBufferAllocator()
+        try channel.writeInbound(allocator.buffer(bytes: [0x01, 0x00]))
+        _ = try XCTUnwrap(
+            channel.readOutbound(as: ByteBuffer.self),
+            "Expected the first Status Response"
+        )
+        XCTAssertTrue(try channel.readInbound(as: Packet.self) is StatusRequest)
+
+        try channel.writeInbound(allocator.buffer(bytes: [0x01, 0x00]))
+        XCTAssertNil(try channel.readOutbound(as: ByteBuffer.self))
+        XCTAssertNil(try channel.readInbound(as: Packet.self))
+
+        let pingBytes: [UInt8] = [
+            0x09, 0x01, 0x00, 0x00, 0x00,
+            0x00, 0x00, 0x00, 0x00, 0x2A,
+        ]
+        try channel.writeInbound(allocator.buffer(bytes: pingBytes))
+        channel.embeddedEventLoop.run()
+
+        let pong = try XCTUnwrap(channel.readOutbound(as: ByteBuffer.self))
+        XCTAssertEqual(Array(pong.readableBytesView), pingBytes)
+        XCTAssertFalse(channel.isActive)
+        XCTAssertTrue(try channel.finish(acceptAlreadyClosed: true).isClean)
+    }
+
     func testLoginStartProducesDisconnectAndCloses() throws {
         let (connection, channel) =
             try PacketHandlerTestSupport.makeConnectedLoginChannel()
