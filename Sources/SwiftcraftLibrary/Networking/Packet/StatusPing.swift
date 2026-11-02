@@ -5,7 +5,7 @@ final class StatusPing: Packet {
         super.init(
             id: Protocol754.StatusServerbound.pingID,
             definition: [
-                (name: "payload", type: .long, args: nil)
+                (name: "payload", type: .long, args: nil),
             ],
             data: [:]
         )
@@ -17,7 +17,7 @@ final class StatusPong: Packet {
         super.init(
             id: Protocol754.StatusClientbound.pongID,
             definition: [
-                (name: "payload", type: .long, args: nil)
+                (name: "payload", type: .long, args: nil),
             ],
             data: ["payload": payload]
         )

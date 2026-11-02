@@ -210,7 +210,7 @@ extension PacketProtocol {
                     let byteCount = try buffer.readVarInt()
                     let maxCharacters = def.args?["maxCharacters"] as? Int ?? 32767
                     guard byteCount >= 0,
-                          Int(byteCount) <= maxCharacters else {
+                          Int(byteCount) <= maxCharacters * 4 else {
                         throw PacketFieldError.invalidStringLength
                     }
                     guard let value = buffer.readString(length: Int(byteCount)) else {

@@ -34,6 +34,17 @@ struct StatusInfo: Encodable {
             text: configuration.motd
         )
     }
+
+    func json() throws -> String {
+        let data = try JSONEncoder().encode(self)
+        guard let json = String(bytes: data, encoding: .utf8) else {
+            throw EncodingError.invalidValue(
+                self,
+                .init(codingPath: [], debugDescription: "Status JSON is not UTF-8")
+            )
+        }
+        return json
+    }
 }
 
 // Represents the status response packet sent by the server.
@@ -46,7 +57,7 @@ final class StatusResponse: Packet {
         super.init(
             id: 0x00,
             definition: [
-                (name: "json", type: .varString, args: nil)
+                (name: "json", type: .varString, args: nil),
             ],
             data: ["json": json]
         )

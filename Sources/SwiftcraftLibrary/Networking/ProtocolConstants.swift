@@ -56,6 +56,7 @@ public enum Protocol754: Int, Equatable, Sendable {
         static let varIntMaximumBytes = 5
         static let packetLengthMaximumBytes = 3
         static let packetLengthMaximum: Int32 = 2_097_151
+        static let stringMaximumCharacters = 32_767
         static let handshakeAddressMaximumCharacters = 255
         static let loginNameMaximumCharacters = 16
     }
