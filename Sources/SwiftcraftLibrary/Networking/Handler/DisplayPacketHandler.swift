@@ -7,12 +7,17 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
     typealias InboundOut = Packet
     /// The `ConnectionContext` for the `DisplayPacketHandler`
     private let connection: ConnectionContext
+    /// The `ServerConfiguration` for the `DisplayPacketHandler`
+    private let configuration: ServerConfiguration
 
     /// MARK: Initialization
     /// The `DisplayPacketHandler` is initialized with a `ConnectionContext`
     /// - parameter connection: The `ConnectionContext` for the `DisplayPacketHandler`
-    init(connection: ConnectionContext) {
+    init(connection: ConnectionContext,
+        configuration: ServerConfiguration
+    ) {
         self.connection = connection
+        self.configuration = configuration
     }
 
     /// Channel Read
@@ -35,32 +40,25 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
                     case Protocol754.Handshake.statusIntention:
                         connection.set(.status)
                     case Protocol754.Handshake.loginIntention:
+                        guard packet.version == Int32(configuration.protocolVersion.rawValue) else {
+                            logger.info("Rejecting login protocol \(packet.version); ",
+                                metadata: ["server supports": "\(configuration.protocolVersion.rawValue)"]
+                            )
+                            context.close(promise: nil)
+                            return
+                        }
                         connection.set(.login)
                     default:
-                        logger.error("Unsupported Handshake Intention: \(packet.intention)")
+                        logger.info("Rejecting unsupported handshake intention \(packet.intention)")
                         context.close(promise: nil)
                         return
                 }
             case is StatusRequest:
-                let info = StatusInfo(
-                    version: .init(
-                        name: "1.16.5",
-                        protocol: Protocol754.v754.rawValue
-                    ),
-                    players: .init(
-                        max: ProcessInfo.processInfo.environment["max_players"].flatMap(Int.init) ?? 255,
-                        online: 0
-                    ),
-                    description: .init(
-                        text: ProcessInfo.processInfo.environment["motd"] ?? "Swiftcraft v\(ProcessInfo.version())"
-                    )
-                )
-
                 do {
+                    let info = StatusInfo(configuration: configuration)
                     let data = try JSONEncoder().encode(info)
                     let json = String(decoding: data, as: UTF8.self)
                     let response = StatusResponse(json: json)
-
                     send(response, context: context, closeAfterWrite: false)
                 } catch {
                     errorCaught(context: context, error: error)
@@ -69,7 +67,7 @@ final class DisplayPacketHandler: ChannelInboundHandler, Sendable {
             case is LoginStart:
                 do {
                     let reply = try LoginDisconnect(
-                        message: "Swiftcraft gameplay is not implemented yet."
+                        message: configuration.loginRejectionMessage
                     )
                     send(reply, context: context, closeAfterWrite: true)
                 } catch {

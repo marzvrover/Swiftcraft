@@ -20,6 +20,20 @@ struct StatusInfo: Encodable {
     let version: Version
     let players: Players
     let description: Description
+
+    init(configuration: ServerConfiguration) {
+        self.version = Version(
+            name: configuration.protocolVersion.implementationVersionName,
+            protocol: configuration.protocolVersion.rawValue
+        )
+        self.players = Players(
+            max: configuration.maxPlayers,
+            online: 0
+        )
+        self.description = Description(
+            text: configuration.motd
+        )
+    }
 }
 
 // Represents the status response packet sent by the server.
