@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (85% documented)
+         (45% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -56,10 +56,16 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ConnectionContext.html">ConnectionContext</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LoginDisconnect.html">LoginDisconnect</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LoginStart.html">LoginStart</a>
@@ -68,13 +74,19 @@
                 <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/PlayerState.html">PlayerState</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPing.html">StatusPing</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPong.html">StatusPong</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/StatusRequest.html">StatusRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusResponse.html">StatusResponse</a>
               </li>
             </ul>
           </li>
@@ -83,9 +95,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary6logger7Logging6LoggerVvp">logger</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA06PlayerD0Cvp">playerState</a>
               </li>
             </ul>
           </li>
@@ -100,6 +109,33 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PacketData.html">PacketData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketFieldError.html">PacketFieldError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754.html">Protocol754</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/Handshake.html">– Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusServerbound.html">– StatusServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusClientbound.html">– StatusClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginServerbound.html">– LoginServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginClientbound.html">– LoginClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/WireLimits.html">– WireLimits</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ServerConfigurationError.html">ServerConfigurationError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/State.html">State</a>
@@ -132,7 +168,28 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MinecraftVersion.html">MinecraftVersion</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration.html">ServerConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration/ParsedValues.html">– ParsedValues</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo.html">StatusInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Version.html">– Version</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Players.html">– Players</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Description.html">– Description</a>
               </li>
             </ul>
           </li>
@@ -161,7 +218,7 @@
             <p>Extend <code>ByteBuffer</code> to add reading and writing Minecraft DataTypes</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIOCore/ByteBuffer-core.swift#L17-L145">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/.build/checkouts/swift-nio/Sources/NIOCore/ByteBuffer-core.swift#L19-L168">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -214,7 +271,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L22-L24">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L24-L26">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -276,7 +333,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L30-L33">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L32-L35">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -312,7 +369,7 @@
                         <p>A <code><a href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a></code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L39-L41">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L41-L43">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -346,7 +403,7 @@
                         <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    Throws <code>VarIntError.VarIntIsTooBig</code>
+    Throws <code><a href="../Enums/VarIntError.html#/s:17SwiftcraftLibrary11VarIntErrorO8isTooBigyA2CmF">VarIntError.isTooBig</a></code>
 
 </div>
 
@@ -365,7 +422,59 @@
                         <p>A <code>Int32</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L48-L62">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L50-L55">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/VarIntIfAvailable"></a>
+                <a name="//apple_ref/swift/Section/VarIntIfAvailable" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/VarIntIfAvailable"></a>
+                  <h3 class="section-name"><span>VarIntIfAvailable</span>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:7NIOCore10ByteBufferV17SwiftcraftLibraryE21readVarIntIfAvailables5Int32VSgyKF"></a>
+                    <a name="//apple_ref/swift/Method/readVarIntIfAvailable()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:7NIOCore10ByteBufferV17SwiftcraftLibraryE21readVarIntIfAvailables5Int32VSgyKF">readVarIntIfAvailable()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO6varIntyA2CmF">code&gt;.&lt;code&gt;varInt</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes.</p>
+<div class="aside aside-throws">
+    <p class="aside-title">Throws</p>
+    Throws <code><a href="../Enums/VarIntError.html#/s:17SwiftcraftLibrary11VarIntErrorO8isTooBigyA2CmF">VarIntError.isTooBig</a></code>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">internal</span> <span class="k">mutating</span> <span class="kd">func</span> <span class="nf">readVarIntIfAvailable</span><span class="p">()</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int32</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A <code>Int32</code> value deserialized from this <code>ByteBuffer</code>.</p>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L62-L84">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -414,7 +523,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L67-L83">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L90-L106">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -448,7 +557,7 @@
                         <p>Read a <code><a href="../Enums/PacketData.html#/s:17SwiftcraftLibrary10PacketDataO7varLongyA2CmF">code&gt;.&lt;code&gt;varLong</a></code> off this <code>ByteBuffer</code>, move the reader index forward by the size in bytes..</p>
 <div class="aside aside-throws">
     <p class="aside-title">Throws</p>
-    <code>VarLongError.VarLongIsTooBig</code>
+    <code><a href="../Enums/VarLongError.html#/s:17SwiftcraftLibrary12VarLongErrorO8isTooBigyA2CmF">VarLongError.isTooBig</a></code>
 
 </div>
 
@@ -467,7 +576,7 @@
                         <p>A <code>Int64</code> value deserialized from this <code>ByteBuffer</code>.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L90-L105">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L113-L128">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -516,7 +625,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L110-L125">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L133-L148">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -564,7 +673,7 @@
                         <p>A <code>String</code> value deserialized from this <code>ByteBuffer</code> or <code>nil</code> if there aren&rsquo;t enough bytes readable.</p>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L131-L134">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L154-L157">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -613,7 +722,7 @@
                         </table>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L139-L144">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ByteBuffer.swift#L162-L167">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -626,7 +735,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-01)</p>
+      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-02)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>PlayerState Class Reference</title>
+    <title>StatusPing Class Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset="utf-8">
@@ -14,16 +14,16 @@
   </head>
   <body>
 
-    <a name="//apple_ref/swift/Class/PlayerState" class="dashAnchor"></a>
+    <a name="//apple_ref/swift/Class/StatusPing" class="dashAnchor"></a>
 
-    <a title="PlayerState Class Reference"></a>
+    <a title="StatusPing Class Reference"></a>
 
     <header class="header">
       <p class="header-col header-col--primary">
         <a class="header-link" href="../index.html">
           SwiftcraftLibrary main Docs
         </a>
-         (85% documented)
+         (45% documented)
       </p>
     
       <div class="header-col--secondary">
@@ -46,7 +46,7 @@
       <img class="carat" src="../img/carat.png" alt=""/>
       <a class="breadcrumb" href="../Classes.html">Classes</a>
       <img class="carat" src="../img/carat.png" alt=""/>
-      PlayerState Class Reference
+      StatusPing Class Reference
     </p>
 
     <div class="content-wrapper">
@@ -56,10 +56,16 @@
             <a class="nav-group-name-link" href="../Classes.html">Classes</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ConnectionContext.html">ConnectionContext</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LoginDisconnect.html">LoginDisconnect</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/LoginStart.html">LoginStart</a>
@@ -68,13 +74,19 @@
                 <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
               </li>
               <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Classes/PlayerState.html">PlayerState</a>
-              </li>
-              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
               </li>
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPing.html">StatusPing</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPong.html">StatusPong</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Classes/StatusRequest.html">StatusRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusResponse.html">StatusResponse</a>
               </li>
             </ul>
           </li>
@@ -83,9 +95,6 @@
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary6logger7Logging6LoggerVvp">logger</a>
-              </li>
-              <li class="nav-group-task">
-                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary11playerStateAA06PlayerD0Cvp">playerState</a>
               </li>
             </ul>
           </li>
@@ -100,6 +109,33 @@
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/PacketData.html">PacketData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketFieldError.html">PacketFieldError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754.html">Protocol754</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/Handshake.html">– Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusServerbound.html">– StatusServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusClientbound.html">– StatusClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginServerbound.html">– LoginServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginClientbound.html">– LoginClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/WireLimits.html">– WireLimits</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ServerConfigurationError.html">ServerConfigurationError</a>
               </li>
               <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Enums/State.html">State</a>
@@ -132,7 +168,28 @@
             <a class="nav-group-name-link" href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MinecraftVersion.html">MinecraftVersion</a>
+              </li>
+              <li class="nav-group-task">
                 <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration.html">ServerConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration/ParsedValues.html">– ParsedValues</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo.html">StatusInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Version.html">– Version</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Players.html">– Players</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Description.html">– Description</a>
               </li>
             </ul>
           </li>
@@ -150,18 +207,18 @@
 
         <section class="section">
           <div class="section-content top-matter">
-            <h1>PlayerState</h1>
+            <h1>StatusPing</h1>
               <div class="declaration">
                 <div class="language">
                   
-                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">PlayerState</span> <span class="p">:</span> <span class="kd">@unchecked</span> <span class="kt">Sendable</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">final</span> <span class="kd">class</span> <span class="kt">StatusPing</span> <span class="p">:</span> <span class="kt"><a href="../Classes/Packet.html">Packet</a></span></code></pre>
 
                 </div>
               </div>
             <p>Undocumented</p>
 
               <div class="slightly-smaller">
-                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L11-L27">Show on GitHub</a>
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/StatusPing.swift#L3-L13">Show on GitHub</a>
               </div>
           </div>
         </section>
@@ -173,9 +230,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:17SwiftcraftLibrary11PlayerStateC4lock33_77686564BD9DBFB55FCE3490974FCC09LLSo6NSLockCvp"></a>
-                    <a name="//apple_ref/swift/Property/lock" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11PlayerStateC4lock33_77686564BD9DBFB55FCE3490974FCC09LLSo6NSLockCvp">lock</a>
+                    <a name="/s:17SwiftcraftLibrary10StatusPingCACycfc"></a>
+                    <a name="//apple_ref/swift/Method/init()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary10StatusPingCACycfc">init()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -190,102 +247,12 @@
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">let</span> <span class="nv">lock</span><span class="p">:</span> <span class="kt">NSLock</span></code></pre>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">()</span></code></pre>
 
                         </div>
                       </div>
                       <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L13">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17SwiftcraftLibrary11PlayerStateC5state33_77686564BD9DBFB55FCE3490974FCC09LLAA0D0Ovp"></a>
-                    <a name="//apple_ref/swift/Property/state" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11PlayerStateC5state33_77686564BD9DBFB55FCE3490974FCC09LLAA0D0Ovp">state</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="k">var</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums/State.html">State</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L14">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17SwiftcraftLibrary11PlayerStateC3getAA0D0OyF"></a>
-                    <a name="//apple_ref/swift/Method/get()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11PlayerStateC3getAA0D0OyF">get()</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">get</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/State.html">State</a></span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L16-L20">Show on GitHub</a>
-                      </div>
-                    </section>
-                  </div>
-                </li>
-                <li class="item">
-                  <div>
-                    <code>
-                    <a name="/s:17SwiftcraftLibrary11PlayerStateC3setyyAA0D0OF"></a>
-                    <a name="//apple_ref/swift/Method/set(_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:17SwiftcraftLibrary11PlayerStateC3setyyAA0D0OF">set(_:<wbr>)</a>
-                    </code>
-                  </div>
-                  <div class="height-container">
-                    <div class="pointer-container"></div>
-                    <section class="section">
-                      <div class="pointer"></div>
-                      <div class="abstract">
-                        <p>Undocumented</p>
-
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">set</span><span class="p">(</span><span class="n">_</span> <span class="nv">state</span><span class="p">:</span> <span class="kt"><a href="../Enums/State.html">State</a></span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
-                      <div class="slightly-smaller">
-                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/SwiftcraftLibrary.swift#L22-L26">Show on GitHub</a>
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/Networking/Packet/StatusPing.swift#L4-L12">Show on GitHub</a>
                       </div>
                     </section>
                   </div>
@@ -298,7 +265,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-01)</p>
+      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-02)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
     </section>
   </body>

@@ -1,0 +1,1007 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ServerConfiguration Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Struct/ServerConfiguration" class="dashAnchor"></a>
+
+    <a title="ServerConfiguration Structure Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          SwiftcraftLibrary main Docs
+        </a>
+         (45% documented)
+      </p>
+    
+      <div class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </div>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/marzvrover/Swiftcraft">
+            <img class="header-icon" src="../img/gh.png" alt="GitHub"/>
+            View on GitHub
+          </a>
+        </p>
+    
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">SwiftcraftLibrary</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      <a class="breadcrumb" href="../Structs.html">Structures</a>
+      <img class="carat" src="../img/carat.png" alt=""/>
+      ServerConfiguration Structure Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/ConnectionContext.html">ConnectionContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DisplayPacketHandler.html">DisplayPacketHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Handshake.html">Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LoginDisconnect.html">LoginDisconnect</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/LoginStart.html">LoginStart</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Packet.html">Packet</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/Server.html">Server</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPing.html">StatusPing</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusPong.html">StatusPong</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusRequest.html">StatusRequest</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/StatusResponse.html">StatusResponse</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Global%20Variables.html">Global Variables</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Global%20Variables.html#/s:17SwiftcraftLibrary6logger7Logging6LoggerVvp">logger</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketCodecError.html">PacketCodecError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketCodecError/Decode.html">– Decode</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketData.html">PacketData</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/PacketFieldError.html">PacketFieldError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754.html">Protocol754</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/Handshake.html">– Handshake</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusServerbound.html">– StatusServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/StatusClientbound.html">– StatusClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginServerbound.html">– LoginServerbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/LoginClientbound.html">– LoginClientbound</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/Protocol754/WireLimits.html">– WireLimits</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/ServerConfigurationError.html">ServerConfigurationError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/State.html">State</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/VarIntError.html">VarIntError</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/VarLongError.html">VarLongError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ByteBuffer.html">ByteBuffer</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/PacketProtocol.html">PacketProtocol</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/MinecraftVersion.html">MinecraftVersion</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/PacketCodec.html">PacketCodec</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration.html">ServerConfiguration</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/ServerConfiguration/ParsedValues.html">– ParsedValues</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo.html">StatusInfo</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Version.html">– Version</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Players.html">– Players</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Structs/StatusInfo/Description.html">– Description</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Typealiases.html#/s:17SwiftcraftLibrary4Bytea">Byte</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>ServerConfiguration</h1>
+              <div class="declaration">
+                <div class="language">
+                  
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">ServerConfiguration</span> <span class="p">:</span> <span class="kt">Sendable</span><span class="p">,</span> <span class="kt">Equatable</span></code></pre>
+
+                </div>
+              </div>
+            <p>Undocumented</p>
+
+              <div class="slightly-smaller">
+                <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L11-L209">Show on GitHub</a>
+              </div>
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV12ParsedValues33_FCFDCA651698DEB765A5B3C844106D89LLV"></a>
+                    <a name="//apple_ref/swift/Struct/ParsedValues" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV12ParsedValues33_FCFDCA651698DEB765A5B3C844106D89LLV">ParsedValues</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                        <a href="../Structs/ServerConfiguration/ParsedValues.html" class="slightly-smaller">See more</a>
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">struct</span> <span class="kt">ParsedValues</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L12-L19">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV17swiftcraftVersionSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/swiftcraftVersion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV17swiftcraftVersionSSvpZ">swiftcraftVersion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">swiftcraftVersion</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L21">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV11defaultHostSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultHost" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV11defaultHostSSvpZ">defaultHost</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultHost</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L22">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV11defaultPortSivpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultPort" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV11defaultPortSivpZ">defaultPort</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultPort</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L23">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV22defaultProtocolVersionAA11Protocol754OvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultProtocolVersion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV22defaultProtocolVersionAA11Protocol754OvpZ">defaultProtocolVersion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultProtocolVersion</span><span class="p">:</span> <span class="kt"><a href="../Enums/Protocol754.html">Protocol754</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L24">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV11defaultMOTDSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultMOTD" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV11defaultMOTDSSvpZ">defaultMOTD</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultMOTD</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L25">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV17defaultMaxPlayersSivpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultMaxPlayers" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV17defaultMaxPlayersSivpZ">defaultMaxPlayers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultMaxPlayers</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L26">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV28defaultLoginRejectionMessageSSvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/defaultLoginRejectionMessage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV28defaultLoginRejectionMessageSSvpZ">defaultLoginRejectionMessage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">defaultLoginRejectionMessage</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L27">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV9knownKeys33_FCFDCA651698DEB765A5B3C844106D89LLShySSGvpZ"></a>
+                    <a name="//apple_ref/swift/Variable/knownKeys" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV9knownKeys33_FCFDCA651698DEB765A5B3C844106D89LLShySSGvpZ">knownKeys</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="k">let</span> <span class="nv">knownKeys</span><span class="p">:</span> <span class="kt">Set</span><span class="o">&lt;</span><span class="kt">String</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L30">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV4hostSSvp"></a>
+                    <a name="//apple_ref/swift/Property/host" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV4hostSSvp">host</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">host</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L39">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV4portSivp"></a>
+                    <a name="//apple_ref/swift/Property/port" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV4portSivp">port</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">port</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L40">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV15protocolVersionAA11Protocol754Ovp"></a>
+                    <a name="//apple_ref/swift/Property/protocolVersion" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV15protocolVersionAA11Protocol754Ovp">protocolVersion</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">protocolVersion</span><span class="p">:</span> <span class="kt"><a href="../Enums/Protocol754.html">Protocol754</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L41">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV4motdSSvp"></a>
+                    <a name="//apple_ref/swift/Property/motd" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV4motdSSvp">motd</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">motd</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L42">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV10maxPlayersSivp"></a>
+                    <a name="//apple_ref/swift/Property/maxPlayers" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV10maxPlayersSivp">maxPlayers</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">maxPlayers</span><span class="p">:</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L43">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV21loginRejectionMessageSSvp"></a>
+                    <a name="//apple_ref/swift/Property/loginRejectionMessage" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV21loginRejectionMessageSSvp">loginRejectionMessage</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">loginRejectionMessage</span><span class="p">:</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L44">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV4load4path11environmentACSS_SDyS2SGtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/load(path:environment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV4load4path11environmentACSS_SDyS2SGtKFZ">load(path:<wbr>environment:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">load</span><span class="p">(</span>
+    <span class="nv">path</span><span class="p">:</span> <span class="kt">String</span> <span class="o">=</span> <span class="s">"server.properties"</span><span class="p">,</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span> <span class="o">=</span> <span class="kt">ProcessInfo</span><span class="o">.</span><span class="n">processInfo</span><span class="o">.</span><span class="n">environment</span>
+<span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">ServerConfiguration</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L46-L66">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV10fileValues11environmentACSDyS2SG_AFtKcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(fileValues:environment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV10fileValues11environmentACSDyS2SG_AFtKcfc">init(fileValues:<wbr>environment:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="nf">init</span><span class="p">(</span>
+    <span class="nv">fileValues</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">],</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L68-L89">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV11parseValues33_FCFDCA651698DEB765A5B3C844106D89LL04fileF011environmentAC06ParsedF0AELLVSDyS2SG_AJtKFZ"></a>
+                    <a name="//apple_ref/swift/Method/parseValues(fileValues:environment:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV11parseValues33_FCFDCA651698DEB765A5B3C844106D89LL04fileF011environmentAC06ParsedF0AELLVSDyS2SG_AJtKFZ">parseValues(fileValues:<wbr>environment:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parseValues</span><span class="p">(</span>
+    <span class="nv">fileValues</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">],</span>
+    <span class="nv">environment</span><span class="p">:</span> <span class="p">[</span><span class="kt">String</span><span class="p">:</span> <span class="kt">String</span><span class="p">]</span>
+<span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt"><a href="../Structs/ServerConfiguration/ParsedValues.html">ParsedValues</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L91-L117">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV9parseHost33_FCFDCA651698DEB765A5B3C844106D89LLyS2SKFZ"></a>
+                    <a name="//apple_ref/swift/Method/parseHost(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV9parseHost33_FCFDCA651698DEB765A5B3C844106D89LLyS2SKFZ">parseHost(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parseHost</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">String</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L119-L128">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV9parsePort33_FCFDCA651698DEB765A5B3C844106D89LLySiSSKFZ"></a>
+                    <a name="//apple_ref/swift/Method/parsePort(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV9parsePort33_FCFDCA651698DEB765A5B3C844106D89LLySiSSKFZ">parsePort(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parsePort</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L130-L138">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV20parseProtocolVersion33_FCFDCA651698DEB765A5B3C844106D89LLyAA11Protocol754OSSKFZ"></a>
+                    <a name="//apple_ref/swift/Method/parseProtocolVersion(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV20parseProtocolVersion33_FCFDCA651698DEB765A5B3C844106D89LLyAA11Protocol754OSSKFZ">parseProtocolVersion(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parseProtocolVersion</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span>
+    <span class="o">-&gt;</span> <span class="kt"><a href="../Enums/Protocol754.html">Protocol754</a></span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L140-L154">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV15parseMaxPlayers33_FCFDCA651698DEB765A5B3C844106D89LLySiSSKFZ"></a>
+                    <a name="//apple_ref/swift/Method/parseMaxPlayers(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV15parseMaxPlayers33_FCFDCA651698DEB765A5B3C844106D89LLySiSSKFZ">parseMaxPlayers(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">parseMaxPlayers</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="k">throws</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L156-L166">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV28validateStatusResponseLength33_FCFDCA651698DEB765A5B3C844106D89LL3foryAC_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/validateStatusResponseLength(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV28validateStatusResponseLength33_FCFDCA651698DEB765A5B3C844106D89LL3foryAC_tKFZ">validateStatusResponseLength(for:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">validateStatusResponseLength</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt">ServerConfiguration</span>
+<span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L168-L179">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV28validateLoginRejectionLength33_FCFDCA651698DEB765A5B3C844106D89LL3foryAC_tKFZ"></a>
+                    <a name="//apple_ref/swift/Method/validateLoginRejectionLength(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV28validateLoginRejectionLength33_FCFDCA651698DEB765A5B3C844106D89LL3foryAC_tKFZ">validateLoginRejectionLength(for:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">validateLoginRejectionLength</span><span class="p">(</span>
+    <span class="k">for</span> <span class="nv">configuration</span><span class="p">:</span> <span class="kt">ServerConfiguration</span>
+<span class="p">)</span> <span class="k">throws</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L181-L198">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:17SwiftcraftLibrary19ServerConfigurationV15varIntByteCount33_FCFDCA651698DEB765A5B3C844106D89LLyS2iFZ"></a>
+                    <a name="//apple_ref/swift/Method/varIntByteCount(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:17SwiftcraftLibrary19ServerConfigurationV15varIntByteCount33_FCFDCA651698DEB765A5B3C844106D89LLyS2iFZ">varIntByteCount(_:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">private</span> <span class="kd">static</span> <span class="kd">func</span> <span class="nf">varIntByteCount</span><span class="p">(</span><span class="n">_</span> <span class="nv">value</span><span class="p">:</span> <span class="kt">Int</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Int</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div class="slightly-smaller">
+                        <a href="https://github.com/marzvrover/Swiftcraft/tree/main/Sources/SwiftcraftLibrary/ServerConfiguration.swift#L200-L208">Show on GitHub</a>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2026 <a class="link" href="https://github.com/marzvrover" target="_blank" rel="external noopener">Marz Rover</a>. All rights reserved. (Last updated: 2026-11-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external noopener">jazzy ♪♫ v0.15.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external noopener">Realm</a> project.</p>
+    </section>
+  </body>
+</html>
