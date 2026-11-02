@@ -4,13 +4,13 @@ struct MinecraftVersion: Equatable, Sendable {
     let patch: Int
 }
 
-enum Protocol754: Int, Equatable, Sendable {
+public enum Protocol754: Int, Equatable, Sendable {
     case v754 = 754
 
     var minimumMinecraftVersion: MinecraftVersion {
         switch self {
         case .v754:
-            return MinecraftVersion(major: 1, minor: 16, patch: 5)
+            return MinecraftVersion(major: 1, minor: 16, patch: 4)
         }
     }
 

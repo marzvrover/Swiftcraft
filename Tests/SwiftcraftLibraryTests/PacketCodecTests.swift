@@ -7,6 +7,19 @@ import NIOTestUtils
 final class PacketCodecTests: XCTestCase {
     let allocator = ByteBufferAllocator()
 
+    private func makeHandlerTestConfiguration(
+        motd: String = "Swiftcraft v0",
+        maxPlayers: Int = 255
+    ) throws -> ServerConfiguration {
+        try ServerConfiguration(
+            fileValues: [
+                "motd": motd,
+                "max_players": String(maxPlayers),
+            ],
+            environment: ["protocol_version": "754"]
+        )
+    }
+
     func testConnectionStateIsIndependent() {
         let first = ConnectionContext()
         let sameFirst = first
@@ -140,6 +153,7 @@ final class PacketCodecTests: XCTestCase {
 
     func testStatusRequestProducesJSONResponse() throws {
         let connection = ConnectionContext()
+        let configuration = try makeHandlerTestConfiguration()
 
         let channel = EmbeddedChannel(handlers: [
             ByteToMessageHandler(
@@ -148,7 +162,10 @@ final class PacketCodecTests: XCTestCase {
             MessageToByteHandler(
                 PacketCodec(connection: connection)
             ),
-            DisplayPacketHandler(connection: connection),
+            DisplayPacketHandler(
+                connection: connection,
+                configuration: configuration
+            ),
         ])
 
         let handshakeBytes: [UInt8] = [
@@ -238,6 +255,7 @@ final class PacketCodecTests: XCTestCase {
 
         for sendStatusRequest in [true, false] {
             let connection = ConnectionContext()
+            let configuration = try makeHandlerTestConfiguration()
 
             let channel = EmbeddedChannel(handlers: [
                 ByteToMessageHandler(
@@ -246,7 +264,10 @@ final class PacketCodecTests: XCTestCase {
                 MessageToByteHandler(
                     PacketCodec(connection: connection)
                 ),
-                DisplayPacketHandler(connection: connection),
+                DisplayPacketHandler(
+                    connection: connection,
+                    configuration: configuration
+                ),
             ])
 
             // Activate the simulated connection; no real socket is opened.
@@ -321,6 +342,7 @@ final class PacketCodecTests: XCTestCase {
 
     func testLoginStartProducesDisconnectAndCloses() throws {
         let connection = ConnectionContext()
+        let configuration = try makeHandlerTestConfiguration()
 
         let channel = EmbeddedChannel(handlers: [
             ByteToMessageHandler(
@@ -329,7 +351,10 @@ final class PacketCodecTests: XCTestCase {
             MessageToByteHandler(
                 PacketCodec(connection: connection)
             ),
-            DisplayPacketHandler(connection: connection),
+            DisplayPacketHandler(
+                connection: connection,
+                configuration: configuration
+            ),
         ])
 
         try channel.connect(

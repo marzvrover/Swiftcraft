@@ -14,13 +14,19 @@ open class Server {
     public var channel: Channel?
     /// `EventLoopGroup` for the server to use. Uses `System`.`coreCount`
     public let group = MultiThreadedEventLoopGroup(numberOfThreads: System.coreCount)
+    /// The server's configuration.
+    public let configuration: ServerConfiguration
     /// The `ServerBootstrap` to bind.
     public var bootstrap: ServerBootstrap {
-        ServerBootstrap(group: group)
+        let serverConfiguration = self.configuration
+
+        return ServerBootstrap(group: group)
             // Specify backlog and enable SO_REUSEADDR for the server itself
             .serverChannelOption(ChannelOptions.backlog, value: 256)
-            .serverChannelOption(ChannelOptions.socketOption(.so_reuseaddr), value: 1)
-
+            .serverChannelOption(
+                ChannelOptions.socketOption(.so_reuseaddr),
+                value: 1
+            )
             // Set the handlers that are applied to the accepted Channels
             .childChannelInitializer { channel in
                 channel.eventLoop.submit {
@@ -36,7 +42,10 @@ open class Server {
                     ], position: .first)
 
                     try channel.pipeline.syncOperations.addHandler(
-                        DisplayPacketHandler(connection: connection)
+                        DisplayPacketHandler(
+                            connection: connection,
+                            configuration: serverConfiguration
+                        )
                     )
                 }
             }
@@ -47,26 +56,16 @@ open class Server {
             .childChannelOption(ChannelOptions.recvAllocator, value: AdaptiveRecvByteBufferAllocator())
     }
     /// To instantiate the server you provide the host and path
-    public init(host: String? = nil, port: Int? = nil) {
-        self.isRunning = false
-        do {
-            try DotEnv.load(path: "server.properties")
-        } catch {
-            print("Error loading server.properties")
-        }
-        if host != nil {
-            self.host = host!
-        } else {
-            self.host = ProcessInfo.processInfo.environment["server_ip"] ?? "127.0.0.1"
-        }
-        if port != nil {
-            self.port = port!
-        } else if ProcessInfo.processInfo.environment["server_port"] == nil {
-            self.port = 25565
-        } else {
-            self.port = Int(ProcessInfo.processInfo.environment["server_port"]!)!
-        }
-    }
+   public init(
+       configuration: ServerConfiguration,
+       host: String? = nil,
+       port: Int? = nil
+   ) {
+       self.isRunning = false
+       self.configuration = configuration
+       self.host = host ?? configuration.host
+       self.port = port ?? configuration.port
+   }
     /// You start the server with the `run()` method.
     /// This binds the `Server`.`bootstrap` to the `Server`.`host` and `Server`.`port`.
     public func run() throws {

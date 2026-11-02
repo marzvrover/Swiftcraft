@@ -19,7 +19,25 @@ let logger = Logger(label: "Swiftcraft")
 
 logger.info("Welcome to Swiftcraft!")
 
-var server = Server()
+let configuration: ServerConfiguration
+do {
+    configuration = try ServerConfiguration.load()
+} catch {
+    logger.error(
+        "Failed to load configuration",
+        metadata: ["error": "\(error)"]
+    )
+    exit(1)
+}
+
+var server = Server(configuration: configuration)
+
+signal(SIGINT) {_ in
+    if server.isRunning == true {
+        server.shutdown()
+    }
+    exit(0)
+}
 
 defer {
     server.shutdown()
